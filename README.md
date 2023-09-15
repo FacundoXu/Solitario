@@ -1,2 +1,2 @@
-Ignacio Demarchi: 107835
-Facundo Xu: 108295
+Ignacio Demarchi (Padrón 107835)
+Facundo Xu (Padrón 108295)
