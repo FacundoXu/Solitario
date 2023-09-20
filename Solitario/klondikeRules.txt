@@ -1,0 +1,25 @@
+Tableu)
+*After shuffling, a tableau of seven fanned piles of cards
+is laid from left to right. From left to right, each pile contains
+one more card than the last. The topmost card of each pile
+is turned face up.
+*The tableau piles can be built down by alternate colors.
+*Every face-up card in a partial pile, or a complete pile,
+can be moved, as a unit, to another tableau pile on the
+basis of its highest card.
+Any empty piles can be filled with a King,
+or a pile of cards with a King.
+
+
+Stock)
+*The remaining cards form the stock and are placed
+facedown at the upper left of the layout.
+*Turning one card at a time to the waste,
+with three passes through the deck.
+
+
+Foundations)
+*The four foundations are built
+up by suit from Ace (low in this game) to King
+
+
