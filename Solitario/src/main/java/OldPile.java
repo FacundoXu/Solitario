@@ -1,18 +1,18 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class Pile {
+public class OldPile {
     private final List<Card> cards;
 
-    public Pile(List<Card> cards) {
+    public OldPile(List<Card> cards) {
         this.cards = cards;
     }
 
     //No sé si conviene recibir la carta o el índice cómo arg
-    public Pile DiscardPile(Card highestCard) {
+    public OldPile DiscardPile(Card highestCard) {
         int idxCard = cards.indexOf(highestCard);
         List<Card> leftDeck = new LinkedList<>(cards.subList(0, idxCard + 1));
-        Pile leftPile = new Pile(leftDeck);
+        OldPile leftPile = new OldPile(leftDeck);
         this.cards.subList(0, idxCard + 1).clear();
         return leftPile;
     }
@@ -26,7 +26,7 @@ public class Pile {
     public int Size(){
         return cards.size();
     }
-    public boolean equals(Pile pile) {
+    public boolean equals(OldPile pile) {
         if (pile.Size() != cards.size()){
             return false;
         }
@@ -39,11 +39,10 @@ public class Pile {
         }
         return true;
     }
+    public void InsertPile(OldPile src){
+        List<Card> newList = new LinkedList<>();
+        newList.addAll(src.cards);
+        newList.addAll(src.cards);
 
-    /*    public boolean InsertPile(Pile src){
-        List<Card> newCards = new ArrayList<>();
-        newCards.addAll(src);
-        newCards.addAll(src);
     }
- */
 }

@@ -1,9 +1,9 @@
 public class Tableu {
     private boolean empty;
-    private Pile FaceDown;
-    private Pile FaceUp;
+    private OldPile FaceDown;
+    private OldPile FaceUp;
 
-    public Pile Discard(Card HighestCard){
+    public OldPile Discard(Card HighestCard){
         return FaceUp.DiscardPile(HighestCard);
     }
 }

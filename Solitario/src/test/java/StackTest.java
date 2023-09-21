@@ -5,12 +5,12 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class PileTest {
+public class StackTest {
 
     @Test
     public void testSize1() {
         // Arrange
-        Pile p = new Pile(new LinkedList<>());
+        OldPile p = new OldPile(new LinkedList<>());
         int expected = 0;
         // Act
         int result = p.Size();
@@ -22,7 +22,7 @@ public class PileTest {
         // Arrange
         List<Card> l = new LinkedList<Card>();
         l.add(new Card(Suit.SPADES, Rank.JACK, Color.BLACK));
-        Pile p = new Pile(l);
+        OldPile p = new OldPile(l);
         int expected = 1;
         // Act
         int result = p.Size();
@@ -40,7 +40,7 @@ public class PileTest {
         l.add(new Card(Suit.HEARTS, Rank.ACE, Color.RED));
         l.add(new Card(Suit.DIAMONDS, Rank.FOUR, Color.RED));
 
-        Pile p = new Pile(l);
+        OldPile p = new OldPile(l);
         int expected = 5;
         // Act
         int result = p.Size();
@@ -52,8 +52,8 @@ public class PileTest {
     @Test
     public void testEquals1() {
     //Arrange
-    Pile p1 = new Pile(new LinkedList<>());
-    Pile p2 = new Pile(new LinkedList<>());
+    OldPile p1 = new OldPile(new LinkedList<>());
+    OldPile p2 = new OldPile(new LinkedList<>());
     boolean expected = true;
     //Act
     boolean result = p1.equals(p2);
@@ -66,8 +66,8 @@ public class PileTest {
         List<Card> l  = new LinkedList<Card>();
         l.add(new Card(Suit.CLUBS, Rank.KING, Color.BLACK));
         l.add(new Card(Suit.CLUBS, Rank.QUEEN, Color.BLACK));
-        Pile p1 = new Pile(l);
-        Pile p2 = new Pile(new LinkedList<>());
+        OldPile p1 = new OldPile(l);
+        OldPile p2 = new OldPile(new LinkedList<>());
         boolean expected = false;
         //Act
         boolean result = p1.equals(p2);
@@ -84,8 +84,8 @@ public class PileTest {
         l2.add(new Card(Suit.CLUBS, Rank.KING, Color.BLACK));
         l2.add(new Card(Suit.CLUBS, Rank.QUEEN, Color.BLACK));
 
-        Pile p1 = new Pile(l1);
-        Pile p2 = new Pile(l2);
+        OldPile p1 = new OldPile(l1);
+        OldPile p2 = new OldPile(l2);
         boolean expected = true;
         //Act
         boolean result = p1.equals(p2);
@@ -103,8 +103,8 @@ public class PileTest {
         l2.add(new Card(Suit.CLUBS, Rank.QUEEN, Color.BLACK));
         l2.add(new Card(Suit.CLUBS, Rank.KING, Color.BLACK));
 
-        Pile p1 = new Pile(l1);
-        Pile p2 = new Pile(l2);
+        OldPile p1 = new OldPile(l1);
+        OldPile p2 = new OldPile(l2);
         boolean expected = false;
         //Act
         boolean result = p1.equals(p2);
