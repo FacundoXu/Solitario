@@ -7,4 +7,5 @@ enum Color {
 }
 
 public record Card(Suit suit, int rank, Color color) {
+    
 }

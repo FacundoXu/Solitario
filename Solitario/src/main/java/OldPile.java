@@ -26,6 +26,7 @@ public class OldPile {
     public int Size(){
         return cards.size();
     }
+    
     public boolean equals(OldPile pile) {
         if (pile.Size() != cards.size()){
             return false;
@@ -39,6 +40,7 @@ public class OldPile {
         }
         return true;
     }
+
     public void InsertPile(OldPile src){
         List<Card> newList = new LinkedList<>();
         newList.addAll(src.cards);

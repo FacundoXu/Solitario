@@ -2,11 +2,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FoundationStack implements Stack<Card>{
-
     private int size;
-
     private List<Card> cards;
-
     private Suit suit;
 
     public FoundationStack(){
@@ -14,12 +11,14 @@ public class FoundationStack implements Stack<Card>{
         cards = new LinkedList<Card>();
         suit = null;
     }
+
     public boolean push(Card card) {
 
         if (size > 0 &&
                 (!suit.equals(card.suit()) ||
                 cards.get(size - 1).rank() != card.rank() - 1)){
             return false;
+
         } else {
             if (size == 0) suit = card.suit();
             cards.add(card);
@@ -32,6 +31,7 @@ public class FoundationStack implements Stack<Card>{
         size ++;
         cards.add(card);
     }
+    
     @Override
     public Card pop() {
         if (this.isEmpty()) return null;

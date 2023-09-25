@@ -8,6 +8,7 @@ public class Deck {
 
     public Deck(){
         deck = new LinkedList<Card>();
+
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
                 Color color = (suit == Suit.HEARTS || suit == Suit.DIAMONDS) ? Color.RED : Color.BLACK;
@@ -15,6 +16,7 @@ public class Deck {
             }
         }
     }
+    
     public void Shuffle(int seed){
         Collections.shuffle(deck, new Random(seed));
     }
