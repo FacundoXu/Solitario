@@ -11,5 +11,4 @@ public class Solitario {
     public boolean juegoGanado(){
     return false;
     }
-
 }

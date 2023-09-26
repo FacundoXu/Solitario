@@ -1,8 +1,6 @@
 import org.junit.Test;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class StackTest {
@@ -17,6 +15,7 @@ public class StackTest {
         // Assert
         assertEquals(expected, result);
     }
+
     @Test
     public void testSize2() {
         // Arrange
@@ -48,7 +47,6 @@ public class StackTest {
         assertEquals(expected, result);
     }
 
-
     @Test
     public void testEquals1() {
     //Arrange
@@ -60,6 +58,7 @@ public class StackTest {
     //Assert
     assertEquals(expected, result);
     }
+
     @Test
     public void testEquals2() {
         //Arrange
@@ -74,6 +73,7 @@ public class StackTest {
         //Assert
         assertEquals(expected, result);
     }
+    
     @Test
     public void testEquals3() {
         //Arrange
