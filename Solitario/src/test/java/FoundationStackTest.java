@@ -1,4 +1,4 @@
-import Card.Card;
+import Card.*;
 import Foundation.FoundationStack;
 import org.junit.Test;
 import java.util.LinkedList;

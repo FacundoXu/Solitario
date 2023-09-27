@@ -1,4 +1,4 @@
-import Card.Card;
+import Card.*;
 import Tableu.TableuStack;
 import org.junit.Test;
 

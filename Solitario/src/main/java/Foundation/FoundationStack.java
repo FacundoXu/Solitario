@@ -17,7 +17,7 @@ public class FoundationStack implements Stack<Card> {
 
     public FoundationStack() {
         size = 0;
-        cards = new LinkedList<Card>();
+        cards = new LinkedList<>();
         suit = null;
     }
     @Override

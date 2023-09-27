@@ -3,6 +3,7 @@ package Tableu;
 import Card.Card;
 import Stack.Stack;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,11 @@ public class TableuStack implements Stack<Card> {
     public TableuStack() {
         cards = new LinkedList<>();
         size = 0;
+    }
+
+    public TableuStack(Card[] cardArray) {
+        cards = new LinkedList<>(Arrays.asList(cardArray));
+        size = cards.size();
     }
 
     @Override
