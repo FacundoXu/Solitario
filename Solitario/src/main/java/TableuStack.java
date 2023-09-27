@@ -1,39 +1,37 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class FoundationStack implements Stack<Card> {
-
+public class TableuStack implements Stack<Card>{
     private int size;
-
     private final List<Card> cards;
 
-    private Suit suit;
-
-    public FoundationStack() {
+    public TableuStack() {
+        cards = new LinkedList<>();
         size = 0;
-        cards = new LinkedList<Card>();
-        suit = null;
     }
+
     @Override
     public boolean push(Card card) {
-
         if (this.isEmpty()) {
-            if (card.rank()  != 1) return false;
-            suit = card.suit();
-        } else if (!suit.equals(card.suit()) ||
-            this.peek().rank() != card.rank() - 1) return false;
-        cards.add(card);
-        size++;
-        return true;
+            cards.add(card);
+            size++;
+            return true;
+        }
+        Card topCard = this.peek();
+        if (topCard.color() != card.color() && topCard.rank() == card.rank() + 1){
+            cards.add(card);
+            size++;
+            return true;
+        }
+        return false;
     }
+
     @Override
     public Card pop() {
         if (this.isEmpty()) return null;
         size--;
-        if (size == 0) suit = null;
         return cards.remove(size);
     }
-    @Override
     public Card peek() {
         if (this.isEmpty()) return null;
         return cards.get(size - 1);
@@ -46,6 +44,4 @@ public class FoundationStack implements Stack<Card> {
     public int size() {
         return size;
     }
-
-    public boolean verify() { return !this.isEmpty() && this.peek().rank() == 13; }
 }

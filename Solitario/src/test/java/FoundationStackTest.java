@@ -1,5 +1,6 @@
 import org.junit.Test;
-
+import java.util.LinkedList;
+import java.util.List;
 import static org.junit.Assert.*;
 
 public class FoundationStackTest {
@@ -141,5 +142,39 @@ public class FoundationStackTest {
         assertEquals(threeClubs, pop1);
         assertEquals(twoClubs, pop2);
         assertEquals(oneClubs, pop3);
+    }
+    @Test
+    public void verify(){
+        //Arrange
+        FoundationStack s = new FoundationStack();
+        List<Card> fullDiamonds = new LinkedList<>();
+        List<Card> fullSpades = new LinkedList<>();
+
+        for (int i = 1; i < 14; i++){
+            fullDiamonds.add(new Card(Suit.DIAMONDS, i, Color.RED));
+            fullSpades.add(new Card(Suit.SPADES, i, Color.BLACK));
+        }
+        //Act
+        boolean verify1 = s.verify();
+        for (Card c:fullDiamonds) {
+            s.push(c);
+        }
+        boolean verify2 = s.verify();
+        s.pop();
+        boolean verify3 = s.verify();
+        for (int i = 0; i < 13; i++) {
+            s.pop();
+        }
+        boolean verify4 = s.verify();
+        for (Card c:fullSpades) {
+            s.push(c);
+        }
+        boolean verify5 = s.verify();
+        //Assert
+        assertEquals(false, verify1);
+        assertEquals(true, verify2);
+        assertEquals(false, verify3);
+        assertEquals(false, verify4);
+        assertEquals(true, verify5);
     }
 }
