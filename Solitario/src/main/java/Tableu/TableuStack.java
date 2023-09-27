@@ -1,7 +1,12 @@
+package Tableu;
+
+import Card.Card;
+import Stack.Stack;
+
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableuStack implements Stack<Card>{
+public class TableuStack implements Stack<Card> {
     private int size;
     private final List<Card> cards;
 

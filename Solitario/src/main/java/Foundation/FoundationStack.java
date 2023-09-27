@@ -1,5 +1,11 @@
+package Foundation;
+
+import Card.Card;
+
 import java.util.LinkedList;
 import java.util.List;
+import Card.*;
+import Stack.Stack;
 
 public class FoundationStack implements Stack<Card> {
 
