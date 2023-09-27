@@ -17,23 +17,21 @@ public class FoundationStack implements Stack<Card> {
     @Override
     public boolean push(Card card) {
 
-        if (size > 0 &&
-                (!suit.equals(card.suit()) ||
-                        this.peek().rank() != card.rank() - 1)) {
-            return false;
-        } else {
-            if (size == 0) suit = card.suit();
-            cards.add(card);
-            size++;
-            return true;
-        }
+        if (size == 0) {
+            if (card.rank()  != 1) return false;
+            suit = card.suit();
+        } else if (!suit.equals(card.suit()) ||
+            this.peek().rank() != card.rank() - 1) return false;
+        cards.add(card);
+        size++;
+        return true;
     }
     @Override
     public Card pop() {
         if (this.isEmpty()) return null;
         size--;
         if (size == 0) suit = null;
-        return cards.remove(size - 1);
+        return cards.remove(size);
     }
     @Override
     public Card peek() {
