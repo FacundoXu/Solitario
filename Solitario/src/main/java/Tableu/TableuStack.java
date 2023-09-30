@@ -53,8 +53,6 @@ public class TableuStack implements Stack<Card> {
     public boolean isEmpty() {
         return size == 0;
     }
-    @Override
-    public int size() { return size; }
 
     public void returnCard(Card c){
         cards.add(c);

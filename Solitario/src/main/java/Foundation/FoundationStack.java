@@ -48,10 +48,6 @@ public class FoundationStack implements Stack<Card> {
     public boolean isEmpty() {
         return size == 0;
     }
-    @Override
-    public int size() {
-        return size;
-    }
 
     public boolean verify() { return !this.isEmpty() && this.peek().rank() == 13; }
 }

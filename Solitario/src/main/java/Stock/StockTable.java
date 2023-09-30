@@ -1,16 +1,15 @@
 package Stock;
 
 import Card.Card;
-import Stack.CardStack;
 
 public class StockTable {
     private int talon = 0;
     private int waste = 1;
     private int passes = 1;
-    private final CardStack[] stacks = new CardStack[2];
+    private final StockStack[] stacks = new StockStack[2];
     public StockTable(Card[] cards){
-        stacks[talon] = new CardStack(cards);
-        stacks[waste] = new CardStack();
+        stacks[talon] = new StockStack(cards);
+        stacks[waste] = new StockStack();
     }
     public Card nextCard(){
         if (stacks[talon].isEmpty()){

@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 public class Klondike {
 
-    private int seed;
     private FoundationTable ft;
     private StockTable st;
     private TableuTable tt;
@@ -16,9 +15,7 @@ public class Klondike {
         initializeGame(cards);
     }
 
-    public Klondike(){
-        initializeGame(Deck.createDeck());
-    }
+    public Klondike(){ initializeGame(Deck.createDeck());}
 
     private void initializeGame(Card[] cards){
         tt = new TableuTable(Arrays.copyOfRange(cards, 0, 28));

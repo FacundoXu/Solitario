@@ -55,12 +55,12 @@ public class KlondikeTest {
                 mapCard("H7"),
                 mapCard("ST")};
         Card[] tableu7 = {mapCard("H5"),
-                        mapCard("D2"),
-                        mapCard("SJ"),
-                        mapCard("CJ"),
-                        mapCard("C4"),
-                        mapCard("HJ"),
-                        mapCard("DJ")};
+                mapCard("D2"),
+                mapCard("SJ"),
+                mapCard("CJ"),
+                mapCard("C4"),
+                mapCard("HJ"),
+                mapCard("DJ")};
         Card[] stock = {mapCard("C3"),
                 mapCard("S2"),
                 mapCard("C2"),
@@ -86,7 +86,7 @@ public class KlondikeTest {
                 mapCard("HT"),
                 mapCard("H6")};
 
-        List<Card> deck = new ArrayList<Card>();
+        List<Card> deck = new ArrayList<>();
         deck.addAll(Arrays.asList(tableu1));
         deck.addAll(Arrays.asList(tableu2));
         deck.addAll(Arrays.asList(tableu3));
@@ -98,6 +98,7 @@ public class KlondikeTest {
         Card[] deckArray = deck.toArray(new Card[0]);
         Klondike k = new Klondike(deckArray);
 
+        // Act and assert
         assertTrue(k.moveTableuToTableu(0,5, 6));
         assertTrue(k.moveTableuToTableu(0,5, 4));
         assertTrue(k.moveTableuToFoundation(5,0));

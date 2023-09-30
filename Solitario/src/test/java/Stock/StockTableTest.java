@@ -28,18 +28,18 @@ public class StockTableTest {
         Card getCard2 = t.getCard();
         boolean empty2 = t.isEmpty();
         //Assert
-        assertEquals(false, empty1);
-        assertEquals(true, empty2);
-        assertEquals(null, getCard1);
+        assertFalse(empty1);
+        assertTrue(empty2);
+        assertNull(getCard1);
         assertEquals(c, getCard2);
-        assertEquals(null, peek1);
+        assertNull(peek1);
         assertEquals(c, peek2);
         assertEquals(c, nextCard1);
-        assertEquals(null, nextCard2);
+        assertNull(nextCard2);
         assertEquals(c, nextCard3);
-        assertEquals(null, nextCard4);
+        assertNull(nextCard4);
         assertEquals(c, nextCard5);
-        assertEquals(null, nextCard6);
-        assertEquals(null, nextCard7);
+        assertNull(nextCard6);
+        assertNull(nextCard7);
     }
 }

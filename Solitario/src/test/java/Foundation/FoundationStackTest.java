@@ -1,7 +1,6 @@
 package Foundation;
 
 import Card.*;
-import Foundation.FoundationStack;
 import org.junit.Test;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,13 +14,8 @@ public class FoundationStackTest {
         FoundationStack s = new FoundationStack();
         Card c1 = new Card(Suit.DIAMONDS, 1, Color.RED);
         boolean exp_empty1 = true;
-        Card exp_peek1 = null;
         boolean exp_empty2 = false;
-        Card exp_peek2 = c1;
-        Card exp_pop1 = c1;
         boolean exp_empty3 = true;
-        Card exp_peek3 = null;
-        Card exp_pop2 = null;
         boolean exp_push1 = true;
         // act
         boolean empty1 = s.isEmpty();
@@ -37,11 +31,11 @@ public class FoundationStackTest {
         assertEquals(exp_empty1, empty1);
         assertEquals(exp_empty2, empty2);
         assertEquals(exp_empty3, empty3);
-        assertEquals(exp_pop1, pop1);
-        assertEquals(exp_pop2, pop2);
-        assertEquals(exp_peek1, peek1);
-        assertEquals(exp_peek2, peek2);
-        assertEquals(exp_peek3, peek3);
+        assertEquals(c1, pop1);
+        assertNull(pop2);
+        assertNull(peek1);
+        assertEquals(c1, peek2);
+        assertNull(peek3);
         assertEquals(exp_push1, push1);
 
     }
@@ -52,11 +46,8 @@ public class FoundationStackTest {
         FoundationStack s = new FoundationStack();
         Card c1 = new Card(Suit.DIAMONDS, 2, Color.RED);
         boolean exp_empty1 = true;
-        Card exp_peek1 = null;
         boolean exp_push1 = false;
         boolean exp_empty2 = true;
-        Card exp_peek2 = null;
-        Card exp_pop1 = null;
 
         // act
         boolean empty1 = s.isEmpty();
@@ -68,9 +59,9 @@ public class FoundationStackTest {
         // assert
         assertEquals(exp_empty1, empty1);
         assertEquals(exp_empty2, empty2);
-        assertEquals(exp_pop1, pop1);
-        assertEquals(exp_peek1, peek1);
-        assertEquals(exp_peek2, peek2);
+        assertNull(pop1);
+        assertNull(peek1);
+        assertNull(peek2);
         assertEquals(exp_push1, push1);
     }
 
@@ -98,18 +89,18 @@ public class FoundationStackTest {
         Card pop6 = s.pop();
 
     // Assert
-        assertEquals(true,push1);
-        assertEquals(true,push2);
-        assertEquals(false,push3);
-        assertEquals(true,push4);
-        assertEquals(true,push5);
-        assertEquals(true,push6);
+        assertTrue(push1);
+        assertTrue(push2);
+        assertFalse(push3);
+        assertTrue(push4);
+        assertTrue(push5);
+        assertTrue(push6);
         assertEquals(twoSpades, pop1);
         assertEquals(fourSpades, pop2);
         assertEquals(threeSpades, pop3);
         assertEquals(twoSpades, pop4);
         assertEquals(oneSpades, pop5);
-        assertEquals(null, pop6);
+        assertNull(pop6);
     }
 
 
@@ -139,10 +130,10 @@ public class FoundationStackTest {
         Card pop3 = s.pop();
 
         // Assert
-        assertEquals(true,push1);
-        assertEquals(false,push2);
-        assertEquals(true,push3);
-        assertEquals(true,push4);
+        assertTrue(push1);
+        assertFalse(push2);
+        assertTrue(push3);
+        assertTrue(push4);
         assertEquals(threeClubs, pop1);
         assertEquals(twoClubs, pop2);
         assertEquals(oneClubs, pop3);
@@ -175,10 +166,10 @@ public class FoundationStackTest {
         }
         boolean verify5 = s.verify();
         //Assert
-        assertEquals(false, verify1);
-        assertEquals(true, verify2);
-        assertEquals(false, verify3);
-        assertEquals(false, verify4);
-        assertEquals(true, verify5);
+        assertFalse(verify1);
+        assertTrue(verify2);
+        assertFalse(verify3);
+        assertFalse(verify4);
+        assertTrue(verify5);
     }
 }

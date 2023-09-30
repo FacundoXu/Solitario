@@ -1,21 +1,22 @@
-package Stack;
+package Stock;
 import Card.*;
+import Stack.Stack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CardStack implements Stack<Card>{
+public class StockStack implements Stack<Card> {
     private final List<Card> cards;
     private int size = 0;
 
-    public CardStack(Card[] cardsArray){
-        cards = new ArrayList<Card>(Arrays.asList(cardsArray));
+    public StockStack(Card[] cardsArray){
+        cards = new ArrayList<>(Arrays.asList(cardsArray));
         size = cards.size();
     }
-    public CardStack(){
-        cards = new ArrayList<Card>();
+    public StockStack(){
+        cards = new ArrayList<>();
     }
 
     @Override
@@ -40,11 +41,6 @@ public class CardStack implements Stack<Card>{
 
     @Override
     public boolean isEmpty() {return size == 0;}
-
-    @Override
-    public int size() {
-        return size;
-    }
 
     public void reverse(){ Collections.reverse(cards);}
 
