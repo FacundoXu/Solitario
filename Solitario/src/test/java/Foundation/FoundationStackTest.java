@@ -1,3 +1,5 @@
+package Foundation;
+
 import Card.*;
 import Foundation.FoundationStack;
 import org.junit.Test;

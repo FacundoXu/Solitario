@@ -14,4 +14,11 @@ public class FoundationTable {
     public boolean insert(int i, Card c) { return stacks[i].push(c);}
 
     public Card get(int i) { return stacks[i].pop();}
+
+    public boolean verify(){
+        for (FoundationStack s: stacks){
+            if( !s.verify()) return false;
+        }
+        return true;
+    }
 }
