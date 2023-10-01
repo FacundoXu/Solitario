@@ -3,7 +3,6 @@ package Foundation;
 import Card.*;
 
 public class FoundationTable {
-
     private final FoundationStack[] stacks = new FoundationStack[4];
 
     public FoundationTable(){
@@ -11,13 +10,18 @@ public class FoundationTable {
             stacks[i] = new FoundationStack();
         }
     }
-    public boolean insert(int i, Card c) { return stacks[i].push(c);}
 
-    public Card get(int i) { return stacks[i].pop();}
+    public boolean insert(int i, Card c) {
+        return stacks[i].push(c);
+    }
 
-    public boolean verify(){
+    public Card get(int i) {
+        return stacks[i].pop();
+    }
+
+    public boolean verify() {
         for (FoundationStack s: stacks){
-            if( !s.verify()) return false;
+            if(!s.verify()) return false;
         }
         return true;
     }

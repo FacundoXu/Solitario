@@ -1,16 +1,14 @@
 import org.junit.Test;
 import Card.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class KlondikeTest {
-
     static Card mapCard(String CardS){
         char[] chars = CardS.toCharArray();
+
         Suit s = switch (chars[0]) {
             case 'H' -> Suit.HEARTS;
             case 'D' -> Suit.DIAMONDS;
@@ -18,6 +16,7 @@ public class KlondikeTest {
             case 'S' -> Suit.SPADES;
             default -> throw new IllegalStateException("Unexpected value: " + chars[0]);
         };
+
         int r = switch (chars[1]){
             case 'T' -> 10;
             case 'J' -> 11;
@@ -25,12 +24,14 @@ public class KlondikeTest {
             case 'K' -> 13;
             default -> Integer.parseInt(String.valueOf(chars[1]));
         };
+
         Color c =(s == Suit.HEARTS || s == Suit.DIAMONDS) ? Color.RED : Color.BLACK;
         return new Card(s,r,c);
     }
+
     @Test
     public void GameTest(){
-        //Arrange
+        // Arrange
         Card[] tableu1 = {mapCard("H2")};
         Card[] tableu2 = {mapCard("DK"),
                 mapCard("HQ")};
@@ -98,7 +99,7 @@ public class KlondikeTest {
         Card[] deckArray = deck.toArray(new Card[0]);
         Klondike k = new Klondike(deckArray);
 
-        // Act and assert
+        // Act and Assert
         assertTrue(k.moveTableuToTableu(0,5, 6));
         assertTrue(k.moveTableuToTableu(0,5, 4));
         assertTrue(k.moveTableuToFoundation(5,0));
@@ -242,5 +243,4 @@ public class KlondikeTest {
         assertTrue(k.moveTableuToFoundation(0,2));
         assertTrue(k.verifyVictory());
     }
-
 }

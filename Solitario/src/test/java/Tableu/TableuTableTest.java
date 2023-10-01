@@ -2,17 +2,15 @@ package Tableu;
 
 import Card.*;
 import org.junit.Test;
-
 import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class TableuTableTest {
-
     Card[] deck = Deck.createDeck(false);
+
     @Test
     public void moveCards(){
-        //Arrange
+        // Arrange
         // Top Cards: H1 H3 H6 H10 D2 D8 C2
         Card[] TopCards = {deck[0], deck[2], deck[5], deck[9], deck[14], deck[20], deck[27]};
         TableuTable tt = new TableuTable(Arrays.copyOfRange(deck,0, 28));
@@ -21,7 +19,8 @@ public class TableuTableTest {
         Card H6 = new Card(Suit.HEARTS, 6, Color.RED);
         Card S6 = new Card(Suit.SPADES, 6, Color.BLACK);
         Card SK = new Card(Suit.SPADES, 13, Color.BLACK);
-        // Act and assert
+
+        // Act and Assert
         assertArrayEquals(TopCards, tt.peek());
         assertTrue(tt.move(0,0, 6));
         assertTrue(tt.insert(3, C9));

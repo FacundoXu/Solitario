@@ -1,9 +1,7 @@
 package Card;
 
 import org.junit.Test;
-
 import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class DeckTest {
@@ -64,19 +62,18 @@ public class DeckTest {
 
     @Test
     public void createDeck() {
-        //Arrange
+        // Arrange
         Card[] d = Deck.createDeck(false);
-        //Assert
+        // Assert
         assertArrayEquals(sortedDeck, d);
 
     }
 
     @Test
     public void createShuffledDeck() {
-        //Arrange
+        // Arrange
         Card[] d = Deck.createDeck();
-        //Assert
+        // Assert
         assertNotEquals(Arrays.toString(sortedDeck), Arrays.toString(d));
-
     }
 }

@@ -2,13 +2,12 @@ package Foundation;
 
 import org.junit.Test;
 import Card.*;
-
 import static org.junit.Assert.*;
 
 public class FoundationTableTest {
-
     @Test
-    public void invalidOperations(){
+    public void invalidOperations() {
+        // Arrange
         FoundationTable ft = new FoundationTable();
         Card D1 = new Card(Suit.DIAMONDS, 1, Color.RED);
         Card D2 = new Card(Suit.DIAMONDS, 2, Color.RED);
@@ -16,7 +15,8 @@ public class FoundationTableTest {
         Card H1 = new Card(Suit.HEARTS, 1, Color.RED);
         Card H2 = new Card(Suit.HEARTS, 2, Color.RED);
         Card H3 = new Card(Suit.HEARTS, 3, Color.RED);
-        //Act and assert
+
+        // Act and Assert
         assertNull(ft.get(0));
         assertFalse(ft.verify());
         assertFalse(ft.insert(0, D2));
@@ -41,16 +41,18 @@ public class FoundationTableTest {
 
     @Test
     public void fillAllFoundations(){
-        //Arrange
+        // Arrange
         Card[] d = Deck.createDeck(false);
         FoundationTable ft = new FoundationTable();
+
         // Act
         for (int i = 0;  i < 4; i++){
             for (int j = 0; j < 12; j++){
                 ft.insert(i, d[i*13 + j]);
             }
         }
-        //Assert
+
+        // Assert
         assertFalse(ft.verify());
         assertTrue(ft.insert(0, d[12]));
         assertFalse(ft.verify());

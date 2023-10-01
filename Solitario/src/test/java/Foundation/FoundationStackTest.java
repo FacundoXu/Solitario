@@ -7,17 +7,17 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class FoundationStackTest {
-
     @Test
     public void oneCard() {
-        // arrange
+        // Arrange
         FoundationStack s = new FoundationStack();
         Card c1 = new Card(Suit.DIAMONDS, 1, Color.RED);
         boolean exp_empty1 = true;
         boolean exp_empty2 = false;
         boolean exp_empty3 = true;
         boolean exp_push1 = true;
-        // act
+
+        // Act
         boolean empty1 = s.isEmpty();
         Card peek1 = s.peek();
         boolean push1 = s.push(c1);
@@ -27,7 +27,8 @@ public class FoundationStackTest {
         boolean empty3 = s.isEmpty();
         Card peek3 = s.peek();
         Card pop2 = s.pop();
-        // assert
+
+        // Assert
         assertEquals(exp_empty1, empty1);
         assertEquals(exp_empty2, empty2);
         assertEquals(exp_empty3, empty3);
@@ -37,26 +38,26 @@ public class FoundationStackTest {
         assertEquals(c1, peek2);
         assertNull(peek3);
         assertEquals(exp_push1, push1);
-
     }
 
     @Test
     public void invalidCard() {
-        //Arrange
+        // Arrange
         FoundationStack s = new FoundationStack();
         Card c1 = new Card(Suit.DIAMONDS, 2, Color.RED);
         boolean exp_empty1 = true;
         boolean exp_push1 = false;
         boolean exp_empty2 = true;
 
-        // act
+        // Act
         boolean empty1 = s.isEmpty();
         Card peek1 = s.peek();
         boolean push1 = s.push(c1);
         boolean empty2 = s.isEmpty();
         Card peek2 = s.peek();
         Card pop1 = s.pop();
-        // assert
+
+        // Assert
         assertEquals(exp_empty1, empty1);
         assertEquals(exp_empty2, empty2);
         assertNull(pop1);
@@ -74,6 +75,7 @@ public class FoundationStackTest {
         Card threeSpades = new Card(Suit.SPADES, 3, Color.BLACK);
         Card fourSpades = new Card(Suit.SPADES, 4, Color.BLACK);
         Card threeClubs = new Card(Suit.CLUBS, 3, Color.BLACK);
+
     // Act
         boolean push1 = s.push(oneSpades);
         boolean push2 = s.push(twoSpades);
@@ -103,7 +105,6 @@ public class FoundationStackTest {
         assertNull(pop6);
     }
 
-
     @Test
     public void changeSuits() {
         // Arrange
@@ -114,6 +115,7 @@ public class FoundationStackTest {
         Card oneClubs= new Card(Suit.CLUBS, 1, Color.BLACK);
         Card twoClubs= new Card(Suit.CLUBS, 2, Color.BLACK);
         Card threeClubs = new Card(Suit.CLUBS, 3, Color.BLACK);
+
         // Act
         s.push(oneHearts);
         s.push(twoHearts);
@@ -138,9 +140,10 @@ public class FoundationStackTest {
         assertEquals(twoClubs, pop2);
         assertEquals(oneClubs, pop3);
     }
+
     @Test
     public void verify(){
-        //Arrange
+        // Arrange
         FoundationStack s = new FoundationStack();
         List<Card> fullDiamonds = new LinkedList<>();
         List<Card> fullSpades = new LinkedList<>();
@@ -149,7 +152,8 @@ public class FoundationStackTest {
             fullDiamonds.add(new Card(Suit.DIAMONDS, i, Color.RED));
             fullSpades.add(new Card(Suit.SPADES, i, Color.BLACK));
         }
-        //Act
+
+        // Act
         boolean verify1 = s.verify();
         for (Card c:fullDiamonds) {
             s.push(c);
@@ -165,7 +169,8 @@ public class FoundationStackTest {
             s.push(c);
         }
         boolean verify5 = s.verify();
-        //Assert
+
+        // Assert
         assertFalse(verify1);
         assertTrue(verify2);
         assertFalse(verify3);
