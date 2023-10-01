@@ -1,0 +1,102 @@
+@startuml
+
+skin rose
+
+title Solitaire - Class Diagram
+
+class Klondike {
+-ft: FoundationTable
+-st: StockTable
+-tt: TableuTable
++initializeGame(cards: Card[])
++stockNextCard(): Card
++moveStockTableu(tableu: Integer): Boolean
++moveStockToFoundation(foundation: Integer): Boolean
++moveTableuFoundation(tableu: Integer, foundation: Integer): Boolean
++moveFoundationToTableu(foundation: Integer, tableu: Integer): Boolean
++moveTableuToTableu(originCardIdx: Integer, originTableu: Integer, destTableu: Integer): Boolean
++verifyVictory(): Boolean
+}
+
+class FoundationTable {
+-stacks: FoundationStack[]
++insert(i: Integer, c: Card): Boolean
++get(i: Integer): Card
++verify(): Boolean
+}
+
+class FoundationStack {
+-size: Integer
+-cards: List<Card>
+-suit: Suit
+}
+
+class StockTable {
+-talon: Integer
+-waste: Integer
+-passes: Integer
+-stacks: StockStack[]
++nextCard(): Card
++getCard(): Card
++peek(): Card
++isEmpty(): Boolean
++switchStacks()
++returnCard()
+}
+
+class StockStack {
+-cards: List<Card>
+-size: Integer
++returnArray()
+}
+
+class TableuTable {
+-stacks: TableuStack[]
++pickUp(StackIdx: Integer): Card
++peek(StackIdx: Integer): Card
++insert(tableu: Integer, c: Card): Boolean
++returnCard(tableu: Integer, c: Card)
++move(originCardIdx: Integer, originStack: Integer, destStack: Integer): Boolean
+}
+
+class TableuStack {
+-size: Integer
+-faceUpIdx: Integer
+-cards: List<Cards>
++returnCard(c: Card)
++returnArray(l: List<Card>)
++popArray(cardIdx: Integer): List<Card>
++pushArray(l: List<Card>): Boolean
+}
+
+class Deck {
++createDeck(): Card[]
+}
+
+class Card <<record>> {
++suit: Suit
++rank: Integer
++color: Color
+}
+
+interface Stack <<interface>> {
++push(element: E): Boolean
++pop(): E
++peek(): E
++isEmpty(): Boolean
+}
+
+Stack <|.-- FoundationStack: implements
+Stack <|.-- StockStack: implements
+Stack <|.-- TableuStack: implements
+
+FoundationTable "1" .--> "4" FoundationStack: foundations
+StockTable "1" .--> "1" StockStack: stock
+TableuTable "1" .--> "7" TableuStack: tableus
+
+Klondike "1" .--> "1" Deck
+Klondike "1" .--> "1" FoundationTable: foundations
+Klondike "1" .--> "1" StockTable: stock
+Klondike "1" .--> "1" TableuTable: tableus
+
+@enduml
