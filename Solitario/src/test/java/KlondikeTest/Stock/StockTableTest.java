@@ -1,6 +1,9 @@
-package Stock;
+package KlondikeTest.Stock;
 
-import Card.*;
+import Klondike.Card.Card;
+import Klondike.Card.Color;
+import Klondike.Card.Suit;
+import Klondike.Stock.StockTable;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -8,12 +11,13 @@ import static org.junit.Assert.*;
 public class StockTableTest {
 
     @Test
-    public void oneCard(){
-        //Arrange
+    public void oneCard() {
+        // Arrange
         Card c = new Card(Suit.CLUBS, 12, Color.BLACK);
-        Card[] cardArray= {c};
+        Card[] cardArray = {c};
         StockTable t = new StockTable(cardArray);
-        //Act
+
+        // Act
         boolean empty1 = t.isEmpty();
         Card getCard1 = t.getCard();
         Card peek1 = t.peek();
@@ -27,7 +31,8 @@ public class StockTableTest {
         Card nextCard7 = t.nextCard();
         Card getCard2 = t.getCard();
         boolean empty2 = t.isEmpty();
-        //Assert
+
+        // Assert
         assertFalse(empty1);
         assertTrue(empty2);
         assertNull(getCard1);

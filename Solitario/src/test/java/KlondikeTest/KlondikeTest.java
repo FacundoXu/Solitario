@@ -1,5 +1,10 @@
+package KlondikeTest;
+
+import Klondike.Card.Card;
+import Klondike.Card.Color;
+import Klondike.Card.Suit;
+import Klondike.Klondike;
 import org.junit.Test;
-import Card.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class KlondikeTest {
 
-    static Card mapCard(String CardS){
+    static Card mapCard(String CardS) {
         char[] chars = CardS.toCharArray();
         Suit s = switch (chars[0]) {
             case 'H' -> Suit.HEARTS;
@@ -18,19 +23,20 @@ public class KlondikeTest {
             case 'S' -> Suit.SPADES;
             default -> throw new IllegalStateException("Unexpected value: " + chars[0]);
         };
-        int r = switch (chars[1]){
+        int r = switch (chars[1]) {
             case 'T' -> 10;
             case 'J' -> 11;
             case 'Q' -> 12;
             case 'K' -> 13;
             default -> Integer.parseInt(String.valueOf(chars[1]));
         };
-        Color c =(s == Suit.HEARTS || s == Suit.DIAMONDS) ? Color.RED : Color.BLACK;
-        return new Card(s,r,c);
+        Color c = (s == Suit.HEARTS || s == Suit.DIAMONDS) ? Color.RED : Color.BLACK;
+        return new Card(s, r, c);
     }
+
     @Test
-    public void GameTest(){
-        //Arrange
+    public void GameTest() {
+        // Arrange
         Card[] tableu1 = {mapCard("H2")};
         Card[] tableu2 = {mapCard("DK"),
                 mapCard("HQ")};
@@ -99,21 +105,21 @@ public class KlondikeTest {
         Klondike k = new Klondike(deckArray);
 
         // Act and assert
-        assertTrue(k.moveTableuToTableu(0,5, 6));
-        assertTrue(k.moveTableuToTableu(0,5, 4));
-        assertTrue(k.moveTableuToFoundation(5,0));
-        assertTrue(k.moveTableuToFoundation(5,1));
-        assertTrue(k.moveTableuToFoundation(0,0));
-        assertEquals(mapCard("H6"),k.stockNextCard());
-        assertEquals(mapCard("HT"),k.stockNextCard());
-        assertEquals(mapCard("H9"),k.stockNextCard());
+        assertTrue(k.moveTableuToTableu(0, 5, 6));
+        assertTrue(k.moveTableuToTableu(0, 5, 4));
+        assertTrue(k.moveTableuToFoundation(5, 0));
+        assertTrue(k.moveTableuToFoundation(5, 1));
+        assertTrue(k.moveTableuToFoundation(0, 0));
+        assertEquals(mapCard("H6"), k.stockNextCard());
+        assertEquals(mapCard("HT"), k.stockNextCard());
+        assertEquals(mapCard("H9"), k.stockNextCard());
         assertTrue(k.moveStockToTableu(6));
-        assertTrue(k.moveTableuToTableu(1,4, 6));
-        assertTrue(k.moveTableuToTableu(0,4, 0));
-        assertTrue(k.moveTableuToTableu(0,1, 0));
-        assertTrue(k.moveTableuToTableu(0,5, 1));
-        assertFalse(k.moveTableuToTableu(3,6, 1));
-        assertTrue(k.moveTableuToTableu(4,6, 1));
+        assertTrue(k.moveTableuToTableu(1, 4, 6));
+        assertTrue(k.moveTableuToTableu(0, 4, 0));
+        assertTrue(k.moveTableuToTableu(0, 1, 0));
+        assertTrue(k.moveTableuToTableu(0, 5, 1));
+        assertFalse(k.moveTableuToTableu(3, 6, 1));
+        assertTrue(k.moveTableuToTableu(4, 6, 1));
         k.stockNextCard();
         k.stockNextCard();
         k.stockNextCard();
@@ -173,16 +179,16 @@ public class KlondikeTest {
         k.stockNextCard();
         k.stockNextCard();
         assertTrue(k.moveStockToFoundation(3));
-        assertTrue(k.moveTableuToFoundation(5,3));
+        assertTrue(k.moveTableuToFoundation(5, 3));
         k.stockNextCard();
         k.stockNextCard();
         k.stockNextCard();
         k.stockNextCard();
         assertTrue(k.moveStockToTableu(2));
-        assertTrue(k.moveTableuToTableu(3, 6,2));
+        assertTrue(k.moveTableuToTableu(3, 6, 2));
         assertTrue(k.moveTableuToFoundation(6, 2));
-        assertTrue(k.moveTableuToTableu(0, 6,4));
-        assertTrue(k.moveTableuToTableu(0, 6,0));
+        assertTrue(k.moveTableuToTableu(0, 6, 4));
+        assertTrue(k.moveTableuToTableu(0, 6, 0));
         assertTrue(k.moveTableuToFoundation(6, 1));
         assertTrue(k.moveTableuToFoundation(6, 0));
         assertTrue(k.moveTableuToFoundation(1, 1));
@@ -191,11 +197,11 @@ public class KlondikeTest {
         assertTrue(k.moveTableuToFoundation(1, 3));
         assertTrue(k.moveTableuToFoundation(1, 1));
         assertTrue(k.moveTableuToFoundation(5, 1));
-        assertTrue(k.moveTableuToTableu(3, 5,4));
+        assertTrue(k.moveTableuToTableu(3, 5, 4));
         assertTrue(k.moveStockToTableu(0));
         assertTrue(k.moveStockToTableu(4));
-        assertTrue(k.moveTableuToTableu(0, 3,4));
-        assertTrue(k.moveTableuToTableu(8, 4,3));
+        assertTrue(k.moveTableuToTableu(0, 3, 4));
+        assertTrue(k.moveTableuToTableu(8, 4, 3));
         k.stockNextCard();
         assertTrue(k.moveStockToTableu(2));
         k.stockNextCard();
@@ -207,40 +213,39 @@ public class KlondikeTest {
         k.stockNextCard();
         assertTrue(k.moveStockToTableu(2));
         assertFalse(k.verifyVictory());
-        assertTrue(k.moveTableuToFoundation(3,3));
-        assertTrue(k.moveTableuToFoundation(3,0));
-        assertTrue(k.moveTableuToFoundation(2,3));
-        assertTrue(k.moveTableuToFoundation(1,2));
-        assertTrue(k.moveTableuToFoundation(0,3));
-        assertTrue(k.moveTableuToFoundation(1,0));
-        assertTrue(k.moveTableuToFoundation(2,1));
-        assertTrue(k.moveTableuToFoundation(3,2));
-        assertTrue(k.moveTableuToFoundation(3,1));
-        assertTrue(k.moveTableuToFoundation(2,2));
-        assertTrue(k.moveTableuToFoundation(1,3));
-        assertFalse(k.moveTableuToFoundation(0,1));
-        assertTrue(k.moveTableuToFoundation(0,0));
-        assertTrue(k.moveTableuToFoundation(0,3));
-        assertTrue(k.moveTableuToFoundation(1,0));
-        assertTrue(k.moveTableuToFoundation(2,1));
-        assertTrue(k.moveTableuToFoundation(3,2));
-        assertTrue(k.moveTableuToFoundation(3,1));
-        assertTrue(k.moveTableuToFoundation(2,2));
-        assertTrue(k.moveTableuToFoundation(1,3));
-        assertTrue(k.moveTableuToFoundation(0,0));
-        assertTrue(k.moveTableuToFoundation(0,3));
-        assertTrue(k.moveTableuToFoundation(1,1));
-        assertTrue(k.moveTableuToFoundation(2,0));
-        assertTrue(k.moveTableuToFoundation(3,2));
-        assertTrue(k.moveTableuToFoundation(0,0));
-        assertTrue(k.moveTableuToFoundation(1,3));
-        assertTrue(k.moveTableuToFoundation(2,2));
-        assertTrue(k.moveTableuToFoundation(3,1));
-        assertTrue(k.moveTableuToFoundation(3,3));
-        assertTrue(k.moveTableuToFoundation(2,0));
-        assertTrue(k.moveTableuToFoundation(1,1));
-        assertTrue(k.moveTableuToFoundation(0,2));
+        assertTrue(k.moveTableuToFoundation(3, 3));
+        assertTrue(k.moveTableuToFoundation(3, 0));
+        assertTrue(k.moveTableuToFoundation(2, 3));
+        assertTrue(k.moveTableuToFoundation(1, 2));
+        assertTrue(k.moveTableuToFoundation(0, 3));
+        assertTrue(k.moveTableuToFoundation(1, 0));
+        assertTrue(k.moveTableuToFoundation(2, 1));
+        assertTrue(k.moveTableuToFoundation(3, 2));
+        assertTrue(k.moveTableuToFoundation(3, 1));
+        assertTrue(k.moveTableuToFoundation(2, 2));
+        assertTrue(k.moveTableuToFoundation(1, 3));
+        assertFalse(k.moveTableuToFoundation(0, 1));
+        assertTrue(k.moveTableuToFoundation(0, 0));
+        assertTrue(k.moveTableuToFoundation(0, 3));
+        assertTrue(k.moveTableuToFoundation(1, 0));
+        assertTrue(k.moveTableuToFoundation(2, 1));
+        assertTrue(k.moveTableuToFoundation(3, 2));
+        assertTrue(k.moveTableuToFoundation(3, 1));
+        assertTrue(k.moveTableuToFoundation(2, 2));
+        assertTrue(k.moveTableuToFoundation(1, 3));
+        assertTrue(k.moveTableuToFoundation(0, 0));
+        assertTrue(k.moveTableuToFoundation(0, 3));
+        assertTrue(k.moveTableuToFoundation(1, 1));
+        assertTrue(k.moveTableuToFoundation(2, 0));
+        assertTrue(k.moveTableuToFoundation(3, 2));
+        assertTrue(k.moveTableuToFoundation(0, 0));
+        assertTrue(k.moveTableuToFoundation(1, 3));
+        assertTrue(k.moveTableuToFoundation(2, 2));
+        assertTrue(k.moveTableuToFoundation(3, 1));
+        assertTrue(k.moveTableuToFoundation(3, 3));
+        assertTrue(k.moveTableuToFoundation(2, 0));
+        assertTrue(k.moveTableuToFoundation(1, 1));
+        assertTrue(k.moveTableuToFoundation(0, 2));
         assertTrue(k.verifyVictory());
     }
-
 }

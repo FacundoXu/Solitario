@@ -1,4 +1,4 @@
-package Stack;
+package Klondike.Stack;
 
 public interface Stack<E> {
     boolean push(E element);

@@ -1,5 +1,9 @@
-package Card;
+package KlondikeTest.Card;
 
+import Klondike.Card.Card;
+import Klondike.Card.Color;
+import Klondike.Card.Deck;
+import Klondike.Card.Suit;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -64,19 +68,19 @@ public class DeckTest {
 
     @Test
     public void createDeck() {
-        //Arrange
+        // Arrange
         Card[] d = Deck.createDeck(false);
+
         //Assert
         assertArrayEquals(sortedDeck, d);
-
     }
 
     @Test
     public void createShuffledDeck() {
         //Arrange
         Card[] d = Deck.createDeck();
+
         //Assert
         assertNotEquals(Arrays.toString(sortedDeck), Arrays.toString(d));
-
     }
 }

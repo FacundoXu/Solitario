@@ -4,7 +4,7 @@ skin rose
 
 title Solitaire - Class Diagram
 
-class Klondike {
+class Klondike.Klondike {
 -ft: FoundationTable
 -st: StockTable
 -tt: TableuTable
@@ -94,9 +94,9 @@ FoundationTable "1" .--> "4" FoundationStack: foundations
 StockTable "1" .--> "1" StockStack: stock
 TableuTable "1" .--> "7" TableuStack: tableus
 
-Klondike "1" .--> "1" Deck
-Klondike "1" .--> "1" FoundationTable: foundations
-Klondike "1" .--> "1" StockTable: stock
-Klondike "1" .--> "1" TableuTable: tableus
+Klondike.Klondike "1" .--> "1" Deck
+Klondike.Klondike "1" .--> "1" FoundationTable: foundations
+Klondike.Klondike "1" .--> "1" StockTable: stock
+Klondike.Klondike "1" .--> "1" TableuTable: tableus
 
 @enduml

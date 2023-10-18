@@ -1,23 +1,29 @@
-package Foundation;
+package KlondikeTest.Foundation;
 
-import Card.*;
+import Klondike.Card.Card;
+import Klondike.Card.Color;
+import Klondike.Card.Suit;
+import Klondike.Foundation.FoundationStack;
 import org.junit.Test;
+
 import java.util.LinkedList;
 import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class FoundationStackTest {
 
     @Test
     public void oneCard() {
-        // arrange
+        // Arrange
         FoundationStack s = new FoundationStack();
         Card c1 = new Card(Suit.DIAMONDS, 1, Color.RED);
         boolean exp_empty1 = true;
         boolean exp_empty2 = false;
         boolean exp_empty3 = true;
         boolean exp_push1 = true;
-        // act
+
+        // Act
         boolean empty1 = s.isEmpty();
         Card peek1 = s.peek();
         boolean push1 = s.push(c1);
@@ -27,7 +33,8 @@ public class FoundationStackTest {
         boolean empty3 = s.isEmpty();
         Card peek3 = s.peek();
         Card pop2 = s.pop();
-        // assert
+
+        // Assert
         assertEquals(exp_empty1, empty1);
         assertEquals(exp_empty2, empty2);
         assertEquals(exp_empty3, empty3);
@@ -49,14 +56,15 @@ public class FoundationStackTest {
         boolean exp_push1 = false;
         boolean exp_empty2 = true;
 
-        // act
+        // Act
         boolean empty1 = s.isEmpty();
         Card peek1 = s.peek();
         boolean push1 = s.push(c1);
         boolean empty2 = s.isEmpty();
         Card peek2 = s.peek();
         Card pop1 = s.pop();
-        // assert
+
+        // Assert
         assertEquals(exp_empty1, empty1);
         assertEquals(exp_empty2, empty2);
         assertNull(pop1);
@@ -67,14 +75,15 @@ public class FoundationStackTest {
 
     @Test
     public void multipleCards() {
-    // Arrange
+        // Arrange
         FoundationStack s = new FoundationStack();
         Card oneSpades = new Card(Suit.SPADES, 1, Color.BLACK);
         Card twoSpades = new Card(Suit.SPADES, 2, Color.BLACK);
         Card threeSpades = new Card(Suit.SPADES, 3, Color.BLACK);
         Card fourSpades = new Card(Suit.SPADES, 4, Color.BLACK);
         Card threeClubs = new Card(Suit.CLUBS, 3, Color.BLACK);
-    // Act
+
+        // Act
         boolean push1 = s.push(oneSpades);
         boolean push2 = s.push(twoSpades);
         boolean push3 = s.push(threeClubs);
@@ -88,7 +97,7 @@ public class FoundationStackTest {
         Card pop5 = s.pop();
         Card pop6 = s.pop();
 
-    // Assert
+        // Assert
         assertTrue(push1);
         assertTrue(push2);
         assertFalse(push3);
@@ -111,9 +120,10 @@ public class FoundationStackTest {
         Card oneHearts = new Card(Suit.HEARTS, 1, Color.RED);
         Card twoHearts = new Card(Suit.HEARTS, 2, Color.RED);
         Card threeHearts = new Card(Suit.HEARTS, 3, Color.RED);
-        Card oneClubs= new Card(Suit.CLUBS, 1, Color.BLACK);
-        Card twoClubs= new Card(Suit.CLUBS, 2, Color.BLACK);
+        Card oneClubs = new Card(Suit.CLUBS, 1, Color.BLACK);
+        Card twoClubs = new Card(Suit.CLUBS, 2, Color.BLACK);
         Card threeClubs = new Card(Suit.CLUBS, 3, Color.BLACK);
+
         // Act
         s.push(oneHearts);
         s.push(twoHearts);
@@ -138,20 +148,22 @@ public class FoundationStackTest {
         assertEquals(twoClubs, pop2);
         assertEquals(oneClubs, pop3);
     }
+
     @Test
-    public void verify(){
-        //Arrange
+    public void verify() {
+        // Arrange
         FoundationStack s = new FoundationStack();
         List<Card> fullDiamonds = new LinkedList<>();
         List<Card> fullSpades = new LinkedList<>();
 
-        for (int i = 1; i < 14; i++){
+        for (int i = 1; i < 14; i++) {
             fullDiamonds.add(new Card(Suit.DIAMONDS, i, Color.RED));
             fullSpades.add(new Card(Suit.SPADES, i, Color.BLACK));
         }
-        //Act
+
+        // Act
         boolean verify1 = s.verify();
-        for (Card c:fullDiamonds) {
+        for (Card c : fullDiamonds) {
             s.push(c);
         }
         boolean verify2 = s.verify();
@@ -161,11 +173,12 @@ public class FoundationStackTest {
             s.pop();
         }
         boolean verify4 = s.verify();
-        for (Card c:fullSpades) {
+        for (Card c : fullSpades) {
             s.push(c);
         }
         boolean verify5 = s.verify();
-        //Assert
+
+        // Assert
         assertFalse(verify1);
         assertTrue(verify2);
         assertFalse(verify3);
