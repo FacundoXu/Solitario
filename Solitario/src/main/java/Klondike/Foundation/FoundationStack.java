@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Klondike.Card.*;
-import Klondike.Stack.Stack;
+import Stack.Stack;
 
 public class FoundationStack implements Stack<Card> {
 

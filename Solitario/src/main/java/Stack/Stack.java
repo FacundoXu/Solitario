@@ -1,4 +1,4 @@
-package Klondike.Stack;
+package Stack;
 
 public interface Stack<E> {
 

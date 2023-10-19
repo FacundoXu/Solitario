@@ -1,7 +1,7 @@
 package Klondike.Stock;
 
 import Klondike.Card.*;
-import Klondike.Stack.Stack;
+import Stack.Stack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
