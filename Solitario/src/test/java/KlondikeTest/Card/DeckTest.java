@@ -1,9 +1,9 @@
 package KlondikeTest.Card;
 
-import Klondike.Card.Card;
-import Klondike.Card.Color;
-import Klondike.Card.Deck;
-import Klondike.Card.Suit;
+import Card.Card;
+import Card.Color;
+import Card.Deck;
+import Card.Suit;
 import org.junit.Test;
 
 import java.util.Arrays;

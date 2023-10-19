@@ -1,9 +1,7 @@
 package Spider.Tableu;
 
-import Spider.Card.Card;
-import Stack.Stack;
+import Card.Card;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

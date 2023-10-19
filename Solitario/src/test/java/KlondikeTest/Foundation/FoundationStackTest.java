@@ -1,8 +1,8 @@
 package KlondikeTest.Foundation;
 
-import Klondike.Card.Card;
-import Klondike.Card.Color;
-import Klondike.Card.Suit;
+import Card.Card;
+import Card.Color;
+import Card.Suit;
 import Klondike.Foundation.FoundationStack;
 import org.junit.Test;
 

@@ -3,7 +3,8 @@ package Klondike.Foundation;
 import java.util.LinkedList;
 import java.util.List;
 
-import Klondike.Card.*;
+import Card.Card;
+import Card.Suit;
 import Stack.Stack;
 
 public class FoundationStack implements Stack<Card> {

@@ -1,10 +1,10 @@
 package Klondike;
 
+import Card.Card;
+import Card.Deck;
 import Klondike.Foundation.FoundationTable;
-
 import Klondike.Stock.StockTable;
 import Klondike.Tableu.TableuTable;
-import Klondike.Card.*;
 
 import java.util.Arrays;
 

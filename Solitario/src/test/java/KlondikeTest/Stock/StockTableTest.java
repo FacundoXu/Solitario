@@ -1,8 +1,8 @@
 package KlondikeTest.Stock;
 
-import Klondike.Card.Card;
-import Klondike.Card.Color;
-import Klondike.Card.Suit;
+import Card.Card;
+import Card.Color;
+import Card.Suit;
 import Klondike.Stock.StockTable;
 import org.junit.Test;
 

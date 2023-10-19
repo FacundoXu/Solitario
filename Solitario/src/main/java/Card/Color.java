@@ -1,4 +1,4 @@
-package Klondike.Card;
+package Card;
 
 public enum Color {
     RED, BLACK

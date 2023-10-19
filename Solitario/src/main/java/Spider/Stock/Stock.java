@@ -1,6 +1,6 @@
 package Spider.Stock;
 
-import Spider.Card.Card;
+import Card.Card;
 
 import java.util.ArrayList;
 import java.util.Arrays;

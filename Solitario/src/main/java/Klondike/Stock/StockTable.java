@@ -1,6 +1,6 @@
 package Klondike.Stock;
 
-import Klondike.Card.Card;
+import Card.Card;
 
 public class StockTable {
 

@@ -1,6 +1,6 @@
 package Klondike.Foundation;
 
-import Klondike.Card.Card;
+import Card.Card;
 
 public class FoundationTable {
 

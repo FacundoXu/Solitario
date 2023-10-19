@@ -1,8 +1,6 @@
 package Spider.Foundation;
 
-import Spider.Card.Card;
-
-import java.util.Arrays;
+import Card.Card;
 
 public class FoundationTable {
 

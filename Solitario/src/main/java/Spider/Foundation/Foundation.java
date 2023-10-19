@@ -1,6 +1,6 @@
 package Spider.Foundation;
 
-import Spider.Card.Card;
+import Card.Card;
 
 import java.util.Arrays;
 import java.util.LinkedList;

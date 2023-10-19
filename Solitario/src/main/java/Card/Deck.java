@@ -1,4 +1,4 @@
-package Klondike.Card;
+package Card;
 
 import java.util.ArrayList;
 import java.util.Collections;
