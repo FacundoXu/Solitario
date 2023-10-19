@@ -11,7 +11,8 @@ public class TableuTable {
 
     public TableuTable(Card[] cards) {
 
-        int[] ranges = {0, 1, 3, 6, 10, 15, 21, 28}; // Stores the ranges of the given array that should constitute the tableu stacks
+        // Stores the ranges of the given array that should constitute the tableu stacks
+        int[] ranges = {0, 1, 3, 6, 10, 15, 21, 28};
 
         for (int i = 0; i < 7; i++) {
             Card[] s = Arrays.copyOfRange(cards, ranges[i], ranges[i + 1]);
