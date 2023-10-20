@@ -1,10 +1,9 @@
-package KlondikeTest.Foundation;
+package Klondike.Foundation;
 
 import Card.Card;
 import Card.Color;
 import Card.Deck;
 import Card.Suit;
-import Klondike.Foundation.FoundationTable;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

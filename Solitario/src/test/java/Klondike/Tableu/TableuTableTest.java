@@ -1,10 +1,9 @@
-package KlondikeTest.Tableu;
+package Klondike.Tableu;
 
 import Card.Card;
 import Card.Color;
 import Card.Deck;
 import Card.Suit;
-import Klondike.Tableu.TableuTable;
 import org.junit.Test;
 
 import java.util.Arrays;

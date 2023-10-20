@@ -1,9 +1,8 @@
-package KlondikeTest.Stock;
+package Klondike.Stock;
 
 import Card.Card;
 import Card.Color;
 import Card.Suit;
-import Klondike.Stock.StockTable;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

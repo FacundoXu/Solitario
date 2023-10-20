@@ -1,9 +1,8 @@
-package KlondikeTest.Foundation;
+package Klondike.Foundation;
 
 import Card.Card;
 import Card.Color;
 import Card.Suit;
-import Klondike.Foundation.FoundationStack;
 import org.junit.Test;
 
 import java.util.LinkedList;

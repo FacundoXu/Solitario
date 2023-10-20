@@ -1,4 +1,4 @@
-package KlondikeTest.Card;
+package Klondike.Card;
 
 import Card.Card;
 import Card.Color;

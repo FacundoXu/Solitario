@@ -1,9 +1,8 @@
-package KlondikeTest;
+package Klondike;
 
 import Card.Card;
 import Card.Color;
 import Card.Suit;
-import Klondike.Klondike;
 import org.junit.Test;
 
 import java.util.ArrayList;
