@@ -15,4 +15,13 @@ public class FoundationTable {
     public void assignCards(int i, Card[] cardsArray) {
         foundations[i].assignCards(cardsArray);
     }
+
+    public boolean verify() {
+        for (Foundation foundation : foundations) {
+            if (!foundation.verify()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
