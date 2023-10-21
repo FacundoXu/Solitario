@@ -21,8 +21,6 @@ public class TableuStack implements Stack<Card> {
 
     @Override
     public boolean push(Card card) {
-        this.checkHiddenCards();
-
         if (this.isEmpty()) {
             visibleCards.add(card);
             return true;
@@ -37,8 +35,6 @@ public class TableuStack implements Stack<Card> {
 
     @Override
     public Card pop() {
-        this.checkHiddenCards();
-
         if (this.isEmpty())
             return null;
 
@@ -47,6 +43,7 @@ public class TableuStack implements Stack<Card> {
         return card;
     }
 
+    @Override
     public Card peek() {
         if (this.isEmpty())
             return null;
@@ -59,7 +56,6 @@ public class TableuStack implements Stack<Card> {
     }
 
     public boolean pushArray(Card[] cardsArray) {
-        this.checkHiddenCards();
 
         if (this.isEmpty()) {
             visibleCards.addAll(Arrays.asList(cardsArray));
@@ -81,12 +77,13 @@ public class TableuStack implements Stack<Card> {
 
         if (this.checkIsPopable(popCards)) {
             visibleCards.subList(i, visibleCards.size()).clear();
+            this.checkHiddenCards();
             return popCards;
         }
         return null;
     }
 
-    public boolean checkIsPopable(Card[] cardsArray) {
+    private boolean checkIsPopable(Card[] cardsArray) {
         for (int i = 1; i < cardsArray.length; i++) {
             if (cardsArray[i - 1].color() != cardsArray[i].color() || cardsArray[i - 1].suit() != cardsArray[i].suit())
                 return false;
@@ -94,11 +91,34 @@ public class TableuStack implements Stack<Card> {
         return true;
     }
 
-    public void checkHiddenCards() {
+    private void checkHiddenCards() {
         if (this.isEmpty()) {
             if (!hiddenCards.isEmpty()) {
                 visibleCards.add(hiddenCards.remove(hiddenCards.size() - 1));
             }
         }
+    }
+
+    private int getKing() {
+        for (int i = 0; i < visibleCards.size(); i++) {
+            if (visibleCards.get(i).rank() == 13)
+                return i;
+        }
+        return -1;
+    }
+
+    public Card[] getWinnerCards() {
+        int king = this.getKing();
+
+        if (king == -1)
+            return null;
+
+        Card[] cards = this.popArray(king);
+
+        if (cards != null && (cards[cards.length - 1].rank() == 1)) {
+            return cards;
+        }
+        this.pushArray(cards);
+        return null;
     }
 }

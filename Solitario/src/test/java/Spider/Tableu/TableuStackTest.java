@@ -204,4 +204,50 @@ public class TableuStackTest {
         assertNull(peek4);
         assertNull(pop4);
     }
+
+    @Test
+    public void verifyWinnerCards() {
+        // Arrange
+        Card c1 = new Card(Suit.DIAMONDS, 13, Color.RED);
+        Card c2 = new Card(Suit.DIAMONDS, 12, Color.RED);
+        Card c3 = new Card(Suit.DIAMONDS, 11, Color.RED);
+        Card c4 = new Card(Suit.DIAMONDS, 10, Color.RED);
+        Card c5 = new Card(Suit.DIAMONDS, 9, Color.RED);
+        Card c6 = new Card(Suit.DIAMONDS, 8, Color.RED);
+        Card c7 = new Card(Suit.DIAMONDS, 7, Color.RED);
+        Card c8 = new Card(Suit.DIAMONDS, 6, Color.RED);
+        Card c9 = new Card(Suit.DIAMONDS, 5, Color.RED);
+        Card c10 = new Card(Suit.DIAMONDS, 4, Color.RED);
+        Card c11 = new Card(Suit.DIAMONDS, 3, Color.RED);
+        Card c12 = new Card(Suit.DIAMONDS, 2, Color.RED);
+        Card c13 = new Card(Suit.DIAMONDS, 1, Color.RED);
+        Card[] initialArray = {c1};
+        Card[] pushArray = {
+                c2, c3, c4, c5, c6, c7, c8, c9
+        };
+        Spider.Tableu.TableuStack tableuStack = new TableuStack(initialArray);
+
+        // Act
+        Card peek1 = tableuStack.peek();
+        boolean pushArray1 = tableuStack.pushArray(pushArray);
+        Card peek2 = tableuStack.peek();
+        Card[] winner1 = tableuStack.getWinnerCards();
+        tableuStack.push(c10);
+        tableuStack.push(c11);
+        tableuStack.push(c12);
+        tableuStack.push(c13);
+        Card[] winner2 = tableuStack.getWinnerCards();
+        Card[] winnerSample = {
+                c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13
+        };
+        boolean empty1 = tableuStack.isEmpty();
+
+        // Assert
+        assertEquals(c1, peek1);
+        assertTrue(pushArray1);
+        assertEquals(c9, peek2);
+        assertNull(winner1);
+        assertEquals(winnerSample, winner2);
+        assertTrue(empty1);
+    }
 }
