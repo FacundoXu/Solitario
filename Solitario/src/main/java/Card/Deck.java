@@ -23,7 +23,6 @@ public class Deck {
 
         if (shuffle)
             Collections.shuffle(deck, new Random());
-
         return deck.toArray(new Card[0]);
     }
 }

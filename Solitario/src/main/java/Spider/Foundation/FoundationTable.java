@@ -4,7 +4,7 @@ import Card.Card;
 
 public class FoundationTable {
 
-    private final Foundation[] foundations = new Foundation[4];
+    private final Foundation[] foundations = new Foundation[8];
 
     public FoundationTable() {
         for (int i = 0; i < 8; i++) {
@@ -12,13 +12,27 @@ public class FoundationTable {
         }
     }
 
-    public void assignCards(int i, Card[] cardsArray) {
-        foundations[i].assignCards(cardsArray);
+    public boolean assignCards(Card[] cards) {
+        int i = this.getAvailableSpot();
+
+        if (i != -1) {
+            foundations[i].assignCards(cards);
+            return true;
+        }
+        return false;
     }
 
-    public boolean verify() {
+    private int getAvailableSpot() {
+        for (int i = 0; i < foundations.length; i++) {
+            if (foundations[i].isEmpty())
+                return i;
+        }
+        return -1;
+    }
+
+    public boolean gameWon() {
         for (Foundation foundation : foundations) {
-            if (!foundation.verify()) {
+            if (foundation.isEmpty()) {
                 return false;
             }
         }

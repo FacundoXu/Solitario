@@ -1,4 +1,4 @@
-package Spider.Tableu;
+package Spider.Tableau;
 
 import Card.Card;
 import Spider.Stock.Stock;
@@ -6,29 +6,29 @@ import Spider.Stock.Stock;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableuTable {
+public class TableauTable {
 
-    private final TableuStack[] stacks = new TableuStack[10];
+    private final TableauStack[] stacks = new TableauStack[10];
 
-    public TableuTable(Stock stock) {
+    public TableauTable(Stock stock) {
         for (int i = 0; i < 4; i++) {
             List<Card> leftCards = new LinkedList<>();
 
-            for (int j = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
                 leftCards.add(stock.drawCard());
             }
 
-            stacks[i] = new TableuStack(leftCards.toArray(new Card[0]));
+            stacks[i] = new TableauStack(leftCards.toArray(new Card[0]));
         }
 
         for (int i = 4; i < 10; i++) {
             List<Card> rightCards = new LinkedList<>();
 
-            for (int j = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 rightCards.add(stock.drawCard());
             }
 
-            stacks[i] = new TableuStack(rightCards.toArray(new Card[0]));
+            stacks[i] = new TableauStack(rightCards.toArray(new Card[0]));
         }
     }
 
@@ -53,8 +53,8 @@ public class TableuTable {
         return stacks[tableau].push(card);
     }
 
-    public boolean move(int origin, int card, int target) {
-        Card[] cardsArray = stacks[origin].popArray(card);
+    public boolean move(int origin, int i, int target) {
+        Card[] cardsArray = stacks[origin].popArray(i);
 
         if (!stacks[target].pushArray(cardsArray)) {
             stacks[origin].pushArray(cardsArray);

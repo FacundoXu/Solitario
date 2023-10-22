@@ -1,13 +1,11 @@
-package Spider.Tableu;
+package Spider.Tableau;
 
-import Card.Card;
-import Card.Color;
-import Card.Suit;
+import Card.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TableuStackTest {
+public class TableauStackTest {
 
     @Test
     public void oneCardMethods() {
@@ -15,42 +13,42 @@ public class TableuStackTest {
         // Arrange
         Card c0 = new Card(Suit.CLUBS, 8, Color.BLACK);
         Card[] initialArray = {c0};
-        Spider.Tableu.TableuStack tableuStack = new TableuStack(initialArray);
+        TableauStack tableauStack = new TableauStack(initialArray);
         Card c1 = new Card(Suit.DIAMONDS, 7, Color.RED);
         Card c2 = new Card(Suit.HEARTS, 6, Color.RED);
         Card c3 = new Card(Suit.CLUBS, 6, Color.BLACK);
         Card c4 = new Card(Suit.SPADES, 5, Color.BLACK);
 
         // Act
-        boolean empty0 = tableuStack.isEmpty();
+        boolean empty0 = tableauStack.isEmpty();
 
-        boolean push1 = tableuStack.push(c1);
-        Card peek1 = tableuStack.peek();
-        boolean empty1 = tableuStack.isEmpty();
+        boolean push1 = tableauStack.push(c1);
+        Card peek1 = tableauStack.peek();
+        boolean empty1 = tableauStack.isEmpty();
 
-        boolean push2 = tableuStack.push(c2);
-        Card peek2 = tableuStack.peek();
-        boolean empty2 = tableuStack.isEmpty();
+        boolean push2 = tableauStack.push(c2);
+        Card peek2 = tableauStack.peek();
+        boolean empty2 = tableauStack.isEmpty();
 
-        boolean push3 = tableuStack.push(c3);
-        Card peek3 = tableuStack.peek();
-        boolean empty3 = tableuStack.isEmpty();
+        boolean push3 = tableauStack.push(c3);
+        Card peek3 = tableauStack.peek();
+        boolean empty3 = tableauStack.isEmpty();
 
-        boolean push4 = tableuStack.push(c4);
-        Card peek4 = tableuStack.peek();
-        boolean empty4 = tableuStack.isEmpty();
+        boolean push4 = tableauStack.push(c4);
+        Card peek4 = tableauStack.peek();
+        boolean empty4 = tableauStack.isEmpty();
 
-        Card pop1 = tableuStack.pop();
-        Card popAndPeek1 = tableuStack.peek();
+        Card pop1 = tableauStack.pop();
+        Card popAndPeek1 = tableauStack.peek();
 
-        Card pop2 = tableuStack.pop();
-        Card popAndPeek2 = tableuStack.peek();
+        Card pop2 = tableauStack.pop();
+        Card popAndPeek2 = tableauStack.peek();
 
-        Card pop3 = tableuStack.pop();
-        Card pop4 = tableuStack.pop();
-        boolean empty5 = tableuStack.isEmpty();
+        Card pop3 = tableauStack.pop();
+        Card pop4 = tableauStack.pop();
+        boolean empty5 = tableauStack.isEmpty();
 
-        Card pop5 = tableuStack.pop();
+        Card pop5 = tableauStack.pop();
 
         // Assert
         assertFalse(empty0);
@@ -90,7 +88,7 @@ public class TableuStackTest {
         // Arrange
         Card c0 = new Card(Suit.CLUBS, 10, Color.BLACK);
         Card[] initialArray = {c0};
-        Spider.Tableu.TableuStack tableuStack = new TableuStack(initialArray);
+        TableauStack tableuStack = new TableauStack(initialArray);
 
         Card c1 = new Card(Suit.CLUBS, 9, Color.BLACK);
         Card c2 = new Card(Suit.CLUBS, 8, Color.BLACK);
@@ -100,11 +98,7 @@ public class TableuStackTest {
         Card sample3 = new Card(Suit.HEARTS, 5, Color.RED);
         Card sample4 = new Card(Suit.SPADES, 4, Color.BLACK);
         Card sample5 = new Card(Suit.HEARTS, 4, Color.RED);
-        Card[] sampleArray = {
-                (sample1),
-                (sample2),
-                (sample3),
-        };
+        Card[] sampleArray = {(sample1), (sample2), (sample3),};
 
         // Act
         boolean pushArray1 = tableuStack.pushArray(sampleArray);
@@ -174,24 +168,24 @@ public class TableuStackTest {
     }
 
     @Test
-    public void creatingTableu() {
+    public void creatingTableau() {
         // Arrange
         Card c1 = new Card(Suit.CLUBS, 10, Color.BLACK);
         Card c2 = new Card(Suit.CLUBS, 5, Color.BLACK);
         Card c3 = new Card(Suit.CLUBS, 35, Color.BLACK);
         Card[] initialArray = {c1, c2, c3};
-        Spider.Tableu.TableuStack tableuStack = new TableuStack(initialArray);
+        TableauStack tableauStack = new TableauStack(initialArray);
 
         // Act
-        boolean empty1 = tableuStack.isEmpty();
-        Card peek1 = tableuStack.peek();
-        Card pop1 = tableuStack.pop();
-        Card peek2 = tableuStack.peek();
-        Card pop2 = tableuStack.pop();
-        Card peek3 = tableuStack.peek();
-        Card pop3 = tableuStack.pop();
-        Card peek4 = tableuStack.peek();
-        Card pop4 = tableuStack.pop();
+        boolean empty1 = tableauStack.isEmpty();
+        Card peek1 = tableauStack.peek();
+        Card pop1 = tableauStack.pop();
+        Card peek2 = tableauStack.peek();
+        Card pop2 = tableauStack.pop();
+        Card peek3 = tableauStack.peek();
+        Card pop3 = tableauStack.pop();
+        Card peek4 = tableauStack.peek();
+        Card pop4 = tableauStack.pop();
 
         // Assert
         assertFalse(empty1);
@@ -222,10 +216,8 @@ public class TableuStackTest {
         Card c12 = new Card(Suit.DIAMONDS, 2, Color.RED);
         Card c13 = new Card(Suit.DIAMONDS, 1, Color.RED);
         Card[] initialArray = {c1};
-        Card[] pushArray = {
-                c2, c3, c4, c5, c6, c7, c8, c9
-        };
-        Spider.Tableu.TableuStack tableuStack = new TableuStack(initialArray);
+        Card[] pushArray = {c2, c3, c4, c5, c6, c7, c8, c9};
+        TableauStack tableuStack = new TableauStack(initialArray);
 
         // Act
         Card peek1 = tableuStack.peek();
@@ -237,9 +229,7 @@ public class TableuStackTest {
         tableuStack.push(c12);
         tableuStack.push(c13);
         Card[] winner2 = tableuStack.getWinnerCards();
-        Card[] winnerSample = {
-                c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13
-        };
+        Card[] winnerSample = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13};
         boolean empty1 = tableuStack.isEmpty();
 
         // Assert

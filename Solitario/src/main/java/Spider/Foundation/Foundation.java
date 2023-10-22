@@ -18,7 +18,7 @@ public class Foundation {
         cards.addAll(Arrays.asList(cardsArray));
     }
 
-    public boolean verify() {
-        return !cards.isEmpty();
+    public boolean isEmpty() {
+        return cards.isEmpty();
     }
 }

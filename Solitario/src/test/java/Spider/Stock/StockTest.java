@@ -1,8 +1,6 @@
 package Spider.Stock;
 
-import Card.Card;
-import Card.Suit;
-import Card.Color;
+import Card.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
