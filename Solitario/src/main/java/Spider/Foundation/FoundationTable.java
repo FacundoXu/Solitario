@@ -13,6 +13,10 @@ public class FoundationTable {
     }
 
     public boolean assignCards(Card[] cards) {
+        if (cards == null) {
+            return false;
+        }
+
         int i = this.getAvailableSpot();
 
         if (i != -1) {

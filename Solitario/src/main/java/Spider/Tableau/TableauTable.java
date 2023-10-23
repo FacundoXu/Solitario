@@ -63,7 +63,7 @@ public class TableauTable {
         return true;
     }
 
-    public Card[] verify() {
+    public Card[] verifyTable() {
         for (int i = 0; i < 10; i++) {
             Card[] cards = stacks[i].getWinnerCards();
 
@@ -72,5 +72,11 @@ public class TableauTable {
             }
         }
         return null;
+    }
+
+    public void assignStockCards(Stock stock) {
+        for (TableauStack tableauStack : stacks) {
+            tableauStack.push(stock.drawCard());
+        }
     }
 }
