@@ -169,6 +169,7 @@ public class TableauStackTest {
 
     @Test
     public void creatingTableau() {
+
         // Arrange
         Card c1 = new Card(Suit.CLUBS, 10, Color.BLACK);
         Card c2 = new Card(Suit.CLUBS, 5, Color.BLACK);
@@ -201,6 +202,7 @@ public class TableauStackTest {
 
     @Test
     public void verifyWinnerCards() {
+
         // Arrange
         Card c1 = new Card(Suit.DIAMONDS, 13, Color.RED);
         Card c2 = new Card(Suit.DIAMONDS, 12, Color.RED);
@@ -231,6 +233,8 @@ public class TableauStackTest {
         Card[] winner2 = tableuStack.getWinnerCards();
         Card[] winnerSample = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13};
         boolean empty1 = tableuStack.isEmpty();
+        Card c14 = new Card(Suit.DIAMONDS, 10, Color.RED);
+        boolean push1 = tableuStack.push(c14);
 
         // Assert
         assertEquals(c1, peek1);
@@ -239,5 +243,6 @@ public class TableauStackTest {
         assertNull(winner1);
         assertEquals(winnerSample, winner2);
         assertTrue(empty1);
+        assertTrue(push1);
     }
 }

@@ -151,12 +151,37 @@ public class FoundationTableTest {
 
         FoundationTable foundationTable1 = new FoundationTable();
         FoundationTable foundationTable2 = new FoundationTable();
+        FoundationTable foundationTable3 = new FoundationTable();
+
+        Card[] extraSpadeCards = {
+                new Card(Suit.SPADES, 13, Color.BLACK),
+                new Card(Suit.SPADES, 12, Color.BLACK),
+                new Card(Suit.SPADES, 11, Color.BLACK),
+                new Card(Suit.SPADES, 10, Color.BLACK),
+                new Card(Suit.SPADES, 9, Color.BLACK),
+                new Card(Suit.SPADES, 8, Color.BLACK),
+                new Card(Suit.SPADES, 7, Color.BLACK),
+                new Card(Suit.SPADES, 6, Color.BLACK),
+                new Card(Suit.SPADES, 5, Color.BLACK),
+                new Card(Suit.SPADES, 4, Color.BLACK),
+                new Card(Suit.SPADES, 3, Color.BLACK),
+                new Card(Suit.SPADES, 2, Color.BLACK),
+                new Card(Suit.SPADES, 1, Color.BLACK)
+        };
 
         // Act and assert
         for (Card[] array : cards) {
             assertTrue(foundationTable1.assignCards(array));
         }
+
+        for (int i = 0; i < 5; i++) {
+            assertTrue(foundationTable2.assignCards(cards[i]));
+        }
+
         assertTrue(foundationTable1.gameWon());
         assertFalse(foundationTable2.gameWon());
+        assertFalse(foundationTable3.gameWon());
+        assertFalse(foundationTable1.assignCards(extraSpadeCards));
+        assertFalse(foundationTable2.assignCards(null));
     }
 }

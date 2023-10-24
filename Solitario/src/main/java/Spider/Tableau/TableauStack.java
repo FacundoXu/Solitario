@@ -32,6 +32,20 @@ public class TableauStack implements Stack<Card> {
         return false;
     }
 
+    public void returnCard(Card card) {
+        if (hiddenCards.size() >= 4 && visibleCards.size() == 1) {
+            visibleCards.add(card);
+
+        } else {
+            hiddenCards.add(visibleCards.remove(0));
+            visibleCards.add(card);
+        }
+    }
+
+    public void pushStockCard(Card card) {
+        visibleCards.add(card);
+    }
+
     @Override
     public Card pop() {
         if (this.isEmpty())
@@ -63,6 +77,10 @@ public class TableauStack implements Stack<Card> {
             return true;
         }
         return false;
+    }
+
+    public void returnArray(Card[] cards) {
+        visibleCards.addAll(Arrays.asList(cards));
     }
 
     public Card[] popArray(int i) {
@@ -103,10 +121,10 @@ public class TableauStack implements Stack<Card> {
 
         Card[] cards = this.popArray(king);
 
-        if (cards != null && (cards[cards.length - 1].rank() == 1)) {
+        if (cards != null && (cards[cards.length - 1].rank() == 1))
             return cards;
-        }
-        this.pushArray(cards);
+
+        this.returnArray(cards);
         return null;
     }
 

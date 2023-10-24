@@ -23,11 +23,13 @@ public class StockTest {
         Card draw2 = stock.drawCard();
         Card draw3 = stock.drawCard();
         Card draw4 = stock.drawCard();
+        Card draw5 = stock.drawCard();
 
         // Assert
         assertEquals(c4, draw1);
         assertEquals(c3, draw2);
         assertEquals(c2, draw3);
         assertEquals(c1, draw4);
+        assertNull(draw5);
     }
 }

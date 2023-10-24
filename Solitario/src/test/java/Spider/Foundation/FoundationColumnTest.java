@@ -5,10 +5,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class FoundationTest {
+public class FoundationColumnTest {
 
     @Test
     public void verifying() {
+
         // Arrange
         Card c1 = new Card(Suit.DIAMONDS, 13, Color.RED);
         Card c2 = new Card(Suit.DIAMONDS, 12, Color.RED);
@@ -24,8 +25,8 @@ public class FoundationTest {
         Card c12 = new Card(Suit.DIAMONDS, 2, Color.RED);
         Card c13 = new Card(Suit.DIAMONDS, 1, Color.RED);
         Card[] cards = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13};
-        Foundation foundation1 = new Foundation();
-        Foundation foundation2 = new Foundation();
+        FoundationColumn foundation1 = new FoundationColumn();
+        FoundationColumn foundation2 = new FoundationColumn();
         foundation1.assignCards(cards);
 
         // Act

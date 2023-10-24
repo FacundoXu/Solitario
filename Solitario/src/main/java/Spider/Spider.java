@@ -30,29 +30,33 @@ public class Spider {
         foundationTable = new FoundationTable();
         stock = new Stock(cards);
         tableauTable = new TableauTable(stock);
-        foundationTable.assignCards(tableauTable.verifyTable());
     }
 
     public void drawStockCards() {
         tableauTable.assignStockCards(stock);
-        foundationTable.assignCards(tableauTable.verifyTable());
     }
 
     public boolean moveTopCardToTableau(int origin, int target) {
         Card card = tableauTable.pickUp(origin);
 
         if (!tableauTable.insert(target, card)) {
-            tableauTable.insert(origin, card);
+            tableauTable.returnCard(origin, card);
             return false;
         }
-        foundationTable.assignCards(tableauTable.verifyTable());
         return true;
     }
 
     public boolean moveTableauToTableau(int origin, int i, int target) {
-        boolean result = tableauTable.move(origin, i, target);
-        foundationTable.assignCards(tableauTable.verifyTable());
-        return result;
+        return tableauTable.move(origin, i, target);
+    }
+
+    public void addWonColumnsToFoundations() {
+        for (int i = 0; i < 10; i++) {
+            Card[] wonColumn = tableauTable.verifyTable();
+
+            if (wonColumn != null)
+                foundationTable.assignCards(wonColumn);
+        }
     }
 
     public boolean verifyVictory() {

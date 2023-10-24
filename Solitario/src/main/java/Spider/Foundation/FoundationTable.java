@@ -4,18 +4,17 @@ import Card.Card;
 
 public class FoundationTable {
 
-    private final Foundation[] foundations = new Foundation[8];
+    private final FoundationColumn[] foundations = new FoundationColumn[8];
 
     public FoundationTable() {
         for (int i = 0; i < 8; i++) {
-            foundations[i] = new Foundation();
+            foundations[i] = new FoundationColumn();
         }
     }
 
     public boolean assignCards(Card[] cards) {
-        if (cards == null) {
+        if (cards == null)
             return false;
-        }
 
         int i = this.getAvailableSpot();
 
@@ -35,10 +34,9 @@ public class FoundationTable {
     }
 
     public boolean gameWon() {
-        for (Foundation foundation : foundations) {
-            if (foundation.isEmpty()) {
+        for (FoundationColumn foundation : foundations) {
+            if (foundation.isEmpty())
                 return false;
-            }
         }
         return true;
     }

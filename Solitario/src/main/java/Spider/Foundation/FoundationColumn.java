@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Foundation {
+public class FoundationColumn {
 
     private final List<Card> cards;
 
-    public Foundation() {
+    public FoundationColumn() {
         cards = new LinkedList<>();
     }
 

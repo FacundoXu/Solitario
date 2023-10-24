@@ -17,7 +17,6 @@ public class TableauTable {
             for (int j = 0; j < 6; j++) {
                 leftCards.add(stock.drawCard());
             }
-
             stacks[i] = new TableauStack(leftCards.toArray(new Card[0]));
         }
 
@@ -27,7 +26,6 @@ public class TableauTable {
             for (int j = 0; j < 5; j++) {
                 rightCards.add(stock.drawCard());
             }
-
             stacks[i] = new TableauStack(rightCards.toArray(new Card[0]));
         }
     }
@@ -53,11 +51,22 @@ public class TableauTable {
         return stacks[tableau].push(card);
     }
 
+    public void returnCard(int tableau, Card card) {
+        stacks[tableau].returnCard(card);
+    }
+
+    public void returnArray(int tableau, Card[] cards) {
+        stacks[tableau].returnArray(cards);
+    }
+
     public boolean move(int origin, int i, int target) {
         Card[] cardsArray = stacks[origin].popArray(i);
 
+        if (cardsArray == null)
+            return false;
+
         if (!stacks[target].pushArray(cardsArray)) {
-            stacks[origin].pushArray(cardsArray);
+            stacks[origin].returnArray(cardsArray);
             return false;
         }
         return true;
@@ -67,16 +76,15 @@ public class TableauTable {
         for (int i = 0; i < 10; i++) {
             Card[] cards = stacks[i].getWinnerCards();
 
-            if (cards != null) {
+            if (cards != null)
                 return cards;
-            }
         }
         return null;
     }
 
     public void assignStockCards(Stock stock) {
         for (TableauStack tableauStack : stacks) {
-            tableauStack.push(stock.drawCard());
+            tableauStack.pushStockCard(stock.drawCard());
         }
     }
 }
