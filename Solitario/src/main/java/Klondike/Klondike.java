@@ -6,9 +6,10 @@ import Klondike.Foundation.FoundationTable;
 import Klondike.Stock.StockTable;
 import Klondike.Tableu.TableuTable;
 
+import java.io.*;
 import java.util.Arrays;
 
-public class Klondike {
+public class Klondike implements Serializable {
 
     private FoundationTable foundationTable;
     private StockTable stockTable;
@@ -78,5 +79,28 @@ public class Klondike {
 
     public boolean verifyVictory() {
         return foundationTable.verify();
+    }
+
+    public void saveGame(){
+        File path = new File("saves/klondike.txt");
+        try {
+            ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
+            o.writeObject(this);
+        } catch (IOException e) {
+            System.out.print("Unable to save your game :(\n");
+        }
+    }
+
+    public void loadGame(){
+        File path = new File("saves/klondike.txt");
+        try {
+            ObjectInputStream o = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path)));
+            Klondike k = (Klondike) o.readObject();
+            this.foundationTable = k.foundationTable;
+            this.stockTable = k.stockTable;
+            this.tableuTable = k.tableuTable;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.print("Unable to load your game :(\n");
+        }
     }
 }

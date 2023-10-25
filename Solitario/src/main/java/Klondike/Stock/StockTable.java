@@ -2,7 +2,9 @@ package Klondike.Stock;
 
 import Card.Card;
 
-public class StockTable {
+import java.io.Serializable;
+
+public class StockTable implements Serializable {
 
     private int talon = 0;
     private int waste = 1;

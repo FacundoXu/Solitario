@@ -3,12 +3,13 @@ package Klondike.Tableu;
 import Card.Card;
 import Stack.Stack;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableuStack implements Stack<Card> {
+public class TableuStack implements Stack<Card>, Serializable {
 
     private int size;
     private int faceUpIdx;

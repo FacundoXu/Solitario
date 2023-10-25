@@ -3,12 +3,13 @@ package Klondike.Stock;
 import Card.Card;
 import Stack.Stack;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class StockStack implements Stack<Card> {
+public class StockStack implements Stack<Card>, Serializable {
 
     private final List<Card> cards;
     private int size = 0;

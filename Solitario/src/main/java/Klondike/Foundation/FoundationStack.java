@@ -1,5 +1,6 @@
 package Klondike.Foundation;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import Card.Card;
 import Card.Suit;
 import Stack.Stack;
 
-public class FoundationStack implements Stack<Card> {
+public class FoundationStack implements Stack<Card>, Serializable {
 
     private int size;
     private final List<Card> cards;

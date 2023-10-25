@@ -2,10 +2,11 @@ package Klondike.Tableu;
 
 import Card.Card;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class TableuTable {
+public class TableuTable implements Serializable {
 
     private final TableuStack[] stacks = new TableuStack[7];
 
