@@ -2,11 +2,12 @@ package Spider.Stock;
 
 import Card.Card;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Stock {
+public class Stock implements Serializable {
 
     private final List<Card> cards;
     private int size;

@@ -3,11 +3,12 @@ package Spider.Tableau;
 import Card.Card;
 import Stack.Stack;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableauStack implements Stack<Card> {
+public class TableauStack implements Stack<Card>, Serializable {
 
     private final List<Card> visibleCards;
     private final List<Card> hiddenCards;

@@ -5,7 +5,9 @@ import Spider.Foundation.FoundationTable;
 import Spider.Stock.Stock;
 import Spider.Tableau.TableauTable;
 
-public class Spider {
+import java.io.*;
+
+public class Spider implements  Serializable{
 
     private FoundationTable foundationTable;
     private Stock stock;
@@ -62,4 +64,30 @@ public class Spider {
     public boolean verifyVictory() {
         return foundationTable.gameWon();
     }
+
+    public void saveGame(){
+        File path = new File("saves/spider.txt");
+        try {
+            ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
+            o.writeObject(this);
+            o.close();
+        } catch (IOException e) {
+            System.out.print("Unable to save your game :(\n");
+        }
+    }
+
+    public void loadGame(){
+        File path = new File("saves/spider.txt");
+        try {
+            ObjectInputStream o = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path)));
+            Spider s = (Spider) o.readObject();
+            this.foundationTable = s.foundationTable;
+            this.stock = s.stock;
+            this.tableauTable = s.tableauTable;
+            o.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.print("Unable to load your game :(\n");
+        }
+    }
+
 }

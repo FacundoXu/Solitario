@@ -3,10 +3,11 @@ package Spider.Tableau;
 import Card.Card;
 import Spider.Stock.Stock;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableauTable {
+public class TableauTable implements Serializable {
 
     private final TableauStack[] stacks = new TableauStack[10];
 

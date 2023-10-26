@@ -2,11 +2,12 @@ package Spider.Foundation;
 
 import Card.Card;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FoundationColumn {
+public class FoundationColumn implements Serializable {
 
     private final List<Card> cards;
 

@@ -121,6 +121,9 @@ public class KlondikeTest {
         assertTrue(k.moveTableuToTableu(4, 6, 1));
         k.stockNextCard();
         k.stockNextCard();
+        k.saveGame();
+        k.stockNextCard();
+        k.loadGame();
         k.stockNextCard();
         k.stockNextCard();
         assertTrue(k.moveStockToTableu(5));

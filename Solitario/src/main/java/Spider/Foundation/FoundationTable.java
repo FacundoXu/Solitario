@@ -2,7 +2,9 @@ package Spider.Foundation;
 
 import Card.Card;
 
-public class FoundationTable {
+import java.io.Serializable;
+
+public class FoundationTable implements Serializable {
 
     private final FoundationColumn[] foundations = new FoundationColumn[8];
 

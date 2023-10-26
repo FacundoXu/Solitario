@@ -86,6 +86,7 @@ public class Klondike implements Serializable {
         try {
             ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
             o.writeObject(this);
+            o.close();
         } catch (IOException e) {
             System.out.print("Unable to save your game :(\n");
         }
@@ -99,6 +100,7 @@ public class Klondike implements Serializable {
             this.foundationTable = k.foundationTable;
             this.stockTable = k.stockTable;
             this.tableuTable = k.tableuTable;
+            o.close();
         } catch (IOException | ClassNotFoundException e) {
             System.out.print("Unable to load your game :(\n");
         }
