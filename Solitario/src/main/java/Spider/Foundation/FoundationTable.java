@@ -6,21 +6,28 @@ import java.io.Serializable;
 
 public class FoundationTable implements Serializable {
 
-    private final FoundationColumn[] foundations = new FoundationColumn[8];
+    // Constants
+    public static final int MAX_NUM_FOUNDATIONS = 8;
+    public static final int NOT_FOUND = -1;
 
+    // Attributes
+    private final FoundationColumn[] foundations = new FoundationColumn[MAX_NUM_FOUNDATIONS];
+
+    // Constructor
     public FoundationTable() {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < MAX_NUM_FOUNDATIONS; i++) {
             foundations[i] = new FoundationColumn();
         }
     }
 
+    // Methods
     public boolean assignCards(Card[] cards) {
         if (cards == null)
             return false;
 
         int i = this.getAvailableSpot();
 
-        if (i != -1) {
+        if (i != NOT_FOUND) {
             foundations[i].assignCards(cards);
             return true;
         }
@@ -32,7 +39,7 @@ public class FoundationTable implements Serializable {
             if (foundations[i].isEmpty())
                 return i;
         }
-        return -1;
+        return NOT_FOUND;
     }
 
     public boolean gameWon() {

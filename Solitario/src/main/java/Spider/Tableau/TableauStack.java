@@ -10,9 +10,14 @@ import java.util.List;
 
 public class TableauStack implements Stack<Card>, Serializable {
 
+    // Constants
+    public static final int NOT_FOUND = -1;
+
+    // Attributes
     private final List<Card> visibleCards;
     private final List<Card> hiddenCards;
 
+    // Constructor
     public TableauStack(Card[] cardsArray) {
         hiddenCards = new LinkedList<>(Arrays.asList(cardsArray));
         visibleCards = new LinkedList<>();
@@ -20,6 +25,7 @@ public class TableauStack implements Stack<Card>, Serializable {
         visibleCards.add(lastHiddenCard);
     }
 
+    // Methods
     @Override
     public boolean push(Card card) {
         if (this.isEmpty()) {
@@ -117,7 +123,7 @@ public class TableauStack implements Stack<Card>, Serializable {
     public Card[] getWinnerCards() {
         int king = this.getKing();
 
-        if (king == -1)
+        if (king == NOT_FOUND)
             return null;
 
         Card[] cards = this.popArray(king);
@@ -134,6 +140,6 @@ public class TableauStack implements Stack<Card>, Serializable {
             if (visibleCards.get(i).rank() == 13)
                 return i;
         }
-        return -1;
+        return NOT_FOUND;
     }
 }

@@ -6,16 +6,22 @@ import java.io.Serializable;
 
 public class StockTable implements Serializable {
 
+    // Constants
+    public static final int MAX_NUM_STOCKS = 2;
+
+    // Attributes
     private int talon = 0;
     private int waste = 1;
     private int passes = 1;
-    private final StockStack[] stacks = new StockStack[2];
+    private final StockStack[] stacks = new StockStack[MAX_NUM_STOCKS];
 
+    // Constructor
     public StockTable(Card[] cards) {
         stacks[talon] = new StockStack(cards);
         stacks[waste] = new StockStack();
     }
 
+    // Methods
     public Card nextCard() {
         if (stacks[talon].isEmpty()) {
             if (passes < 3)

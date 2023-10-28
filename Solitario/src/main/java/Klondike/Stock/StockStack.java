@@ -11,9 +11,14 @@ import java.util.List;
 
 public class StockStack implements Stack<Card>, Serializable {
 
+    // Constants
+    public static final int EMPTY = 0;
+
+    // Attributes
     private final List<Card> cards;
     private int size = 0;
 
+    // Constructor
     public StockStack(Card[] cardsArray) {
         cards = new ArrayList<>(Arrays.asList(cardsArray));
         size = cards.size();
@@ -23,6 +28,7 @@ public class StockStack implements Stack<Card>, Serializable {
         cards = new ArrayList<>();
     }
 
+    // Methods
     @Override
     public boolean push(Card card) {
         cards.add(card);
@@ -49,7 +55,7 @@ public class StockStack implements Stack<Card>, Serializable {
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return size == EMPTY;
     }
 
     public void reverse() {

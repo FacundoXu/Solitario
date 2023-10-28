@@ -9,8 +9,13 @@ import java.util.List;
 
 public class TableauTable implements Serializable {
 
-    private final TableauStack[] stacks = new TableauStack[10];
+    // Constants
+    public static final int MAX_NUM_TABLEAUS = 10;
 
+    // Attributes
+    private final TableauStack[] stacks = new TableauStack[MAX_NUM_TABLEAUS];
+
+    // Constructor
     public TableauTable(Stock stock) {
         for (int i = 0; i < 4; i++) {
             List<Card> leftCards = new LinkedList<>();
@@ -31,6 +36,7 @@ public class TableauTable implements Serializable {
         }
     }
 
+    // Methods
     public Card pickUp(int tableau) {
         return stacks[tableau].pop();
     }
@@ -40,7 +46,7 @@ public class TableauTable implements Serializable {
     }
 
     public Card[] peek() {
-        Card[] topCards = new Card[10];
+        Card[] topCards = new Card[MAX_NUM_TABLEAUS];
 
         for (int i = 0; i < 10; i++) {
             topCards[i] = this.peek(i);
@@ -74,7 +80,7 @@ public class TableauTable implements Serializable {
     }
 
     public Card[] verifyTable() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < MAX_NUM_TABLEAUS; i++) {
             Card[] cards = stacks[i].getWinnerCards();
 
             if (cards != null)

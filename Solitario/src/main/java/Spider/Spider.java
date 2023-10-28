@@ -9,10 +9,12 @@ import java.io.*;
 
 public class Spider implements  Serializable{
 
+    // Attributes
     private FoundationTable foundationTable;
     private Stock stock;
     private TableauTable tableauTable;
 
+    // Constructor
     public Spider(Card[] cards) {
         initializeGame(cards);
     }
@@ -28,6 +30,7 @@ public class Spider implements  Serializable{
         initializeGame(combinedDeck);
     }
 
+    // Methods
     private void initializeGame(Card[] cards) {
         foundationTable = new FoundationTable();
         stock = new Stock(cards);

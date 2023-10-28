@@ -11,20 +11,27 @@ import java.util.List;
 
 public class TableuStack implements Stack<Card>, Serializable {
 
+    // Constants
+    public static final int KING = 13;
+    public static final int EMPTY = 0;
+
+    // Attributes
     private int size;
     private int faceUpIdx;
     private final List<Card> cards;
 
+    // Constructor
     public TableuStack(Card[] cardArray) {
         cards = new LinkedList<>(Arrays.asList(cardArray));
         size = cards.size();
         faceUpIdx = cards.size() - 1;
     }
 
+    // Methods
     @Override
     public boolean push(Card card) {
         if (this.isEmpty()) {
-            if (card.rank() == 13) {
+            if (card.rank() == KING) {
                 cards.add(card);
                 size++;
                 return true;
@@ -63,7 +70,7 @@ public class TableuStack implements Stack<Card>, Serializable {
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return size == EMPTY;
     }
 
     public void returnCard(Card c) {
@@ -101,7 +108,7 @@ public class TableuStack implements Stack<Card>, Serializable {
         Card bottomCard = l.get(0);
 
         if (this.isEmpty()) {
-            if (bottomCard.rank() == 13) {
+            if (bottomCard.rank() == KING) {
                 cards.addAll(l);
                 size = cards.size();
                 return true;

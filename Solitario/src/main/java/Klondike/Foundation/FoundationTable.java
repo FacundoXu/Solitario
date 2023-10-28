@@ -6,14 +6,20 @@ import java.io.Serializable;
 
 public class FoundationTable implements Serializable {
 
-    private final FoundationStack[] stacks = new FoundationStack[4];
+    // Constants
+    public static final int MAX_NUM_FOUNDATIONS = 4;
 
+    // Attributes
+    private final FoundationStack[] stacks = new FoundationStack[MAX_NUM_FOUNDATIONS];
+
+    // Constructor
     public FoundationTable() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < MAX_NUM_FOUNDATIONS; i++) {
             stacks[i] = new FoundationStack();
         }
     }
 
+    // Methods
     public boolean insert(int i, Card c) {
         return stacks[i].push(c);
     }

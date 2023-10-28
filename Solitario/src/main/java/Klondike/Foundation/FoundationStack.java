@@ -10,20 +10,28 @@ import Stack.Stack;
 
 public class FoundationStack implements Stack<Card>, Serializable {
 
+    // Constants
+    public static final int ACE = 1;
+    public static final int KING = 13;
+    public static final int EMPTY = 0;
+
+    // Attributes
     private int size;
     private final List<Card> cards;
     private Suit suit;
 
+    // Constructor
     public FoundationStack() {
         size = 0;
         cards = new LinkedList<>();
         suit = null;
     }
 
+    // Methods
     @Override
     public boolean push(Card card) {
         if (this.isEmpty()) {
-            if (card.rank() != 1)
+            if (card.rank() != ACE)
                 return false;
             suit = card.suit();
 
@@ -42,7 +50,7 @@ public class FoundationStack implements Stack<Card>, Serializable {
 
         size--;
 
-        if (size == 0)
+        if (size == EMPTY)
             suit = null;
         return cards.remove(size);
     }
@@ -56,10 +64,10 @@ public class FoundationStack implements Stack<Card>, Serializable {
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return size == EMPTY;
     }
 
     public boolean verify() {
-        return !this.isEmpty() && this.peek().rank() == 13;
+        return !this.isEmpty() && this.peek().rank() == KING;
     }
 }

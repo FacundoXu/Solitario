@@ -9,12 +9,15 @@ import java.util.List;
 
 public class FoundationColumn implements Serializable {
 
+    // Attributes
     private final List<Card> cards;
 
+    // Constructor
     public FoundationColumn() {
         cards = new LinkedList<>();
     }
 
+    // Methods
     public void assignCards(Card[] cardsArray) {
         cards.addAll(Arrays.asList(cardsArray));
     }
