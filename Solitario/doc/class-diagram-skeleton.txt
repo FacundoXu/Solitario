@@ -1,25 +1,27 @@
 @startuml
 
-skin rose
+hide circle
+
+skinparam monochrome true
+
+skinparam classAttributeIconSize 0
+
+skinparam roundcorner 0
 
 title Solitaire - Class Diagram
 
-class Klondike.Klondike {
--ft: FoundationTable
--st: StockTable
--tt: TableuTable
+class Klondike {
 +initializeGame(cards: Card[])
 +stockNextCard(): Card
-+moveStockTableu(tableu: Integer): Boolean
++moveStockTableau(tableau: Integer): Boolean
 +moveStockToFoundation(foundation: Integer): Boolean
-+moveTableuFoundation(tableu: Integer, foundation: Integer): Boolean
-+moveFoundationToTableu(foundation: Integer, tableu: Integer): Boolean
-+moveTableuToTableu(originCardIdx: Integer, originTableu: Integer, destTableu: Integer): Boolean
++moveTableauFoundation(tableau: Integer, foundation: Integer): Boolean
++moveFoundationToTableau(foundation: Integer, tableau: Integer): Boolean
++moveTableauToTableau(originCardIdx: Integer, originTableau: Integer, destTableau: Integer): Boolean
 +verifyVictory(): Boolean
 }
 
 class FoundationTable {
--stacks: FoundationStack[]
 +insert(i: Integer, c: Card): Boolean
 +get(i: Integer): Card
 +verify(): Boolean
@@ -27,7 +29,7 @@ class FoundationTable {
 
 class FoundationStack {
 -size: Integer
--cards: List<Card>
+-cards: Card[]
 -suit: Suit
 }
 
@@ -35,7 +37,6 @@ class StockTable {
 -talon: Integer
 -waste: Integer
 -passes: Integer
--stacks: StockStack[]
 +nextCard(): Card
 +getCard(): Card
 +peek(): Card
@@ -45,28 +46,34 @@ class StockTable {
 }
 
 class StockStack {
--cards: List<Card>
+-cards: Card[]
 -size: Integer
 +returnArray()
 }
 
-class TableuTable {
--stacks: TableuStack[]
+class TableauTable {
 +pickUp(StackIdx: Integer): Card
 +peek(StackIdx: Integer): Card
-+insert(tableu: Integer, c: Card): Boolean
-+returnCard(tableu: Integer, c: Card)
++insert(tableau: Integer, c: Card): Boolean
++returnCard(tableau: Integer, c: Card)
 +move(originCardIdx: Integer, originStack: Integer, destStack: Integer): Boolean
 }
 
-class TableuStack {
+class TableauStack {
 -size: Integer
 -faceUpIdx: Integer
--cards: List<Cards>
+-cards: Card[]
 +returnCard(c: Card)
-+returnArray(l: List<Card>)
-+popArray(cardIdx: Integer): List<Card>
++returnArray(l: Card[])
++popArray(cardIdx: Integer): Card[]
 +pushArray(l: List<Card>): Boolean
+}
+
+interface Stack <<interface>> {
++push(element: E): Boolean
++pop(): E
++peek(): E
++isEmpty(): Boolean
 }
 
 class Deck {
@@ -79,24 +86,29 @@ class Card <<record>> {
 +color: Color
 }
 
-interface Stack <<interface>> {
-+push(element: E): Boolean
-+pop(): E
-+peek(): E
-+isEmpty(): Boolean
+enum Suit <<enum>> {
+  HEARTS
+  DIAMONDS
+  CLUBS
+  SPADES
 }
 
-Stack <|.-- FoundationStack: implements
-Stack <|.-- StockStack: implements
-Stack <|.-- TableuStack: implements
+enum Color <<enum>> {
+  RED
+  BLACK
+}
 
-FoundationTable "1" .--> "4" FoundationStack: foundations
-StockTable "1" .--> "1" StockStack: stock
-TableuTable "1" .--> "7" TableuStack: tableus
+Stack <|.- FoundationStack: implements
+Stack <|.- StockStack: implements
+Stack <|.- TableauStack: implements
 
-Klondike.Klondike "1" .--> "1" Deck
-Klondike.Klondike "1" .--> "1" FoundationTable: foundations
-Klondike.Klondike "1" .--> "1" StockTable: stock
-Klondike.Klondike "1" .--> "1" TableuTable: tableus
+FoundationTable "1" *--> "4" FoundationStack: foundations
+StockTable "1" *--> "1" StockStack: stock
+TableauTable "1" *--> "7" TableauStack: tableaus
+
+Klondike "1" .-> "1" Deck: deck
+Klondike "1" *--> "1" FoundationTable: foundationTable
+Klondike "1" *--> "1" StockTable: stockTable
+Klondike "1" *--> "1" TableauTable: tableauTable
 
 @enduml
