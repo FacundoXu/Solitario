@@ -1,8 +1,6 @@
 package Klondike.Foundation;
 
-import Card.Card;
-import Card.Color;
-import Card.Suit;
+import Card.*;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -14,8 +12,9 @@ public class FoundationStackTest {
 
     @Test
     public void oneCard() {
+
         // Arrange
-        FoundationStack s = new FoundationStack();
+        FoundationStack foundationStack = new FoundationStack();
         Card c1 = new Card(Suit.DIAMONDS, 1, Color.RED);
         boolean exp_empty1 = true;
         boolean exp_empty2 = false;
@@ -23,15 +22,15 @@ public class FoundationStackTest {
         boolean exp_push1 = true;
 
         // Act
-        boolean empty1 = s.isEmpty();
-        Card peek1 = s.peek();
-        boolean push1 = s.push(c1);
-        boolean empty2 = s.isEmpty();
-        Card peek2 = s.peek();
-        Card pop1 = s.pop();
-        boolean empty3 = s.isEmpty();
-        Card peek3 = s.peek();
-        Card pop2 = s.pop();
+        boolean empty1 = foundationStack.isEmpty();
+        Card peek1 = foundationStack.peek();
+        boolean push1 = foundationStack.push(c1);
+        boolean empty2 = foundationStack.isEmpty();
+        Card peek2 = foundationStack.peek();
+        Card pop1 = foundationStack.pop();
+        boolean empty3 = foundationStack.isEmpty();
+        Card peek3 = foundationStack.peek();
+        Card pop2 = foundationStack.pop();
 
         // Assert
         assertEquals(exp_empty1, empty1);
@@ -48,20 +47,21 @@ public class FoundationStackTest {
 
     @Test
     public void invalidCard() {
-        //Arrange
-        FoundationStack s = new FoundationStack();
+
+        // Arrange
+        FoundationStack foundationStack = new FoundationStack();
         Card c1 = new Card(Suit.DIAMONDS, 2, Color.RED);
         boolean exp_empty1 = true;
         boolean exp_push1 = false;
         boolean exp_empty2 = true;
 
         // Act
-        boolean empty1 = s.isEmpty();
-        Card peek1 = s.peek();
-        boolean push1 = s.push(c1);
-        boolean empty2 = s.isEmpty();
-        Card peek2 = s.peek();
-        Card pop1 = s.pop();
+        boolean empty1 = foundationStack.isEmpty();
+        Card peek1 = foundationStack.peek();
+        boolean push1 = foundationStack.push(c1);
+        boolean empty2 = foundationStack.isEmpty();
+        Card peek2 = foundationStack.peek();
+        Card pop1 = foundationStack.pop();
 
         // Assert
         assertEquals(exp_empty1, empty1);
@@ -74,8 +74,9 @@ public class FoundationStackTest {
 
     @Test
     public void multipleCards() {
+
         // Arrange
-        FoundationStack s = new FoundationStack();
+        FoundationStack foundationStack = new FoundationStack();
         Card oneSpades = new Card(Suit.SPADES, 1, Color.BLACK);
         Card twoSpades = new Card(Suit.SPADES, 2, Color.BLACK);
         Card threeSpades = new Card(Suit.SPADES, 3, Color.BLACK);
@@ -83,18 +84,18 @@ public class FoundationStackTest {
         Card threeClubs = new Card(Suit.CLUBS, 3, Color.BLACK);
 
         // Act
-        boolean push1 = s.push(oneSpades);
-        boolean push2 = s.push(twoSpades);
-        boolean push3 = s.push(threeClubs);
-        Card pop1 = s.pop();
-        boolean push4 = s.push(twoSpades);
-        boolean push5 = s.push(threeSpades);
-        boolean push6 = s.push(fourSpades);
-        Card pop2 = s.pop();
-        Card pop3 = s.pop();
-        Card pop4 = s.pop();
-        Card pop5 = s.pop();
-        Card pop6 = s.pop();
+        boolean push1 = foundationStack.push(oneSpades);
+        boolean push2 = foundationStack.push(twoSpades);
+        boolean push3 = foundationStack.push(threeClubs);
+        Card pop1 = foundationStack.pop();
+        boolean push4 = foundationStack.push(twoSpades);
+        boolean push5 = foundationStack.push(threeSpades);
+        boolean push6 = foundationStack.push(fourSpades);
+        Card pop2 = foundationStack.pop();
+        Card pop3 = foundationStack.pop();
+        Card pop4 = foundationStack.pop();
+        Card pop5 = foundationStack.pop();
+        Card pop6 = foundationStack.pop();
 
         // Assert
         assertTrue(push1);
@@ -114,8 +115,9 @@ public class FoundationStackTest {
 
     @Test
     public void changeSuits() {
+
         // Arrange
-        FoundationStack s = new FoundationStack();
+        FoundationStack foundationStack = new FoundationStack();
         Card oneHearts = new Card(Suit.HEARTS, 1, Color.RED);
         Card twoHearts = new Card(Suit.HEARTS, 2, Color.RED);
         Card threeHearts = new Card(Suit.HEARTS, 3, Color.RED);
@@ -124,19 +126,19 @@ public class FoundationStackTest {
         Card threeClubs = new Card(Suit.CLUBS, 3, Color.BLACK);
 
         // Act
-        s.push(oneHearts);
-        s.push(twoHearts);
-        s.push(threeHearts);
-        s.pop();
-        s.pop();
-        s.pop();
-        boolean push1 = s.push(oneClubs);
-        boolean push2 = s.push(twoHearts);
-        boolean push3 = s.push(twoClubs);
-        boolean push4 = s.push(threeClubs);
-        Card pop1 = s.pop();
-        Card pop2 = s.pop();
-        Card pop3 = s.pop();
+        foundationStack.push(oneHearts);
+        foundationStack.push(twoHearts);
+        foundationStack.push(threeHearts);
+        foundationStack.pop();
+        foundationStack.pop();
+        foundationStack.pop();
+        boolean push1 = foundationStack.push(oneClubs);
+        boolean push2 = foundationStack.push(twoHearts);
+        boolean push3 = foundationStack.push(twoClubs);
+        boolean push4 = foundationStack.push(threeClubs);
+        Card pop1 = foundationStack.pop();
+        Card pop2 = foundationStack.pop();
+        Card pop3 = foundationStack.pop();
 
         // Assert
         assertTrue(push1);
@@ -150,8 +152,9 @@ public class FoundationStackTest {
 
     @Test
     public void verify() {
+
         // Arrange
-        FoundationStack s = new FoundationStack();
+        FoundationStack foundationStack = new FoundationStack();
         List<Card> fullDiamonds = new LinkedList<>();
         List<Card> fullSpades = new LinkedList<>();
 
@@ -161,21 +164,27 @@ public class FoundationStackTest {
         }
 
         // Act
-        boolean verify1 = s.verify();
-        for (Card c : fullDiamonds) {
-            s.push(c);
+        boolean verify1 = foundationStack.verify();
+
+        for (Card card : fullDiamonds) {
+            foundationStack.push(card);
         }
-        boolean verify2 = s.verify();
-        s.pop();
-        boolean verify3 = s.verify();
+
+        boolean verify2 = foundationStack.verify();
+        foundationStack.pop();
+        boolean verify3 = foundationStack.verify();
+
         for (int i = 0; i < 13; i++) {
-            s.pop();
+            foundationStack.pop();
         }
-        boolean verify4 = s.verify();
-        for (Card c : fullSpades) {
-            s.push(c);
+
+        boolean verify4 = foundationStack.verify();
+
+        for (Card card : fullSpades) {
+            foundationStack.push(card);
         }
-        boolean verify5 = s.verify();
+
+        boolean verify5 = foundationStack.verify();
 
         // Assert
         assertFalse(verify1);

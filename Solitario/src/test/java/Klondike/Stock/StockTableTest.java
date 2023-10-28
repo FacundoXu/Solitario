@@ -1,8 +1,6 @@
 package Klondike.Stock;
 
-import Card.Card;
-import Card.Color;
-import Card.Suit;
+import Card.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,9 +9,10 @@ public class StockTableTest {
 
     @Test
     public void oneCard() {
+
         // Arrange
-        Card c = new Card(Suit.CLUBS, 12, Color.BLACK);
-        Card[] cardArray = {c};
+        Card card = new Card(Suit.CLUBS, 12, Color.BLACK);
+        Card[] cardArray = {card};
         StockTable t = new StockTable(cardArray);
 
         // Act
@@ -35,14 +34,14 @@ public class StockTableTest {
         assertFalse(empty1);
         assertTrue(empty2);
         assertNull(getCard1);
-        assertEquals(c, getCard2);
+        assertEquals(card, getCard2);
         assertNull(peek1);
-        assertEquals(c, peek2);
-        assertEquals(c, nextCard1);
+        assertEquals(card, peek2);
+        assertEquals(card, nextCard1);
         assertNull(nextCard2);
-        assertEquals(c, nextCard3);
+        assertEquals(card, nextCard3);
         assertNull(nextCard4);
-        assertEquals(c, nextCard5);
+        assertEquals(card, nextCard5);
         assertNull(nextCard6);
         assertNull(nextCard7);
     }

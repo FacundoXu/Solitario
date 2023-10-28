@@ -13,7 +13,7 @@ public class TableauTable implements Serializable {
     public static final int MAX_NUM_TABLEAUS = 10;
 
     // Attributes
-    private final TableauStack[] stacks = new TableauStack[MAX_NUM_TABLEAUS];
+    private final TableauStack[] tableaus = new TableauStack[MAX_NUM_TABLEAUS];
 
     // Constructor
     public TableauTable(Stock stock) {
@@ -23,7 +23,7 @@ public class TableauTable implements Serializable {
             for (int j = 0; j < 6; j++) {
                 leftCards.add(stock.drawCard());
             }
-            stacks[i] = new TableauStack(leftCards.toArray(new Card[0]));
+            tableaus[i] = new TableauStack(leftCards.toArray(new Card[0]));
         }
 
         for (int i = 4; i < 10; i++) {
@@ -32,48 +32,44 @@ public class TableauTable implements Serializable {
             for (int j = 0; j < 5; j++) {
                 rightCards.add(stock.drawCard());
             }
-            stacks[i] = new TableauStack(rightCards.toArray(new Card[0]));
+            tableaus[i] = new TableauStack(rightCards.toArray(new Card[0]));
         }
     }
 
     // Methods
     public Card pickUp(int tableau) {
-        return stacks[tableau].pop();
+        return tableaus[tableau].pop();
     }
 
     public Card peek(int tableau) {
-        return stacks[tableau].peek();
+        return tableaus[tableau].peek();
     }
 
     public Card[] peek() {
         Card[] topCards = new Card[MAX_NUM_TABLEAUS];
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < MAX_NUM_TABLEAUS; i++) {
             topCards[i] = this.peek(i);
         }
         return topCards;
     }
 
     public boolean insert(int tableau, Card card) {
-        return stacks[tableau].push(card);
+        return tableaus[tableau].push(card);
     }
 
     public void returnCard(int tableau, Card card) {
-        stacks[tableau].returnCard(card);
-    }
-
-    public void returnArray(int tableau, Card[] cards) {
-        stacks[tableau].returnArray(cards);
+        tableaus[tableau].returnCard(card);
     }
 
     public boolean move(int origin, int i, int target) {
-        Card[] cardsArray = stacks[origin].popArray(i);
+        Card[] cardsArray = tableaus[origin].popArray(i);
 
         if (cardsArray == null)
             return false;
 
-        if (!stacks[target].pushArray(cardsArray)) {
-            stacks[origin].returnArray(cardsArray);
+        if (!tableaus[target].pushArray(cardsArray)) {
+            tableaus[origin].returnArray(cardsArray);
             return false;
         }
         return true;
@@ -81,7 +77,7 @@ public class TableauTable implements Serializable {
 
     public Card[] verifyTable() {
         for (int i = 0; i < MAX_NUM_TABLEAUS; i++) {
-            Card[] cards = stacks[i].getWinnerCards();
+            Card[] cards = tableaus[i].getWinnerCards();
 
             if (cards != null)
                 return cards;
@@ -90,7 +86,7 @@ public class TableauTable implements Serializable {
     }
 
     public void assignStockCards(Stock stock) {
-        for (TableauStack tableauStack : stacks) {
+        for (TableauStack tableauStack : tableaus) {
             tableauStack.pushStockCard(stock.drawCard());
         }
     }

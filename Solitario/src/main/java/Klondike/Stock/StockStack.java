@@ -40,9 +40,7 @@ public class StockStack implements Stack<Card>, Serializable {
     public Card pop() {
         if (this.isEmpty())
             return null;
-
         size--;
-
         return cards.remove(size);
     }
 

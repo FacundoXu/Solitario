@@ -10,27 +10,27 @@ public class FoundationTable implements Serializable {
     public static final int MAX_NUM_FOUNDATIONS = 4;
 
     // Attributes
-    private final FoundationStack[] stacks = new FoundationStack[MAX_NUM_FOUNDATIONS];
+    private final FoundationStack[] foundations = new FoundationStack[MAX_NUM_FOUNDATIONS];
 
     // Constructor
     public FoundationTable() {
         for (int i = 0; i < MAX_NUM_FOUNDATIONS; i++) {
-            stacks[i] = new FoundationStack();
+            foundations[i] = new FoundationStack();
         }
     }
 
     // Methods
     public boolean insert(int i, Card c) {
-        return stacks[i].push(c);
+        return foundations[i].push(c);
     }
 
     public Card get(int i) {
-        return stacks[i].pop();
+        return foundations[i].pop();
     }
 
     public boolean verify() {
-        for (FoundationStack s : stacks) {
-            if (!s.verify())
+        for (FoundationStack foundation : foundations) {
+            if (!foundation.verify())
                 return false;
         }
         return true;

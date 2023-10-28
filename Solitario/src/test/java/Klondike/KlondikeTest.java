@@ -1,8 +1,6 @@
 package Klondike;
 
-import Card.Card;
-import Card.Color;
-import Card.Suit;
+import Card.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,6 +13,7 @@ public class KlondikeTest {
 
     static Card mapCard(String CardS) {
         char[] chars = CardS.toCharArray();
+
         Suit s = switch (chars[0]) {
             case 'H' -> Suit.HEARTS;
             case 'D' -> Suit.DIAMONDS;
@@ -22,6 +21,7 @@ public class KlondikeTest {
             case 'S' -> Suit.SPADES;
             default -> throw new IllegalStateException("Unexpected value: " + chars[0]);
         };
+
         int r = switch (chars[1]) {
             case 'T' -> 10;
             case 'J' -> 11;
@@ -29,44 +29,65 @@ public class KlondikeTest {
             case 'K' -> 13;
             default -> Integer.parseInt(String.valueOf(chars[1]));
         };
+
         Color c = (s == Suit.HEARTS || s == Suit.DIAMONDS) ? Color.RED : Color.BLACK;
         return new Card(s, r, c);
     }
 
     @Test
     public void GameTest() {
+
         // Arrange
-        Card[] tableu1 = {mapCard("H2")};
-        Card[] tableu2 = {mapCard("DK"),
-                mapCard("HQ")};
-        Card[] tableu3 = {mapCard("S3"),
+        Card[] tableau1 = {
+                mapCard("H2")
+        };
+
+        Card[] tableau2 = {
+                mapCard("DK"),
+                mapCard("HQ")
+        };
+
+        Card[] tableau3 = {
+                mapCard("S3"),
                 mapCard("S1"),
                 mapCard("S4"),
         };
-        Card[] tableu4 = {mapCard("S5"),
+
+        Card[] tableau4 = {
+                mapCard("S5"),
                 mapCard("H4"),
                 mapCard("D5"),
                 mapCard("DQ")};
-        Card[] tableu5 = {mapCard("C6"),
+
+        Card[] tableau5 = {
+                mapCard("C6"),
                 mapCard("D3"),
                 mapCard("D4"),
                 mapCard("CK"),
                 mapCard("S8")
         };
-        Card[] tableu6 = {mapCard("DT"),
+
+        Card[] tableau6 = {
+                mapCard("DT"),
                 mapCard("SQ"),
                 mapCard("D1"),
                 mapCard("H1"),
                 mapCard("H7"),
-                mapCard("ST")};
-        Card[] tableu7 = {mapCard("H5"),
+                mapCard("ST")
+        };
+
+        Card[] tableau7 = {
+                mapCard("H5"),
                 mapCard("D2"),
                 mapCard("SJ"),
                 mapCard("CJ"),
                 mapCard("C4"),
                 mapCard("HJ"),
-                mapCard("DJ")};
-        Card[] stock = {mapCard("C3"),
+                mapCard("DJ")
+        };
+
+        Card[] stock = {
+                mapCard("C3"),
                 mapCard("S2"),
                 mapCard("C2"),
                 mapCard("S6"),
@@ -89,165 +110,169 @@ public class KlondikeTest {
                 mapCard("CQ"),
                 mapCard("H9"),
                 mapCard("HT"),
-                mapCard("H6")};
+                mapCard("H6")
+        };
 
         List<Card> deck = new ArrayList<>();
-        deck.addAll(Arrays.asList(tableu1));
-        deck.addAll(Arrays.asList(tableu2));
-        deck.addAll(Arrays.asList(tableu3));
-        deck.addAll(Arrays.asList(tableu4));
-        deck.addAll(Arrays.asList(tableu5));
-        deck.addAll(Arrays.asList(tableu6));
-        deck.addAll(Arrays.asList(tableu7));
+        deck.addAll(Arrays.asList(tableau1));
+        deck.addAll(Arrays.asList(tableau2));
+        deck.addAll(Arrays.asList(tableau3));
+        deck.addAll(Arrays.asList(tableau4));
+        deck.addAll(Arrays.asList(tableau5));
+        deck.addAll(Arrays.asList(tableau6));
+        deck.addAll(Arrays.asList(tableau7));
         deck.addAll(Arrays.asList(stock));
         Card[] deckArray = deck.toArray(new Card[0]);
-        Klondike k = new Klondike(deckArray);
+        Klondike klondike = new Klondike(deckArray);
 
         // Act and assert
-        assertTrue(k.moveTableauToTableau(0, 5, 6));
-        assertTrue(k.moveTableauToTableau(0, 5, 4));
-        assertTrue(k.moveTableauToFoundation(5, 0));
-        assertTrue(k.moveTableauToFoundation(5, 1));
-        assertTrue(k.moveTableauToFoundation(0, 0));
-        assertEquals(mapCard("H6"), k.stockNextCard());
-        assertEquals(mapCard("HT"), k.stockNextCard());
-        assertEquals(mapCard("H9"), k.stockNextCard());
-        assertTrue(k.moveStockToTableau(6));
-        assertTrue(k.moveTableauToTableau(1, 4, 6));
-        assertTrue(k.moveTableauToTableau(0, 4, 0));
-        assertTrue(k.moveTableauToTableau(0, 1, 0));
-        assertTrue(k.moveTableauToTableau(0, 5, 1));
-        assertFalse(k.moveTableauToTableau(3, 6, 1));
-        assertTrue(k.moveTableauToTableau(4, 6, 1));
-        k.stockNextCard();
-        k.stockNextCard();
-        k.saveGame();
-        k.stockNextCard();
-        k.loadGame();
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(5));
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(6));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(5));
-        k.stockNextCard();
-        assertTrue(k.moveStockToFoundation(0));
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToFoundation(2));
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(5));
-        assertTrue(k.moveStockToTableau(5));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(5));
-        assertTrue(k.moveTableauToTableau(0, 4, 5));
-        assertTrue(k.moveTableauToTableau(0, 4, 2));
-        assertTrue(k.moveTableauToTableau(0, 4, 1));
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToFoundation(2));
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToFoundation(2));
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(6));
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(6));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(4));
-        assertTrue(k.moveTableauToTableau(0, 3, 4));
-        assertTrue(k.moveTableauToTableau(1, 2, 3));
-        assertTrue(k.moveTableauToTableau(2, 3, 1));
-        assertTrue(k.moveTableauToFoundation(2, 3));
-        assertTrue(k.moveTableauToFoundation(3, 0));
-        assertTrue(k.moveTableauToTableau(0, 2, 5));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(2));
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToFoundation(3));
-        assertTrue(k.moveTableauToFoundation(5, 3));
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(2));
-        assertTrue(k.moveTableauToTableau(3, 6, 2));
-        assertTrue(k.moveTableauToFoundation(6, 2));
-        assertTrue(k.moveTableauToTableau(0, 6, 4));
-        assertTrue(k.moveTableauToTableau(0, 6, 0));
-        assertTrue(k.moveTableauToFoundation(6, 1));
-        assertTrue(k.moveTableauToFoundation(6, 0));
-        assertTrue(k.moveTableauToFoundation(1, 1));
-        assertTrue(k.moveTableauToFoundation(5, 1));
-        assertTrue(k.moveTableauToFoundation(5, 2));
-        assertTrue(k.moveTableauToFoundation(1, 3));
-        assertTrue(k.moveTableauToFoundation(1, 1));
-        assertTrue(k.moveTableauToFoundation(5, 1));
-        assertTrue(k.moveTableauToTableau(3, 5, 4));
-        assertTrue(k.moveStockToTableau(0));
-        assertTrue(k.moveStockToTableau(4));
-        assertTrue(k.moveTableauToTableau(0, 3, 4));
-        assertTrue(k.moveTableauToTableau(8, 4, 3));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(2));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(0));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(0));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(0));
-        k.stockNextCard();
-        assertTrue(k.moveStockToTableau(2));
-        assertFalse(k.verifyVictory());
-        assertTrue(k.moveTableauToFoundation(3, 3));
-        assertTrue(k.moveTableauToFoundation(3, 0));
-        assertTrue(k.moveTableauToFoundation(2, 3));
-        assertTrue(k.moveTableauToFoundation(1, 2));
-        assertTrue(k.moveTableauToFoundation(0, 3));
-        assertTrue(k.moveTableauToFoundation(1, 0));
-        assertTrue(k.moveTableauToFoundation(2, 1));
-        assertTrue(k.moveTableauToFoundation(3, 2));
-        assertTrue(k.moveTableauToFoundation(3, 1));
-        assertTrue(k.moveTableauToFoundation(2, 2));
-        assertTrue(k.moveTableauToFoundation(1, 3));
-        assertFalse(k.moveTableauToFoundation(0, 1));
-        assertTrue(k.moveTableauToFoundation(0, 0));
-        assertTrue(k.moveTableauToFoundation(0, 3));
-        assertTrue(k.moveTableauToFoundation(1, 0));
-        assertTrue(k.moveTableauToFoundation(2, 1));
-        assertTrue(k.moveTableauToFoundation(3, 2));
-        assertTrue(k.moveTableauToFoundation(3, 1));
-        assertTrue(k.moveTableauToFoundation(2, 2));
-        assertTrue(k.moveTableauToFoundation(1, 3));
-        assertTrue(k.moveTableauToFoundation(0, 0));
-        assertTrue(k.moveTableauToFoundation(0, 3));
-        assertTrue(k.moveTableauToFoundation(1, 1));
-        assertTrue(k.moveTableauToFoundation(2, 0));
-        assertTrue(k.moveTableauToFoundation(3, 2));
-        assertTrue(k.moveTableauToFoundation(0, 0));
-        assertTrue(k.moveTableauToFoundation(1, 3));
-        assertTrue(k.moveTableauToFoundation(2, 2));
-        assertTrue(k.moveTableauToFoundation(3, 1));
-        assertTrue(k.moveTableauToFoundation(3, 3));
-        assertTrue(k.moveTableauToFoundation(2, 0));
-        assertTrue(k.moveTableauToFoundation(1, 1));
-        assertTrue(k.moveTableauToFoundation(0, 2));
-        assertTrue(k.verifyVictory());
+        assertTrue(klondike.moveTableauToTableau(0, 5, 6));
+        assertTrue(klondike.moveTableauToTableau(0, 5, 4));
+        assertTrue(klondike.moveTableauToFoundation(5, 0));
+        assertTrue(klondike.moveTableauToFoundation(5, 1));
+        assertTrue(klondike.moveTableauToFoundation(0, 0));
+        assertEquals(mapCard("H6"), klondike.stockNextCard());
+        assertEquals(mapCard("HT"), klondike.stockNextCard());
+        assertEquals(mapCard("H9"), klondike.stockNextCard());
+        assertTrue(klondike.moveStockToTableau(6));
+        assertTrue(klondike.moveTableauToTableau(1, 4, 6));
+        assertTrue(klondike.moveTableauToTableau(0, 4, 0));
+        assertTrue(klondike.moveTableauToTableau(0, 1, 0));
+        assertTrue(klondike.moveTableauToTableau(0, 5, 1));
+        assertFalse(klondike.moveTableauToTableau(3, 6, 1));
+        assertTrue(klondike.moveTableauToTableau(4, 6, 1));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+
+        // Persistence
+        klondike.saveGame();
+        klondike.stockNextCard();
+        klondike.loadGame();
+
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(5));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(6));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(5));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToFoundation(0));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToFoundation(2));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(5));
+        assertTrue(klondike.moveStockToTableau(5));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(5));
+        assertTrue(klondike.moveTableauToTableau(0, 4, 5));
+        assertTrue(klondike.moveTableauToTableau(0, 4, 2));
+        assertTrue(klondike.moveTableauToTableau(0, 4, 1));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToFoundation(2));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToFoundation(2));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(6));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(6));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(4));
+        assertTrue(klondike.moveTableauToTableau(0, 3, 4));
+        assertTrue(klondike.moveTableauToTableau(1, 2, 3));
+        assertTrue(klondike.moveTableauToTableau(2, 3, 1));
+        assertTrue(klondike.moveTableauToFoundation(2, 3));
+        assertTrue(klondike.moveTableauToFoundation(3, 0));
+        assertTrue(klondike.moveTableauToTableau(0, 2, 5));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(2));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToFoundation(3));
+        assertTrue(klondike.moveTableauToFoundation(5, 3));
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(2));
+        assertTrue(klondike.moveTableauToTableau(3, 6, 2));
+        assertTrue(klondike.moveTableauToFoundation(6, 2));
+        assertTrue(klondike.moveTableauToTableau(0, 6, 4));
+        assertTrue(klondike.moveTableauToTableau(0, 6, 0));
+        assertTrue(klondike.moveTableauToFoundation(6, 1));
+        assertTrue(klondike.moveTableauToFoundation(6, 0));
+        assertTrue(klondike.moveTableauToFoundation(1, 1));
+        assertTrue(klondike.moveTableauToFoundation(5, 1));
+        assertTrue(klondike.moveTableauToFoundation(5, 2));
+        assertTrue(klondike.moveTableauToFoundation(1, 3));
+        assertTrue(klondike.moveTableauToFoundation(1, 1));
+        assertTrue(klondike.moveTableauToFoundation(5, 1));
+        assertTrue(klondike.moveTableauToTableau(3, 5, 4));
+        assertTrue(klondike.moveStockToTableau(0));
+        assertTrue(klondike.moveStockToTableau(4));
+        assertTrue(klondike.moveTableauToTableau(0, 3, 4));
+        assertTrue(klondike.moveTableauToTableau(8, 4, 3));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(2));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(0));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(0));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(0));
+        klondike.stockNextCard();
+        assertTrue(klondike.moveStockToTableau(2));
+        assertFalse(klondike.verifyVictory());
+        assertTrue(klondike.moveTableauToFoundation(3, 3));
+        assertTrue(klondike.moveTableauToFoundation(3, 0));
+        assertTrue(klondike.moveTableauToFoundation(2, 3));
+        assertTrue(klondike.moveTableauToFoundation(1, 2));
+        assertTrue(klondike.moveTableauToFoundation(0, 3));
+        assertTrue(klondike.moveTableauToFoundation(1, 0));
+        assertTrue(klondike.moveTableauToFoundation(2, 1));
+        assertTrue(klondike.moveTableauToFoundation(3, 2));
+        assertTrue(klondike.moveTableauToFoundation(3, 1));
+        assertTrue(klondike.moveTableauToFoundation(2, 2));
+        assertTrue(klondike.moveTableauToFoundation(1, 3));
+        assertFalse(klondike.moveTableauToFoundation(0, 1));
+        assertTrue(klondike.moveTableauToFoundation(0, 0));
+        assertTrue(klondike.moveTableauToFoundation(0, 3));
+        assertTrue(klondike.moveTableauToFoundation(1, 0));
+        assertTrue(klondike.moveTableauToFoundation(2, 1));
+        assertTrue(klondike.moveTableauToFoundation(3, 2));
+        assertTrue(klondike.moveTableauToFoundation(3, 1));
+        assertTrue(klondike.moveTableauToFoundation(2, 2));
+        assertTrue(klondike.moveTableauToFoundation(1, 3));
+        assertTrue(klondike.moveTableauToFoundation(0, 0));
+        assertTrue(klondike.moveTableauToFoundation(0, 3));
+        assertTrue(klondike.moveTableauToFoundation(1, 1));
+        assertTrue(klondike.moveTableauToFoundation(2, 0));
+        assertTrue(klondike.moveTableauToFoundation(3, 2));
+        assertTrue(klondike.moveTableauToFoundation(0, 0));
+        assertTrue(klondike.moveTableauToFoundation(1, 3));
+        assertTrue(klondike.moveTableauToFoundation(2, 2));
+        assertTrue(klondike.moveTableauToFoundation(3, 1));
+        assertTrue(klondike.moveTableauToFoundation(3, 3));
+        assertTrue(klondike.moveTableauToFoundation(2, 0));
+        assertTrue(klondike.moveTableauToFoundation(1, 1));
+        assertTrue(klondike.moveTableauToFoundation(0, 2));
+        assertTrue(klondike.verifyVictory());
     }
 }

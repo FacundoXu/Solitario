@@ -1,9 +1,6 @@
 package Klondike.Foundation;
 
-import Card.Card;
-import Card.Color;
-import Card.Deck;
-import Card.Suit;
+import Card.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,7 +9,8 @@ public class FoundationTableTest {
 
     @Test
     public void invalidOperations() {
-        FoundationTable ft = new FoundationTable();
+
+        FoundationTable foundationTable = new FoundationTable();
         Card D1 = new Card(Suit.DIAMONDS, 1, Color.RED);
         Card D2 = new Card(Suit.DIAMONDS, 2, Color.RED);
         Card D3 = new Card(Suit.DIAMONDS, 3, Color.RED);
@@ -21,30 +19,31 @@ public class FoundationTableTest {
         Card H3 = new Card(Suit.HEARTS, 3, Color.RED);
 
         // Act and assert
-        assertNull(ft.get(0));
-        assertFalse(ft.verify());
-        assertFalse(ft.insert(0, D2));
-        assertTrue(ft.insert(1, D1));
-        assertFalse(ft.insert(0, D2));
-        assertFalse(ft.insert(1, H2));
-        assertTrue(ft.insert(1, D2));
-        assertFalse(ft.insert(0, H2));
-        assertTrue(ft.insert(0, H1));
-        assertTrue(ft.insert(0, H2));
-        assertTrue(ft.insert(0, H3));
-        assertTrue(ft.insert(1, D3));
-        assertFalse(ft.verify());
-        assertEquals(H3, ft.get(0));
-        assertEquals(H2, ft.get(0));
-        assertEquals(H1, ft.get(0));
-        assertTrue(ft.insert(2, H1));
-        assertEquals(D3, ft.get(1));
-        assertEquals(D2, ft.get(1));
-        assertEquals(D1, ft.get(1));
+        assertNull(foundationTable.get(0));
+        assertFalse(foundationTable.verify());
+        assertFalse(foundationTable.insert(0, D2));
+        assertTrue(foundationTable.insert(1, D1));
+        assertFalse(foundationTable.insert(0, D2));
+        assertFalse(foundationTable.insert(1, H2));
+        assertTrue(foundationTable.insert(1, D2));
+        assertFalse(foundationTable.insert(0, H2));
+        assertTrue(foundationTable.insert(0, H1));
+        assertTrue(foundationTable.insert(0, H2));
+        assertTrue(foundationTable.insert(0, H3));
+        assertTrue(foundationTable.insert(1, D3));
+        assertFalse(foundationTable.verify());
+        assertEquals(H3, foundationTable.get(0));
+        assertEquals(H2, foundationTable.get(0));
+        assertEquals(H1, foundationTable.get(0));
+        assertTrue(foundationTable.insert(2, H1));
+        assertEquals(D3, foundationTable.get(1));
+        assertEquals(D2, foundationTable.get(1));
+        assertEquals(D1, foundationTable.get(1));
     }
 
     @Test
     public void fillAllFoundations() {
+
         // Arrange
         Card[] d = Deck.createDeck(false);
         FoundationTable ft = new FoundationTable();

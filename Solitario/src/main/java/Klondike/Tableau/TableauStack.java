@@ -1,4 +1,4 @@
-package Klondike.Tableu;
+package Klondike.Tableau;
 
 import Card.Card;
 import Stack.Stack;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableuStack implements Stack<Card>, Serializable {
+public class TableauStack implements Stack<Card>, Serializable {
 
     // Constants
     public static final int KING = 13;
@@ -21,7 +21,7 @@ public class TableuStack implements Stack<Card>, Serializable {
     private final List<Card> cards;
 
     // Constructor
-    public TableuStack(Card[] cardArray) {
+    public TableauStack(Card[] cardArray) {
         cards = new LinkedList<>(Arrays.asList(cardArray));
         size = cards.size();
         faceUpIdx = cards.size() - 1;
@@ -58,7 +58,6 @@ public class TableuStack implements Stack<Card>, Serializable {
 
         if (faceUpIdx == size)
             faceUpIdx--;
-
         return cards.remove(size);
     }
 

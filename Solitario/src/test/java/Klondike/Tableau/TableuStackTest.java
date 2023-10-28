@@ -1,8 +1,6 @@
-package Klondike.Tableu;
+package Klondike.Tableau;
 
-import Card.Card;
-import Card.Color;
-import Card.Suit;
+import Card.*;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -18,18 +16,18 @@ public class TableuStackTest {
 
         // Arrange
         Card[] initialArray = {new Card(Suit.CLUBS, 8, Color.BLACK)};
-        TableuStack s = new TableuStack(initialArray);
+        TableauStack tableauStack = new TableauStack(initialArray);
         Card c1 = new Card(Suit.DIAMONDS, 7, Color.RED);
         Card c2 = new Card(Suit.DIAMONDS, 6, Color.RED);
         Card c3 = new Card(Suit.CLUBS, 6, Color.BLACK);
         Card c4 = new Card(Suit.DIAMONDS, 10, Color.RED);
 
         // Act
-        boolean push1 = s.push(c1);
-        Card peek1 = s.peek();
-        boolean push2 = s.push(c2);
-        boolean push3 = s.push(c3);
-        boolean push4 = s.push(c4);
+        boolean push1 = tableauStack.push(c1);
+        Card peek1 = tableauStack.peek();
+        boolean push2 = tableauStack.push(c2);
+        boolean push3 = tableauStack.push(c3);
+        boolean push4 = tableauStack.push(c4);
 
         // Assert
         assertTrue(push1);
@@ -40,9 +38,10 @@ public class TableuStackTest {
 
     @Test
     public void multipleCards() {
+
         // Arrange
         Card[] initialArray = {new Card(Suit.CLUBS, 10, Color.BLACK)};
-        TableuStack s = new TableuStack(initialArray);
+        TableauStack s = new TableauStack(initialArray);
         List<Card> interleavedCards = new LinkedList<>();
         Suit[] suits = {Suit.CLUBS, Suit.DIAMONDS, Suit.SPADES, Suit.HEARTS};
         Color[] colors = {Color.BLACK, Color.RED};
@@ -58,18 +57,20 @@ public class TableuStackTest {
         };
 
         // Act and assert
-        for (Card c : interleavedCards) {
-            assertTrue(s.push(c));
+        for (Card card : interleavedCards) {
+            assertTrue(s.push(card));
         }
+
         assertEquals(interleavedCards.subList(2, interleavedCards.size()), s.popArray(6));
         assertTrue(s.pushArray(Arrays.asList(sampleArray)));
     }
 
     @Test
     public void EmptyStackAndReturns() {
+
         // Arrange
         Card[] initialArray = {new Card(Suit.CLUBS, 10, Color.BLACK)};
-        TableuStack s = new TableuStack(initialArray);
+        TableauStack tableauStack = new TableauStack(initialArray);
         List<Card> interleavedCards = new LinkedList<>();
         Suit[] suits = {Suit.CLUBS, Suit.DIAMONDS, Suit.SPADES, Suit.HEARTS};
         Color[] colors = {Color.BLACK, Color.RED};
@@ -79,13 +80,13 @@ public class TableuStackTest {
         }
 
         // Act and assert
-        Card c = s.pop();
-        s.returnCard(c);
-        assertFalse(s.isEmpty());
-        s.pop();
-        assertTrue(s.pushArray(interleavedCards));
-        assertEquals(interleavedCards, s.popArray(7));
-        s.returnArray(interleavedCards);
-        assertFalse(s.isEmpty());
+        Card card = tableauStack.pop();
+        tableauStack.returnCard(card);
+        assertFalse(tableauStack.isEmpty());
+        tableauStack.pop();
+        assertTrue(tableauStack.pushArray(interleavedCards));
+        assertEquals(interleavedCards, tableauStack.popArray(7));
+        tableauStack.returnArray(interleavedCards);
+        assertFalse(tableauStack.isEmpty());
     }
 }

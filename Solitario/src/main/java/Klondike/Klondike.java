@@ -1,20 +1,22 @@
 package Klondike;
 
-import Card.Card;
-import Card.Deck;
+import Card.*;
 import Klondike.Foundation.FoundationTable;
 import Klondike.Stock.StockTable;
-import Klondike.Tableu.TableuTable;
+import Klondike.Tableau.TableauTable;
 
 import java.io.*;
 import java.util.Arrays;
 
 public class Klondike implements Serializable {
 
+    // Constants
+    private static final String KLONDIKE_PATH = "saves/klondike.txt";
+
     // Attributes
     private FoundationTable foundationTable;
     private StockTable stockTable;
-    private TableuTable tableuTable;
+    private TableauTable tableauTable;
 
     // Constructor
     public Klondike(Card[] cards) {
@@ -27,7 +29,7 @@ public class Klondike implements Serializable {
 
     // Methods
     private void initializeGame(Card[] cards) {
-        tableuTable = new TableuTable(Arrays.copyOfRange(cards, 0, 28));
+        tableauTable = new TableauTable(Arrays.copyOfRange(cards, 0, 28));
         stockTable = new StockTable(Arrays.copyOfRange(cards, 28, 52));
         foundationTable = new FoundationTable();
     }
@@ -39,7 +41,7 @@ public class Klondike implements Serializable {
     public boolean moveStockToTableau(int tableau) {
         Card c = stockTable.getCard();
 
-        if (!tableuTable.insert(tableau, c)) {
+        if (!tableauTable.insert(tableau, c)) {
             stockTable.returnCard(c);
             return false;
         }
@@ -57,10 +59,10 @@ public class Klondike implements Serializable {
     }
 
     public boolean moveTableauToFoundation(int tableau, int foundation) {
-        Card c = tableuTable.pickUp(tableau);
+        Card c = tableauTable.pickUp(tableau);
 
         if (!foundationTable.insert(foundation, c)) {
-            tableuTable.returnCard(tableau, c);
+            tableauTable.returnCard(tableau, c);
             return false;
         }
         return true;
@@ -69,7 +71,7 @@ public class Klondike implements Serializable {
     public boolean moveFoundationToTableau(int foundation, int tableau) {
         Card c = foundationTable.get(foundation);
 
-        if (!tableuTable.insert(tableau, c)) {
+        if (!tableauTable.insert(tableau, c)) {
             foundationTable.insert(foundation, c);
             return false;
         }
@@ -77,7 +79,7 @@ public class Klondike implements Serializable {
     }
 
     public boolean moveTableauToTableau(int originCardIdx, int originTableau, int destTableau) {
-        return tableuTable.move(originCardIdx, originTableau, destTableau);
+        return tableauTable.move(originCardIdx, originTableau, destTableau);
     }
 
     public boolean verifyVictory() {
@@ -85,25 +87,29 @@ public class Klondike implements Serializable {
     }
 
     public void saveGame() {
-        File path = new File("saves/klondike.txt");
+        File path = new File(KLONDIKE_PATH);
+
         try {
             ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
             o.writeObject(this);
             o.close();
+
         } catch (IOException e) {
             System.out.print("Unable to save your game :(\n");
         }
     }
 
     public void loadGame() {
-        File path = new File("saves/klondike.txt");
+        File path = new File(KLONDIKE_PATH);
+
         try {
             ObjectInputStream o = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path)));
             Klondike k = (Klondike) o.readObject();
             this.foundationTable = k.foundationTable;
             this.stockTable = k.stockTable;
-            this.tableuTable = k.tableuTable;
+            this.tableauTable = k.tableauTable;
             o.close();
+
         } catch (IOException | ClassNotFoundException e) {
             System.out.print("Unable to load your game :(\n");
         }

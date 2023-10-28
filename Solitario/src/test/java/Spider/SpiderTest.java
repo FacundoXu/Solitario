@@ -180,10 +180,13 @@ public class SpiderTest {
         boolean moveTopCard2 = spider.moveTopCardToTableau(9, 8);
         boolean moveTopCard3 = spider.moveTopCardToTableau(8, 9);
         boolean moveTopCard4 = spider.moveTopCardToTableau(5, 8);
+
+        // Persistence
         spider.saveGame();
         spider.moveTopCardToTableau(6, 8);
         spider.moveTopCardToTableau(7, 8);
         spider.loadGame();
+
         boolean moveTopCard5 = spider.moveTopCardToTableau(6, 8);
         boolean moveTopCard6 = spider.moveTopCardToTableau(7, 8);
         boolean moveTopCard7 = spider.moveTopCardToTableau(1, 8);

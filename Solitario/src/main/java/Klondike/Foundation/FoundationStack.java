@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import Card.Card;
-import Card.Suit;
+import Card.*;
 import Stack.Stack;
 
 public class FoundationStack implements Stack<Card>, Serializable {

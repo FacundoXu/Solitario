@@ -103,7 +103,7 @@ Stack <|.- StockStack: implements
 Stack <|.- TableauStack: implements
 
 FoundationTable "1" *--> "4" FoundationStack: foundations
-StockTable "1" *--> "1" StockStack: stock
+StockTable "1" *--> "2" StockStack: stocks
 TableauTable "1" *--> "7" TableauStack: tableaus
 
 Klondike "1" .-> "1" Deck: deck
