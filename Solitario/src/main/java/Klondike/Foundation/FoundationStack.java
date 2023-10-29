@@ -10,9 +10,9 @@ import Stack.Stack;
 public class FoundationStack implements Stack<Card>, Serializable {
 
     // Constants
-    public static final int ACE = 1;
-    public static final int KING = 13;
-    public static final int EMPTY = 0;
+    private static final int ACE = 1;
+    private static final int KING = 13;
+    private static final int EMPTY = 0;
 
     // Attributes
     private int size;

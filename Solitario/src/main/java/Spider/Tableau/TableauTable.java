@@ -10,7 +10,7 @@ import java.util.List;
 public class TableauTable implements Serializable {
 
     // Constants
-    public static final int MAX_NUM_TABLEAUS = 10;
+    private static final int MAX_NUM_TABLEAUS = 10;
 
     // Attributes
     private final TableauStack[] tableaus = new TableauStack[MAX_NUM_TABLEAUS];

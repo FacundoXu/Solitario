@@ -12,8 +12,8 @@ import java.util.List;
 public class TableauStack implements Stack<Card>, Serializable {
 
     // Constants
-    public static final int KING = 13;
-    public static final int EMPTY = 0;
+    private static final int KING = 13;
+    private static final int EMPTY = 0;
 
     // Attributes
     private int size;

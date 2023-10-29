@@ -19,6 +19,8 @@ class Klondike {
 +moveFoundationToTableau(foundation: Integer, tableau: Integer): Boolean
 +moveTableauToTableau(originCardIdx: Integer, originTableau: Integer, destTableau: Integer): Boolean
 +verifyVictory(): Boolean
++saveGame()
++loadGame()
 }
 
 class FoundationTable {

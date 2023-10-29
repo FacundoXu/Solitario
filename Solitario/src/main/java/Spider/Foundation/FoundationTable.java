@@ -7,8 +7,8 @@ import java.io.Serializable;
 public class FoundationTable implements Serializable {
 
     // Constants
-    public static final int MAX_NUM_FOUNDATIONS = 8;
-    public static final int NOT_FOUND = -1;
+    private static final int MAX_NUM_FOUNDATIONS = 8;
+    private static final int NOT_FOUND = -1;
 
     // Attributes
     private final FoundationColumn[] foundations = new FoundationColumn[MAX_NUM_FOUNDATIONS];

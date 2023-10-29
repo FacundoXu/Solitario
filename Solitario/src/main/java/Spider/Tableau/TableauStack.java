@@ -11,7 +11,7 @@ import java.util.List;
 public class TableauStack implements Stack<Card>, Serializable {
 
     // Constants
-    public static final int NOT_FOUND = -1;
+    private static final int NOT_FOUND = -1;
 
     // Attributes
     private final List<Card> visibleCards;

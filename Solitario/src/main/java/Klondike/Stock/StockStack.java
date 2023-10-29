@@ -12,7 +12,7 @@ import java.util.List;
 public class StockStack implements Stack<Card>, Serializable {
 
     // Constants
-    public static final int EMPTY = 0;
+    private static final int EMPTY = 0;
 
     // Attributes
     private final List<Card> cards;

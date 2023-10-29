@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class StockTable implements Serializable {
 
     // Constants
-    public static final int MAX_NUM_STOCKS = 2;
+    private static final int MAX_NUM_STOCKS = 2;
 
     // Attributes
     private int talon = 0;
