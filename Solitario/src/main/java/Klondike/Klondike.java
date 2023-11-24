@@ -114,4 +114,11 @@ public class Klondike implements Serializable {
             System.out.print("Unable to load your game :(\n");
         }
     }
+    public Card peekTableauTopCard(int TableauIdx){
+        return tableauTable.peek(TableauIdx);
+    }
+
+    public int stockCardsLeft() {return stockTable.cardsLeft(); }
+
+    public int stockPass() {return stockTable.currentPass();}
 }

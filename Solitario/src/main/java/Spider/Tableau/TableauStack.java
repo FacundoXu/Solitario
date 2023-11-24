@@ -17,6 +17,9 @@ public class TableauStack implements Stack<Card>, Serializable {
     private final List<Card> visibleCards;
     private final List<Card> hiddenCards;
 
+    private int size;
+
+
     // Constructor
     public TableauStack(Card[] cardsArray) {
         hiddenCards = new LinkedList<>(Arrays.asList(cardsArray));
@@ -142,4 +145,9 @@ public class TableauStack implements Stack<Card>, Serializable {
         }
         return NOT_FOUND;
     }
+
+    public int size(){
+        return size;
+    }
+
 }

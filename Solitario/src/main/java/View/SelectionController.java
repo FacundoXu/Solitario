@@ -47,7 +47,6 @@ public class SelectionController {
             fxmlFile = "spider.fxml";
             controllerClass = SpiderController.class;
         }
-        System.out.println(fxmlFile);
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));

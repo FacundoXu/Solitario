@@ -57,4 +57,12 @@ public class StockTable implements Serializable {
     public void returnCard(Card c) {
         stacks[waste].push(c);
     }
+
+    public int cardsLeft(){
+        return stacks[talon].size();
+    }
+
+    public int currentPass(){
+        return passes;
+    }
 }

@@ -69,4 +69,9 @@ public class FoundationStack implements Stack<Card>, Serializable {
     public boolean verify() {
         return !this.isEmpty() && this.peek().rank() == KING;
     }
+
+    public int size(){
+        return size;
+    }
+
 }

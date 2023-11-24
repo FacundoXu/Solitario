@@ -124,4 +124,8 @@ public class TableauStack implements Stack<Card>, Serializable {
         }
         return false;
     }
+
+    public int size(){
+        return size;
+    }
 }
