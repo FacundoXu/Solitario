@@ -66,6 +66,13 @@ public class TableauStack implements Stack<Card>, Serializable {
             return null;
         return cards.get(size - 1);
     }
+    public Card[] peekVisible(){
+        List<Card> ResCards = new ArrayList<Card>();
+        for (int i = faceUpIdx; i < size; i++){
+            ResCards.addLast(cards.get(i));
+        }
+        return ResCards.toArray(new Card[0]);
+    }
 
     @Override
     public boolean isEmpty() {

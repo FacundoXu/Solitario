@@ -22,7 +22,7 @@ public class Deck {
         }
 
         if (shuffle)
-            Collections.shuffle(deck, new Random());
+            Collections.shuffle(deck, new Random(6));
         return deck.toArray(new Card[0]);
     }
 }
