@@ -16,9 +16,7 @@ public class TableauStack implements Stack<Card>, Serializable {
     // Attributes
     private final List<Card> visibleCards;
     private final List<Card> hiddenCards;
-
     private int size;
-
 
     // Constructor
     public TableauStack(Card[] cardsArray) {
@@ -146,8 +144,7 @@ public class TableauStack implements Stack<Card>, Serializable {
         return NOT_FOUND;
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
-
 }

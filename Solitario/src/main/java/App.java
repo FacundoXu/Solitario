@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class Main extends Application {
+public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
