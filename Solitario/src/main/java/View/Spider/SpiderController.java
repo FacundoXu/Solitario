@@ -47,9 +47,20 @@ public class SpiderController {
     }
 
     public void initializeTableau() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 5; j++) {
+                tableauGrid.add(CardView.getCardBack(), i, j);
+            }
             Card c = game.peekTableauTopCard(i);
-            tableauGrid.add(CardView.getCard(c), i, 0);
+            tableauGrid.add(CardView.getCard(c), i, 5);
+        }
+
+        for (int i = 4; i < 10; i++) {
+            for (int j = 0; j < 4; j++) {
+                tableauGrid.add(CardView.getCardBack(), i, j);
+            }
+            Card c = game.peekTableauTopCard(i);
+            tableauGrid.add(CardView.getCard(c), i, 4);
         }
     }
 
