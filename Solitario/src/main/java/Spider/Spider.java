@@ -99,4 +99,8 @@ public class Spider implements Serializable {
             System.out.print("Unable to load your game :(\n");
         }
     }
+
+    public Card peekTableauTopCard(int i) {
+        return tableauTable.peek(i);
+    }
 }
