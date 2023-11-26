@@ -41,7 +41,6 @@ public class SpiderController {
 
         for (int i = 0; i < 8; i++) {
             Rectangle emptySpace = CardView.getEmptyPlace();
-            emptySpace.setOnMouseClicked(event -> handleFoundationClick(emptySpace));
             foundationBox.getChildren().add(emptySpace);
         }
     }
@@ -65,8 +64,5 @@ public class SpiderController {
     }
 
     private void handleStockClick() {
-    }
-
-    private void handleFoundationClick(Rectangle emptySpace) {
     }
 }
