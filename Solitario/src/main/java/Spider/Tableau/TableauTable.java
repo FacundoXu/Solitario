@@ -90,4 +90,8 @@ public class TableauTable implements Serializable {
             tableauStack.pushStockCard(stock.drawCard());
         }
     }
+
+    public int getTableauSize(int i) {
+        return tableaus[i].size();
+    }
 }

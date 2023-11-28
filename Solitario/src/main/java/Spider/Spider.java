@@ -103,4 +103,12 @@ public class Spider implements Serializable {
     public Card peekTableauTopCard(int i) {
         return tableauTable.peek(i);
     }
+
+    public int getTableauSize(int i) {
+        return tableauTable.getTableauSize(i);
+    }
+
+    public Card[] peekTableauTopCards() {
+        return tableauTable.peek();
+    }
 }
