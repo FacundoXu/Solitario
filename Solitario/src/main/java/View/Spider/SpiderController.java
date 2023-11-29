@@ -13,13 +13,13 @@ import javafx.scene.shape.Rectangle;
 
 public class SpiderController {
     @FXML
-    private GridPane tableauGrid;
+    private HBox stockBox;
 
     @FXML
     private HBox foundationBox;
 
     @FXML
-    private HBox stockBox;
+    private GridPane tableauGrid;
 
     @FXML
     private Button restart;
@@ -32,7 +32,7 @@ public class SpiderController {
         initializeStock();
         initializeFoundation();
         initializeTableau();
-        initializeRestart();
+        restart.setOnAction(event -> handleRestart());
     }
 
     private void initializeStock() {
@@ -114,15 +114,11 @@ public class SpiderController {
         }
     }
 
-    private void initializeRestart() {
-        restart.setOnAction(event -> handleRestart());
-    }
-
     private void handleRestart() {
         game = new Spider();
-        tableauGrid.getChildren().clear();
-        foundationBox.getChildren().clear();
         stockBox.getChildren().clear();
+        foundationBox.getChildren().clear();
+        tableauGrid.getChildren().clear();
         initializeStock();
         initializeFoundation();
         initializeTableau();
