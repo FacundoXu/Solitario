@@ -11,6 +11,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Arrays;
+
 public class SpiderController {
     @FXML
     private HBox stockBox;
@@ -52,7 +54,7 @@ public class SpiderController {
         }
 
         game.drawStockCards();
-        System.out.println("STOCK DRAW");
+        System.out.println("Stock Draw\n");
         Card[] cards = game.peekTableauTopCards();
 
         for (int i = 0; i < 10; i++) {
@@ -107,14 +109,23 @@ public class SpiderController {
             System.out.println("originCol: " + originCol);
             System.out.println("destCol: " + destCol);
             System.out.println("originIndex: " + originIndex);
-            System.out.println("destIndex: " + destIndex);
-            System.out.println();
+            System.out.println("destIndex: " + destIndex + "\n");
+
+            if (game.moveTopCardToTableau(originCol, destCol)) {
+                System.out.println("Funciona?");
+                ImageView movedCardView = selectedCard.view;
+                tableauGrid.getChildren().remove(movedCardView);
+                tableauGrid.add(movedCardView, destCol, destIndex + 1);
+            }
+
+            System.out.println(Arrays.toString(game.peekTableauTopCards()));
             selectedCard.view.setOpacity(1);
             selectedCard = null;
         }
     }
 
     private void handleRestart() {
+        System.out.println("New Game!\n");
         game = new Spider();
         stockBox.getChildren().clear();
         foundationBox.getChildren().clear();
