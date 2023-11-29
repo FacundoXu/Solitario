@@ -1,8 +1,8 @@
-package View.Klondike;
+package ui.Klondike;
 
 import Klondike.Klondike;
-import View.CardView;
-import View.CardWrapper;
+import ui.CardView;
+import ui.CardWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;

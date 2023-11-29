@@ -1,9 +1,9 @@
-package View.Spider;
+package ui.Spider;
 
 import Card.Card;
 import Spider.Spider;
-import View.CardView;
-import View.CardWrapper;
+import ui.CardView;
+import ui.CardWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;

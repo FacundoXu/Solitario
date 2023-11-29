@@ -1,4 +1,4 @@
-package View;
+package ui;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

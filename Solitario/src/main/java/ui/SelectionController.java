@@ -1,15 +1,13 @@
-package View;
+package ui;
 
-import View.Klondike.KlondikeController;
-import View.Spider.SpiderController;
+import ui.Klondike.KlondikeController;
+import ui.Spider.SpiderController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;

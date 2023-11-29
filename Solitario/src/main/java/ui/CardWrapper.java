@@ -1,7 +1,6 @@
-package View;
+package ui;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import Card.*;
 public class CardWrapper {
