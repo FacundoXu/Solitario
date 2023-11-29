@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+<?import javafx.scene.control.Button?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
       prefWidth="650.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1">
    <HBox fx:id="foundationBox" layoutX="150.0" layoutY="22.0" prefHeight="100.0" prefWidth="325.0"/>
@@ -32,4 +33,5 @@
       </rowConstraints>
    </GridPane>
    <HBox fx:id="stockBox" layoutX="43.0" layoutY="22.0" prefHeight="100.0" prefWidth="169.0"/>
+   <Button fx:id="restart" mnemonicParsing="false" text="Restart" layoutX="40" layoutY="90"/>
 </Pane>

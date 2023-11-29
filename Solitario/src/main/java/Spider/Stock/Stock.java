@@ -26,4 +26,8 @@ public class Stock implements Serializable {
         size--;
         return cards.remove(size);
     }
+
+    public int size() {
+        return size;
+    }
 }

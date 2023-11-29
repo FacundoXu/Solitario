@@ -3,7 +3,9 @@ package View.Spider;
 import Card.Card;
 import Spider.Spider;
 import View.CardView;
+import View.CardWrapper;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -19,15 +21,18 @@ public class SpiderController {
     @FXML
     private HBox stockBox;
 
-    private final Spider game = new Spider();
-    private ImageView selectedCardView;
-    private Card selectedCard;
+    @FXML
+    private Button restart;
+
+    private Spider game = new Spider();
+    private CardWrapper selectedCard;
 
     @FXML
     private void initialize() {
         initializeStock();
         initializeFoundation();
         initializeTableau();
+        initializeRestart();
     }
 
     private void initializeStock() {
@@ -36,8 +41,30 @@ public class SpiderController {
         card1.setOnMouseClicked(event -> handleStockClick());
     }
 
+    private void handleStockClick() {
+        if (game.getStockSize() == 0)
+            return;
+
+        if (game.getStockSize() == 10) {
+            stockBox.getChildren().remove(0);
+            Rectangle emptySpace = CardView.getEmptyPlace();
+            stockBox.getChildren().add(emptySpace);
+        }
+
+        game.drawStockCards();
+        System.out.println("STOCK DRAW");
+        Card[] cards = game.peekTableauTopCards();
+
+        for (int i = 0; i < 10; i++) {
+            Card c = cards[i];
+            ImageView view = CardView.getCard(c);
+            tableauGrid.add(view, i, game.getTableauSize(i) - 1);
+            view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
+        }
+    }
+
     public void initializeFoundation() {
-        foundationBox.setSpacing(15); // Add spacing between rectangles
+        foundationBox.setSpacing(15);
 
         for (int i = 0; i < 8; i++) {
             Rectangle emptySpace = CardView.getEmptyPlace();
@@ -51,7 +78,9 @@ public class SpiderController {
                 tableauGrid.add(CardView.getCardBack(), i, j);
             }
             Card c = game.peekTableauTopCard(i);
-            tableauGrid.add(CardView.getCard(c), i, 5);
+            ImageView view = CardView.getCard(c);
+            tableauGrid.add(view, i, 5);
+            view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
         }
 
         for (int i = 4; i < 10; i++) {
@@ -59,17 +88,43 @@ public class SpiderController {
                 tableauGrid.add(CardView.getCardBack(), i, j);
             }
             Card c = game.peekTableauTopCard(i);
-            tableauGrid.add(CardView.getCard(c), i, 4);
+            ImageView view = CardView.getCard(c);
+            tableauGrid.add(view, i, 4);
+            view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
         }
-        System.out.println(game.getTableauSize(0));
     }
 
-    private void handleStockClick() {
-        game.drawStockCards();
-        Card[] cards = game.peekTableauTopCards();
-        for (int i = 0; i < 10; i++) {
-            Card c = cards[i];
-            tableauGrid.add(CardView.getCard(c), i, game.getTableauSize(i) - 1);
+    private void handleTableauClick(CardWrapper tableauCard) {
+        if (selectedCard == null) {
+            selectedCard = tableauCard;
+            selectedCard.view.setOpacity(0.5);
+
+        } else {
+            int originCol = GridPane.getColumnIndex(selectedCard.view);
+            int originIndex = GridPane.getRowIndex(selectedCard.view);
+            int destCol = GridPane.getColumnIndex(tableauCard.view);
+            int destIndex = GridPane.getRowIndex(tableauCard.view);
+            System.out.println("originCol: " + originCol);
+            System.out.println("destCol: " + destCol);
+            System.out.println("originIndex: " + originIndex);
+            System.out.println("destIndex: " + destIndex);
+            System.out.println();
+            selectedCard.view.setOpacity(1);
+            selectedCard = null;
         }
+    }
+
+    private void initializeRestart() {
+        restart.setOnAction(event -> handleRestart());
+    }
+
+    private void handleRestart() {
+        game = new Spider();
+        tableauGrid.getChildren().clear();
+        foundationBox.getChildren().clear();
+        stockBox.getChildren().clear();
+        initializeStock();
+        initializeFoundation();
+        initializeTableau();
     }
 }
