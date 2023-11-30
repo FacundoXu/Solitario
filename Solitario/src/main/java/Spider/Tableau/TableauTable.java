@@ -94,4 +94,8 @@ public class TableauTable implements Serializable {
     public int getTableauSize(int i) {
         return tableaus[i].size();
     }
+
+    public int getTableauHiddenCardsSize(int i) {
+        return tableaus[i].getHiddenCardsSize();
+    }
 }

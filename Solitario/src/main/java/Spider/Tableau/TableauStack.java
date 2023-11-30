@@ -33,6 +33,7 @@ public class TableauStack implements Stack<Card>, Serializable {
             visibleCards.add(card);
             return true;
         }
+
         if (card.rank() == (this.peek().rank() - 1)) {
             visibleCards.add(card);
             return true;
@@ -80,6 +81,7 @@ public class TableauStack implements Stack<Card>, Serializable {
             visibleCards.addAll(Arrays.asList(cardsArray));
             return true;
         }
+
         if (cardsArray[0].rank() == (this.peek().rank() - 1)) {
             visibleCards.addAll(Arrays.asList(cardsArray));
             return true;
@@ -146,5 +148,9 @@ public class TableauStack implements Stack<Card>, Serializable {
 
     public int size() {
         return hiddenCards.size() + visibleCards.size();
+    }
+
+    public int getHiddenCardsSize() {
+        return hiddenCards.size();
     }
 }

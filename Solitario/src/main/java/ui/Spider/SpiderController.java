@@ -2,6 +2,7 @@ package ui.Spider;
 
 import Card.Card;
 import Spider.Spider;
+import javafx.scene.Node;
 import ui.CardView;
 import ui.CardWrapper;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class SpiderController {
     @FXML
     private Button restart;
 
-    private Spider game = new Spider();
+    private Spider spider = new Spider();
     private CardWrapper selectedCard;
 
     @FXML
@@ -44,23 +45,23 @@ public class SpiderController {
     }
 
     private void handleStockClick() {
-        if (game.getStockSize() == 0)
+        if (spider.getStockSize() == 0)
             return;
 
-        if (game.getStockSize() == 10) {
+        if (spider.getStockSize() == 10) {
             stockBox.getChildren().remove(0);
             Rectangle emptySpace = CardView.getEmptyPlace();
             stockBox.getChildren().add(emptySpace);
         }
 
-        game.drawStockCards();
+        spider.drawStockCards();
         System.out.println("Stock Draw\n");
-        Card[] cards = game.peekTableauTopCards();
+        Card[] cards = spider.peekTableauTopCards();
 
         for (int i = 0; i < 10; i++) {
             Card c = cards[i];
             ImageView view = CardView.getCard(c);
-            tableauGrid.add(view, i, game.getTableauSize(i) - 1);
+            tableauGrid.add(view, i, spider.getTableauSize(i) - 1);
             view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
         }
     }
@@ -79,7 +80,7 @@ public class SpiderController {
             for (int j = 0; j < 5; j++) {
                 tableauGrid.add(CardView.getCardBack(), i, j);
             }
-            Card c = game.peekTableauTopCard(i);
+            Card c = spider.peekTableauTopCard(i);
             ImageView view = CardView.getCard(c);
             tableauGrid.add(view, i, 5);
             view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
@@ -89,7 +90,7 @@ public class SpiderController {
             for (int j = 0; j < 4; j++) {
                 tableauGrid.add(CardView.getCardBack(), i, j);
             }
-            Card c = game.peekTableauTopCard(i);
+            Card c = spider.peekTableauTopCard(i);
             ImageView view = CardView.getCard(c);
             tableauGrid.add(view, i, 4);
             view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
@@ -111,22 +112,52 @@ public class SpiderController {
             System.out.println("originIndex: " + originIndex);
             System.out.println("destIndex: " + destIndex + "\n");
 
-            if (game.moveTopCardToTableau(originCol, destCol)) {
-                System.out.println("Funciona?");
-                ImageView movedCardView = selectedCard.view;
-                tableauGrid.getChildren().remove(movedCardView);
-                tableauGrid.add(movedCardView, destCol, destIndex + 1);
+            if (originIndex < spider.getTableauSize(originCol) - 1) {
+                int numCardsToMove = spider.getTableauSize(originCol) - originIndex;
+
+                if (spider.moveTableauToTableau(originCol, originIndex - spider.getTableauHiddenCardsSize(originCol), destCol)) {
+                    System.out.println("Cards Moved");
+
+                    for (int i = 0; i < numCardsToMove; i++) {
+                        ImageView movedCardView = getCardViewFromGridPane(originCol, originIndex + i);
+                        tableauGrid.getChildren().remove(movedCardView);
+                        tableauGrid.add(movedCardView, destCol, destIndex + i + 1);
+                    }
+
+                } else {
+                    System.out.println("Invalid move\n");
+                }
+
+            } else {
+                if (spider.moveTopCardToTableau(originCol, destCol)) {
+                    System.out.println("Top Card Moved");
+                    ImageView movedCardView = selectedCard.view;
+                    tableauGrid.getChildren().remove(movedCardView);
+                    tableauGrid.add(movedCardView, destCol, destIndex + 1);
+
+                } else {
+                    System.out.println("Invalid move\n");
+                }
             }
 
-            System.out.println(Arrays.toString(game.peekTableauTopCards()));
+            System.out.println(Arrays.toString(spider.peekTableauTopCards()) + "\n");
             selectedCard.view.setOpacity(1);
             selectedCard = null;
         }
     }
 
+    private ImageView getCardViewFromGridPane(int col, int row) {
+        for (Node node : tableauGrid.getChildren()) {
+            if (node instanceof ImageView && GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return (ImageView) node;
+            }
+        }
+        return null;
+    }
+
     private void handleRestart() {
         System.out.println("New Game!\n");
-        game = new Spider();
+        spider = new Spider();
         stockBox.getChildren().clear();
         foundationBox.getChildren().clear();
         tableauGrid.getChildren().clear();
