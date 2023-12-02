@@ -56,9 +56,11 @@ public class TableauTable implements Serializable {
     }
 
     public boolean move(int originCardIdx, int originStack, int destStack) {
+        if (originStack == destStack){
+            return false;
+        }
         List<Card> CardArray = tableaus[originStack].popArray(originCardIdx);
-
-        if (!tableaus[destStack].pushArray(CardArray)) {
+        if (CardArray == null || !tableaus[destStack].pushArray(CardArray)) {
             tableaus[originStack].returnArray(CardArray);
             return false;
         }

@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.Button?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="599.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox fx:id="foundationBox" layoutX="243.0" layoutY="22.0" prefHeight="100.0" prefWidth="325.0" />
@@ -31,8 +32,15 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
       <HBox fx:id="stockBox" layoutX="43.0" layoutY="22.0" prefHeight="100.0" prefWidth="169.0" />
+      <Button fx:id="restart" mnemonicParsing="false" text="Restart" layoutX="40" layoutY="90"/>
    </children>
 </Pane>

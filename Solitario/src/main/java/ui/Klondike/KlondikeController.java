@@ -1,6 +1,8 @@
 package ui.Klondike;
 
 import Klondike.Klondike;
+import Spider.Spider;
+import javafx.scene.control.Button;
 import ui.CardView;
 import ui.CardWrapper;
 import javafx.fxml.FXML;
@@ -10,6 +12,10 @@ import javafx.scene.layout.HBox;
 import Card.*;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class KlondikeController {
 
         @FXML
@@ -17,12 +23,13 @@ public class KlondikeController {
 
         @FXML
         private HBox foundationBox;
+        @FXML
+        private Button restart;
 
         @FXML
         private HBox stockBox;
-        private final int[] tableauSizes = {1, 2, 3, 4, 5, 6, 7};
-
-        private final Klondike game = new Klondike();
+        private final ArrayList<ImageView>[] tableauViews = new ArrayList[7];
+        private Klondike game = new Klondike();
 
         CardWrapper selectedCard;
 
@@ -31,6 +38,7 @@ public class KlondikeController {
             initializeStock();
             initializeFoundation();
             initializeTableau();
+            restart.setOnAction(event -> handleRestart());
         }
 
         private void initializeStock() {
@@ -62,13 +70,19 @@ public class KlondikeController {
 
 
     public void initializeTableau(){
+            for (int i = 0; i < 7; i++) {
+                tableauViews[i] = new ArrayList<>();
+            }
             for (int i = 0; i < 7; i++){
                 Card c = game.peekTableauTopCard(i);
                 ImageView view = CardView.getCard(c);
                 tableauGrid.add(view, i, i);
+                tableauViews[i].add(view);
                 view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
                 for (int j = i + 1; j < 7; j++){
-                    tableauGrid.add(CardView.getCardBack(), j, i);
+                    ImageView cardBack = CardView.getCardBack();
+                    tableauGrid.add(cardBack, j, i);
+                    tableauViews[j].add(cardBack);
                 }
             }
         }
@@ -77,41 +91,37 @@ public class KlondikeController {
         if (selectedCard != null) {
             if(selectedCard.container == tableauGrid){
                 int originTableauIdx = GridPane.getColumnIndex(selectedCard.view);
-                int originCardIdx = tableauSizes[originTableauIdx] - GridPane.getRowIndex(selectedCard.view) - 1;
+//                System.out.println(originTableauIdx);
+                int originCardIdx = tableauViews[originTableauIdx].size() - GridPane.getRowIndex(selectedCard.view) - 1;
+//                System.out.println(originCardIdx);
                 int destTableauIdx = GridPane.getColumnIndex(tableauCard.view);
-                System.out.println("originTableauIdx = " + originTableauIdx);
-                System.out.println("originCardIdx = " + originCardIdx);
-                System.out.println("destTableauIdx = " + destTableauIdx);
-                System.out.println("tableauSizes[originTableauIdx] = " + tableauSizes[originTableauIdx]);
-                System.out.println("tableauSizes[destTableauIdx] = " + tableauSizes[destTableauIdx]);
+//                System.out.println(destTableauIdx);
+//                System.out.println(tableauViews[originCardIdx].size());
+//                System.out.println(tableauViews[destTableauIdx].size());
 
                 if (game.moveTableauToTableau(originCardIdx, originTableauIdx, destTableauIdx)) {
-                    refreshTableau(originTableauIdx, tableauSizes[originTableauIdx] - 1);
-                    int oldSize = tableauSizes[destTableauIdx];
-                    tableauSizes[destTableauIdx] = oldSize + originCardIdx + 1;
-                    Card[] newCards = game.peekTableauVisibleCards(destTableauIdx);
-
-                    for (int i = 0; i < originCardIdx; i++){
-                        System.out.println("Esto no debería estar");
-                        tableauGrid.add(CardView.getCard(newCards[i]), destTableauIdx, oldSize + i);
-                    }
-                    ImageView view = CardView.getCard(newCards[originCardIdx + 1]);
-                    tableauGrid.add(view, destTableauIdx, oldSize + originCardIdx);
-                    view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(newCards[originCardIdx], view, tableauGrid)));
-                    selectedCard.remove();
-                    System.out.println("new tableauSizes[originTableauIdx] = " + tableauSizes[originTableauIdx]);
-                    System.out.println("new tableauSizes[destTableauIdx] = " + tableauSizes[destTableauIdx]);
-
+                    refreshTableau(originTableauIdx, GridPane.getRowIndex(selectedCard.view), destTableauIdx);
                 }
-                selectedCard.view.setOpacity(1);
-                selectedCard = null;
+            } else if (selectedCard.container == stockBox){
+                int destTableauIdx = GridPane.getColumnIndex(tableauCard.view);
+                if (game.moveStockToTableau(destTableauIdx)) {
+
+//                    ImageView oldTop = tableauViews[destTableauIdx].get(tableauViews[destTableauIdx].size() - 1);
+//                    tableauGrid.getChildren().remove(oldTop);
+//                    tableauGrid.add(oldTop, destTableauIdx, tableauViews[destTableauIdx].size() - 1);
+
+                    tableauViews[destTableauIdx].add(selectedCard.view);
+                    tableauGrid.add(selectedCard.view, destTableauIdx, tableauViews[destTableauIdx].size() - 1);
+                    Card newCard = selectedCard.card;
+                    ImageView newView = selectedCard.view;
+                    selectedCard.view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(newCard, newView, tableauGrid)));
+                    selectedCard.remove();
+                    refreshWaste();
+                }
             }
-            //            ; &&
-            //                    game.moveTableauToTableau()
-//            game.moveStockToTableau();
-//            game.moveStockToTableau();
+            selectedCard.view.setOpacity(1);
+            selectedCard = null;
         } else {
-            // Una carta
             selectedCard = tableauCard;
             selectedCard.view.setOpacity(0.5);
         }
@@ -172,33 +182,111 @@ public class KlondikeController {
                         selectedCard.remove();
                         refreshWaste();
                     }
-                    selectedCard.view.setOpacity(1);
-                    selectedCard = null;
-                    return;
-                }
-                if (selectedCard.container == tableauGrid) {
+                } else if (selectedCard.container == tableauGrid) {
                     int tableauIdx = GridPane.getColumnIndex(selectedCard.view);
                     int rowIdx = GridPane.getRowIndex(selectedCard.view);
                     if (game.moveTableauToFoundation(tableauIdx,foundationIdx)) {
-                        foundationBox.getChildren().remove(foundationIdx);
-                        foundationBox.getChildren().add(foundationIdx, selectedCard.view);
-                        selectedCard.view.setOnMouseClicked(event -> handleFoundationClick(foundationIdx));
-                        selectedCard.remove();
-                        refreshTableau(tableauIdx, rowIdx);
-                    }
-                    selectedCard.view.setOpacity(1);
-                    selectedCard = null;
+                        if (rowIdx != 0) {
+                            foundationBox.getChildren().remove(foundationIdx);
+                            foundationBox.getChildren().add(foundationIdx, selectedCard.view);
+                            selectedCard.view.setOnMouseClicked(event -> handleFoundationClick(foundationIdx));
+
+                            selectedCard.remove();
+                            tableauGrid.getChildren().remove(tableauViews[tableauIdx].get(tableauViews[tableauIdx].size() - 1));
+                            tableauGrid.getChildren().remove(tableauViews[tableauIdx].get(tableauViews[tableauIdx].size() - 1));
+                            Card topCard = game.peekTableauTopCard(tableauIdx);
+                            ImageView view = CardView.getCard(topCard);
+                            tableauViews[tableauIdx].remove(tableauViews[tableauIdx].size() - 1);
+                            tableauViews[tableauIdx].remove(tableauViews[tableauIdx].size() - 1);
+//                            System.out.println(tableauViews[tableauIdx].size());
+                            tableauViews[tableauIdx].add(view);
+                            System.out.println(tableauViews[tableauIdx].size());
+                            tableauGrid.add(view, tableauIdx, rowIdx - 1);
+                            view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(topCard, view, tableauGrid)));
+                        }else {
+                            foundationBox.getChildren().remove(foundationIdx);
+                            foundationBox.getChildren().add(foundationIdx, selectedCard.view);
+                            selectedCard.view.setOnMouseClicked(event -> handleFoundationClick(foundationIdx));
+
+                            tableauGrid.getChildren().remove(tableauViews[tableauIdx].get(rowIdx));
+                            tableauViews[tableauIdx].subList(rowIdx, tableauViews[tableauIdx].size()).clear();
+                            Rectangle rectangle = CardView.getEmptyPlace();
+                            tableauGrid.add(rectangle, tableauIdx, rowIdx);
+                            rectangle.setOnMouseClicked(event -> handleEmptyTableauClick(tableauIdx));
+                        }
                     }
                 }
+            selectedCard.view.setOpacity(1);
+            selectedCard = null;
             }
+        }
+    // Tablueau to Found dosnt select T card
+    // El 2do tableau no borra
+    // Cuando muevo el último del stock
+    public void handleEmptyTableauClick(int destTableauIdx) {
+        if (selectedCard != null) {
+            if (selectedCard.container == stockBox) {
+                if (game.moveStockToTableau(destTableauIdx)) {
+                    tableauViews[destTableauIdx].add(selectedCard.view);
+                    tableauGrid.add(selectedCard.view, destTableauIdx, tableauViews[destTableauIdx].size() - 1);
+                    Card newCard = selectedCard.card;
+                    ImageView newView = selectedCard.view;
+                    selectedCard.view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(newCard, newView, tableauGrid)));
+                    selectedCard.remove();
+                    refreshWaste();
+                }
+            } else if (selectedCard.container == tableauGrid) {
+                    int originTableauIdx = GridPane.getColumnIndex(selectedCard.view);
+//                System.out.println(originTableauIdx);
+                    int originCardIdx = tableauViews[originTableauIdx].size() - GridPane.getRowIndex(selectedCard.view) - 1;
+//                System.out.println(originCardIdx);
+//                System.out.println(destTableauIdx);
+//                System.out.println(tableauViews[originCardIdx].size());
+//                System.out.println(tableauViews[destTableauIdx].size());
 
-    private void refreshTableau(int tableauIdx,int rowIdx) {
+                    if (game.moveTableauToTableau(originCardIdx, originTableauIdx, destTableauIdx)) {
+                        refreshTableau(originTableauIdx, GridPane.getRowIndex(selectedCard.view), destTableauIdx);
+                    }
+                }
+            selectedCard.view.setOpacity(1);
+            selectedCard = null;
+        }
+    }
+    private void refreshTableau(int tableauIdx, int rowIdx, int destTableauIdx) {
+        int oldSize = tableauViews[destTableauIdx].size();
+//        System.out.println(oldSize);
+        tableauViews[destTableauIdx].addAll(tableauViews[tableauIdx].subList(rowIdx, tableauViews[tableauIdx].size()));
+//        System.out.println(tableauViews[destTableauIdx].size());
+        if (rowIdx != 0) {
+            tableauGrid.getChildren().remove(tableauViews[tableauIdx].get(rowIdx - 1));
+            tableauViews[tableauIdx].subList(rowIdx - 1, tableauViews[tableauIdx].size()).clear();
+            for (int i = oldSize; i < tableauViews[destTableauIdx].size(); i++) {
+//                System.out.println(i);
+                tableauGrid.getChildren().remove(tableauViews[destTableauIdx].get(i));
+                tableauGrid.add(tableauViews[destTableauIdx].get(i), destTableauIdx, i);
+            }
             Card topCard = game.peekTableauTopCard(tableauIdx);
-            if(topCard == null){return;}
+            if (topCard == null) {
+                return;
+            }
             ImageView view = CardView.getCard(topCard);
-            tableauGrid.add(view, tableauIdx, rowIdx -1);
-            tableauSizes[tableauIdx] = rowIdx;
-            view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(topCard, view, tableauGrid)));;
+            tableauGrid.add(view, tableauIdx, rowIdx - 1);
+            tableauViews[tableauIdx].add(view);
+            view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(topCard, view, tableauGrid)));
+        } else {
+            tableauGrid.getChildren().remove(tableauViews[tableauIdx].get(rowIdx));
+            tableauViews[tableauIdx].subList(rowIdx, tableauViews[tableauIdx].size()).clear();
+            for (int i = oldSize; i < tableauViews[destTableauIdx].size(); i++) {
+//                System.out.println(game.peekTableauTopCard(destTableauIdx).rank());
+                tableauGrid.getChildren().remove(tableauViews[destTableauIdx].get(i));
+                tableauGrid.add(tableauViews[destTableauIdx].get(i), destTableauIdx, i);
+            }
+            Rectangle rectangle = CardView.getEmptyPlace();
+            tableauGrid.add(rectangle, tableauIdx, rowIdx);
+            rectangle.setOnMouseClicked(event -> handleEmptyTableauClick(tableauIdx));
+        }
+        System.out.println(tableauViews[tableauIdx].size());
+        System.out.println(tableauViews[destTableauIdx].size());
     }
     private void refreshWaste(){
         Card card = game.peekStockTopCard();
@@ -207,4 +295,15 @@ public class KlondikeController {
         stockBox.getChildren().add(cardV);
         cardV.setOnMouseClicked(event -> handleWasteClick(new CardWrapper(card, cardV, stockBox)));
     }
+    private void handleRestart() {
+        System.out.println("New Game!\n");
+        game = new Klondike();
+        stockBox.getChildren().clear();
+        foundationBox.getChildren().clear();
+        tableauGrid.getChildren().clear();
+        initializeStock();
+        initializeFoundation();
+        initializeTableau();
+    }
+
 }
