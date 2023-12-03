@@ -18,7 +18,7 @@ public class App extends Application {
 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Select a game");
+            primaryStage.setTitle("Solitaire");
             primaryStage.show();
 
         } catch (IOException e) {
