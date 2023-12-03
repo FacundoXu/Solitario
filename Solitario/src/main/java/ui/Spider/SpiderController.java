@@ -27,6 +27,9 @@ import java.util.List;
 
 public class SpiderController {
 
+    private Spider spider = new Spider(Deck.createSpiderVictoryDeck());
+    private CardWrapper selectedCard;
+
     @FXML
     private HBox stockBox;
 
@@ -41,9 +44,6 @@ public class SpiderController {
 
     @FXML
     private Button newGameButton;
-
-    private Spider spider = new Spider(Deck.createSpiderVictoryDeck());
-    private CardWrapper selectedCard;
 
     @FXML
     private void initialize() {
@@ -60,10 +60,10 @@ public class SpiderController {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("selectionWindow.fxml"));
             loader.setController(new SelectionController());
             Parent root = loader.load();
-
             Scene scene = new Scene(root);
             Stage currentStage = (Stage) newGameButton.getScene().getWindow();
             currentStage.setScene(scene);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -159,16 +159,6 @@ public class SpiderController {
         }
     }
 
-    private void showVictoryMessage() {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("¡Congrats!");
-        alert.setHeaderText(null);
-        alert.setContentText("¡¡¡VICTORY!!!");
-        alert.getButtonTypes().setAll(ButtonType.OK);
-        alert.showAndWait();
-    }
-
-
     private void refreshFoundations() {
         if (spider.addWonColumnsToFoundations()) {
             foundationBox.getChildren().clear();
@@ -193,6 +183,15 @@ public class SpiderController {
                 showVictoryMessage();
             }
         }
+    }
+
+    private void showVictoryMessage() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("¡Congrats!");
+        alert.setHeaderText(null);
+        alert.setContentText("¡¡¡VICTORY!!!");
+        alert.getButtonTypes().setAll(ButtonType.OK);
+        alert.showAndWait();
     }
 
     private List<Node> removeCardsFromColumn(int columnIndex, int startIndex) {
@@ -241,17 +240,10 @@ public class SpiderController {
     }
 
     private void refreshHiddenCards(int originCol, int originIndex) {
-        // Esto es para "dar vuelta" las cartas ocultas
         if (spider.getTableauVisibleCardsSize(originCol) == 1) {
-
-            // Posicion de la carta a borrar
             int hiddenCardRow = originIndex - 1;
-
-            // Eliminar la carta dado vuelta de la posición específica
             Node cardToRemove = getNodeByColumnAndRowIndex(originCol, hiddenCardRow, tableauGrid);
             tableauGrid.getChildren().remove(cardToRemove);
-
-            // Añadir la nueva carta en la posición correcta
             Card c = spider.peekTableauTopCard(originCol);
             ImageView view = CardView.getCard(c);
             tableauGrid.add(view, originCol, hiddenCardRow);
