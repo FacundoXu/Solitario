@@ -2,7 +2,11 @@ package ui.Spider;
 
 import Card.*;
 import Spider.Spider;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import ui.CardView;
 import ui.CardWrapper;
 import javafx.fxml.FXML;
@@ -14,7 +18,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import ui.SelectionController;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +39,9 @@ public class SpiderController {
     @FXML
     private Button restart;
 
+    @FXML
+    private Button newGameButton;
+
     private Spider spider = new Spider(Deck.createSpiderVictoryDeck());
     private CardWrapper selectedCard;
 
@@ -42,6 +51,22 @@ public class SpiderController {
         initializeFoundation();
         initializeTableau();
         restart.setOnAction(event -> handleRestart());
+        newGameButton.setOnAction(event -> handleNewGameButton());
+    }
+
+    @FXML
+    private void handleNewGameButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("selectionWindow.fxml"));
+            loader.setController(new SelectionController());
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage currentStage = (Stage) newGameButton.getScene().getWindow();
+            currentStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializeStock() {
