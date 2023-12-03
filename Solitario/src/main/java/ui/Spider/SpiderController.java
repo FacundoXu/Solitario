@@ -11,6 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -131,6 +134,16 @@ public class SpiderController {
         }
     }
 
+    private void showVictoryMessage() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("¡Congrats!");
+        alert.setHeaderText(null);
+        alert.setContentText("¡¡¡VICTORY!!!");
+        alert.getButtonTypes().setAll(ButtonType.OK);
+        alert.showAndWait();
+    }
+
+
     private void refreshFoundations() {
         if (spider.addWonColumnsToFoundations()) {
             foundationBox.getChildren().clear();
@@ -149,7 +162,11 @@ public class SpiderController {
                 refreshHiddenCards(i, lastColumnCardIndex);
             }
 
-            System.out.println("Winner Cards Added");
+            System.out.println("Winner Cards Added!\n");
+
+            if (spider.verifyVictory()) {
+                showVictoryMessage();
+            }
         }
     }
 
@@ -238,13 +255,22 @@ public class SpiderController {
     }
 
     private void handleRestart() {
-        spider = new Spider(Deck.createSpiderVictoryDeck());
-        stockBox.getChildren().clear();
-        foundationBox.getChildren().clear();
-        tableauGrid.getChildren().clear();
-        initializeStock();
-        initializeFoundation();
-        initializeTableau();
-        System.out.println("New Game!\n");
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("New Game!");
+        alert.setHeaderText("Do you want to start a new game?");
+        alert.setContentText("Your current progress will be lost.");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                spider = new Spider(Deck.createSpiderVictoryDeck());
+                stockBox.getChildren().clear();
+                foundationBox.getChildren().clear();
+                tableauGrid.getChildren().clear();
+                initializeStock();
+                initializeFoundation();
+                initializeTableau();
+                System.out.println("New Game!\n");
+            }
+        });
     }
 }
