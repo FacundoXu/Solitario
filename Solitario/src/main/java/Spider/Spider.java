@@ -58,13 +58,18 @@ public class Spider implements Serializable {
         return tableauTable.move(origin, i, target);
     }
 
-    public void addWonColumnsToFoundations() {
+    public boolean addWonColumnsToFoundations() {
+        boolean ok = false;
+
         for (int i = 0; i < 10; i++) {
             Card[] wonColumn = tableauTable.verifyTable();
 
-            if (wonColumn != null)
+            if (wonColumn != null) {
                 foundationTable.assignCards(wonColumn);
+                ok = true;
+            }
         }
+        return ok;
     }
 
     public boolean verifyVictory() {

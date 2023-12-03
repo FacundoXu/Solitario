@@ -1,6 +1,6 @@
 package ui.Spider;
 
-import Card.Card;
+import Card.*;
 import Spider.Spider;
 import javafx.scene.Node;
 import ui.CardView;
@@ -12,9 +12,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SpiderController {
+
     @FXML
     private HBox stockBox;
 
@@ -27,7 +30,7 @@ public class SpiderController {
     @FXML
     private Button restart;
 
-    private Spider spider = new Spider();
+    private Spider spider = new Spider(Deck.createSpiderVictoryDeck());
     private CardWrapper selectedCard;
 
     @FXML
@@ -64,6 +67,7 @@ public class SpiderController {
             view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
         }
 
+        refreshFoundations();
         System.out.println("Stock Draw\n");
     }
 
@@ -120,10 +124,47 @@ public class SpiderController {
                 topCardToTableauMove(originCol, destCol, originIndex, destIndex);
             }
 
+            refreshFoundations();
             System.out.println(Arrays.toString(spider.peekTableauTopCards()) + "\n");
             selectedCard.view.setOpacity(1);
             selectedCard = null;
         }
+    }
+
+    private void refreshFoundations() {
+        if (spider.addWonColumnsToFoundations()) {
+            foundationBox.getChildren().clear();
+
+            for (int i = 0; i < 10; i++) {
+                int lastColumnCardIndex = spider.getTableauSize(i);
+                List<Node> winnerNodes = removeCardsFromColumn(i, lastColumnCardIndex);
+
+                if (!winnerNodes.isEmpty()) {
+                    Node king = winnerNodes.get(0);
+                    HBox foundationColumn = new HBox();
+                    foundationColumn.getChildren().add(king);
+                    foundationBox.getChildren().add(foundationColumn);
+                }
+
+                refreshHiddenCards(i, lastColumnCardIndex);
+            }
+
+            System.out.println("Winner Cards Added");
+        }
+    }
+
+    private List<Node> removeCardsFromColumn(int columnIndex, int startIndex) {
+        List<Node> nodesToRemove = new ArrayList<>();
+
+        tableauGrid.getChildren().forEach(node -> {
+            if (GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == columnIndex &&
+                    GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) >= startIndex) {
+                nodesToRemove.add(node);
+            }
+        });
+
+        tableauGrid.getChildren().removeAll(nodesToRemove);
+        return nodesToRemove;
     }
 
     private void tableauToTableauMove(int originCol, int destCol, int originIndex, int destIndex) {
@@ -139,8 +180,8 @@ public class SpiderController {
                 tableauGrid.add(movedCardView, destCol, destIndex + i + 1);
             }
 
-            System.out.println("Cards Pile Moved");
             refreshHiddenCards(originCol, originIndex);
+            System.out.println("Cards Pile Moved");
         }
     }
 
@@ -152,8 +193,8 @@ public class SpiderController {
             ImageView movedCardView = selectedCard.view;
             tableauGrid.getChildren().remove(movedCardView);
             tableauGrid.add(movedCardView, destCol, destIndex + 1);
-            System.out.println("Top Card Moved");
             refreshHiddenCards(originCol, originIndex);
+            System.out.println("Top Card Moved");
         }
     }
 
@@ -197,7 +238,7 @@ public class SpiderController {
     }
 
     private void handleRestart() {
-        spider = new Spider();
+        spider = new Spider(Deck.createSpiderVictoryDeck());
         stockBox.getChildren().clear();
         foundationBox.getChildren().clear();
         tableauGrid.getChildren().clear();
