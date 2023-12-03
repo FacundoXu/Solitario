@@ -55,7 +55,6 @@ public class SpiderController {
         }
 
         spider.drawStockCards();
-        System.out.println("Stock Draw\n");
         Card[] cards = spider.peekTableauTopCards();
 
         for (int i = 0; i < 10; i++) {
@@ -64,6 +63,8 @@ public class SpiderController {
             tableauGrid.add(view, i, spider.getTableauSize(i) - 1);
             view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
         }
+
+        System.out.println("Stock Draw\n");
     }
 
     public void initializeFoundation() {
@@ -113,36 +114,65 @@ public class SpiderController {
             System.out.println("destIndex: " + destIndex + "\n");
 
             if (originIndex < spider.getTableauSize(originCol) - 1) {
-                int numCardsToMove = spider.getTableauSize(originCol) - originIndex;
-
-                if (spider.moveTableauToTableau(originCol, originIndex - spider.getTableauHiddenCardsSize(originCol), destCol)) {
-                    System.out.println("Cards Moved");
-
-                    for (int i = 0; i < numCardsToMove; i++) {
-                        ImageView movedCardView = getCardViewFromGridPane(originCol, originIndex + i);
-                        tableauGrid.getChildren().remove(movedCardView);
-                        tableauGrid.add(movedCardView, destCol, destIndex + i + 1);
-                    }
-
-                } else {
-                    System.out.println("Invalid move\n");
-                }
+                tableauToTableauMove(originCol, destCol, originIndex, destIndex);
 
             } else {
-                if (spider.moveTopCardToTableau(originCol, destCol)) {
-                    System.out.println("Top Card Moved");
-                    ImageView movedCardView = selectedCard.view;
-                    tableauGrid.getChildren().remove(movedCardView);
-                    tableauGrid.add(movedCardView, destCol, destIndex + 1);
-
-                } else {
-                    System.out.println("Invalid move\n");
-                }
+                topCardToTableauMove(originCol, destCol, originIndex, destIndex);
             }
 
             System.out.println(Arrays.toString(spider.peekTableauTopCards()) + "\n");
             selectedCard.view.setOpacity(1);
             selectedCard = null;
+        }
+    }
+
+    private void tableauToTableauMove(int originCol, int destCol, int originIndex, int destIndex) {
+        int numCardsToMove = spider.getTableauSize(originCol) - originIndex;
+
+        if (originCol == destCol || (!spider.moveTableauToTableau(originCol, originIndex - spider.getTableauHiddenCardsSize(originCol), destCol))) {
+            System.out.println("Invalid move\n");
+
+        } else {
+            for (int i = 0; i < numCardsToMove; i++) {
+                ImageView movedCardView = getCardViewFromGridPane(originCol, originIndex + i);
+                tableauGrid.getChildren().remove(movedCardView);
+                tableauGrid.add(movedCardView, destCol, destIndex + i + 1);
+            }
+
+            System.out.println("Cards Pile Moved");
+            refreshHiddenCards(originCol, originIndex);
+        }
+    }
+
+    private void topCardToTableauMove(int originCol, int destCol, int originIndex, int destIndex) {
+        if (originCol == destCol || !spider.moveTopCardToTableau(originCol, destCol)) {
+            System.out.println("Invalid move\n");
+
+        } else {
+            ImageView movedCardView = selectedCard.view;
+            tableauGrid.getChildren().remove(movedCardView);
+            tableauGrid.add(movedCardView, destCol, destIndex + 1);
+            System.out.println("Top Card Moved");
+            refreshHiddenCards(originCol, originIndex);
+        }
+    }
+
+    private void refreshHiddenCards(int originCol, int originIndex) {
+        // Esto es para "dar vuelta" las cartas ocultas
+        if (spider.getTableauVisibleCardsSize(originCol) == 1) {
+
+            // Posicion de la carta a borrar
+            int hiddenCardRow = originIndex - 1;
+
+            // Eliminar la carta dado vuelta de la posición específica
+            Node cardToRemove = getNodeByColumnAndRowIndex(originCol, hiddenCardRow, tableauGrid);
+            tableauGrid.getChildren().remove(cardToRemove);
+
+            // Añadir la nueva carta en la posición correcta
+            Card c = spider.peekTableauTopCard(originCol);
+            ImageView view = CardView.getCard(c);
+            tableauGrid.add(view, originCol, hiddenCardRow);
+            view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
         }
     }
 
@@ -155,8 +185,18 @@ public class SpiderController {
         return null;
     }
 
+    private Node getNodeByColumnAndRowIndex(int columnIndex, int rowIndex, GridPane gridPane) {
+        for (Node node : gridPane.getChildren()) {
+            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null) {
+                if (GridPane.getColumnIndex(node) == columnIndex && GridPane.getRowIndex(node) == rowIndex) {
+                    return node;
+                }
+            }
+        }
+        return null;
+    }
+
     private void handleRestart() {
-        System.out.println("New Game!\n");
         spider = new Spider();
         stockBox.getChildren().clear();
         foundationBox.getChildren().clear();
@@ -164,5 +204,6 @@ public class SpiderController {
         initializeStock();
         initializeFoundation();
         initializeTableau();
+        System.out.println("New Game!\n");
     }
 }
