@@ -20,20 +20,18 @@ import javafx.scene.shape.Rectangle;
 import ui.Controller;
 import ui.SelectionController;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class KlondikeController implements Controller {
 
     private static final String KLONDIKE_PATH = "saves/klondike.txt";
     private static final String SPIDER_PATH = "saves/spider.txt";
-
     private Stage stage;
+
     @FXML
     private GridPane tableauGrid;
 
@@ -44,18 +42,19 @@ public class KlondikeController implements Controller {
 
     @FXML
     private HBox stockBox;
+
     @FXML
     private Button newGameButton;
 
     private ArrayList<ImageView>[] tableauViews;
     private int[] visibleIdx;
     private Klondike game = new Klondike();
-
     CardWrapper selectedCard;
 
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
+
     @FXML
     private void initialize() {
         initializeStock();
@@ -80,6 +79,7 @@ public class KlondikeController implements Controller {
         card1.setOnMouseClicked(event -> handleStockClick());
         card2.setOnMouseClicked(event -> handleStockClick());
     }
+
     private void handleTableauClick(CardWrapper tableauCard) {
         if (selectedCard != null) {
             if (selectedCard.container == tableauGrid) {
@@ -90,7 +90,7 @@ public class KlondikeController implements Controller {
                 System.out.println("dest" + visibleIdx[destTableauIdx]);
                 if (game.moveTableauToTableau(originCardIdx, originTableauIdx, destTableauIdx)) {
                     System.out.println("entró");
-                    if(visibleIdx[originTableauIdx] > -1) visibleIdx[originTableauIdx] -= 1;
+                    if (visibleIdx[originTableauIdx] > -1) visibleIdx[originTableauIdx] -= 1;
                     refreshTableau(originTableauIdx);
                     refreshTableau(destTableauIdx);
                     System.out.println("origin" + visibleIdx[originTableauIdx]);
@@ -116,7 +116,7 @@ public class KlondikeController implements Controller {
         Card[] newCards = game.peekTableauVisibleCards(tableauIdx);
 //        System.out.println("new cards length " + newCards.length);
         if (newCards != null) {
-            for (int i = tableauViews[tableauIdx].size() - 1; i > visibleIdx[tableauIdx] -1; i --){
+            for (int i = tableauViews[tableauIdx].size() - 1; i > visibleIdx[tableauIdx] - 1; i--) {
                 System.out.println("rem " + i);
                 tableauGrid.getChildren().remove(tableauViews[tableauIdx].get(i));
                 tableauViews[tableauIdx].remove(i);
@@ -129,7 +129,7 @@ public class KlondikeController implements Controller {
                 tableauViews[tableauIdx].add(visibleIdx[tableauIdx] + i, view);
                 view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
             }
-        }else {
+        } else {
             tableauGrid.getChildren().remove(tableauViews[tableauIdx].get(0));
             tableauViews[tableauIdx].remove(0);
             Rectangle rectangle = CardView.getEmptyPlace();
@@ -148,7 +148,7 @@ public class KlondikeController implements Controller {
                 System.out.println("dest" + visibleIdx[tableauIdx]);
                 if (game.moveTableauToTableau(originCardIdx, originTableauIdx, tableauIdx)) {
                     System.out.println("entró");
-                    if(visibleIdx[originTableauIdx] > -1) visibleIdx[originTableauIdx] -= 1;
+                    if (visibleIdx[originTableauIdx] > -1) visibleIdx[originTableauIdx] -= 1;
                     visibleIdx[tableauIdx] += 1;
                     refreshTableau(originTableauIdx);
                     refreshTableau(tableauIdx);
@@ -156,7 +156,7 @@ public class KlondikeController implements Controller {
                     System.out.println("dest" + visibleIdx[tableauIdx]);
                 }
             } else if (selectedCard.container == stockBox) {
-                for (int i = 0; i < 7; i++){
+                for (int i = 0; i < 7; i++) {
                     System.out.println(game.peekTableauTopCard(i));
                 }
                 if (game.moveStockToTableau(tableauIdx)) {
@@ -177,42 +177,43 @@ public class KlondikeController implements Controller {
     }
 
     private void handleStockClick() {
-        if (selectedCard != null){
+        if (selectedCard != null) {
             selectedCard.view.setOpacity(1);
             selectedCard = null;
         }
 
-        if (game.stockCardsLeft() == 0 && game.stockPass() == 3){
+        if (game.stockCardsLeft() == 0 && game.stockPass() == 3) {
             return;
         }
 
-        Card c  = game.stockNextCard();
-        if (c == null){
+        Card c = game.stockNextCard();
+        if (c == null) {
             stockBox.getChildren().clear();
             initializeStock();
             return;
         }
         ImageView cardV = CardView.getCard(c);
 
-        if (game.stockCardsLeft() == 0){
+        if (game.stockCardsLeft() == 0) {
             stockBox.getChildren().remove(1);
             stockBox.getChildren().remove(0);
             Rectangle emptyStock = CardView.getEmptyPlace();
             stockBox.getChildren().add(emptyStock);
             emptyStock.setOnMouseClicked(event -> handleStockClick());
             cardV.setTranslateX(45);
-        } else if (game.stockCardsLeft() == 1){
+        } else if (game.stockCardsLeft() == 1) {
             stockBox.getChildren().remove(2);
             stockBox.getChildren().remove(1);
             cardV.setTranslateX(45);
-        }else if (stockBox.getChildren().size() == 3) {
-            stockBox.getChildren().remove(2);}
+        } else if (stockBox.getChildren().size() == 3) {
+            stockBox.getChildren().remove(2);
+        }
         stockBox.getChildren().add(cardV);
         cardV.setOnMouseClicked(event -> handleWasteClick(new CardWrapper(c, cardV, stockBox)));
     }
 
     private void handleWasteClick(CardWrapper wasteCard) {
-        if (selectedCard == null){
+        if (selectedCard == null) {
             selectedCard = wasteCard;
             selectedCard.view.setOpacity(0.5);
         } else {
@@ -221,45 +222,46 @@ public class KlondikeController implements Controller {
         }
     }
 
-    public void initializeFoundation(){
-            foundationBox.setSpacing(15); // Add spacing between rectangles
+    public void initializeFoundation() {
+        foundationBox.setSpacing(15); // Add spacing between rectangles
 
-            for (int i = 0; i < 4; i++){
-                Rectangle emptySpace = CardView.getEmptyPlace();
-                emptySpace.setOnMouseClicked(event -> handleFoundationClick(foundationBox.getChildren().indexOf(emptySpace)));
-                foundationBox.getChildren().add(emptySpace);
+        for (int i = 0; i < 4; i++) {
+            Rectangle emptySpace = CardView.getEmptyPlace();
+            emptySpace.setOnMouseClicked(event -> handleFoundationClick(foundationBox.getChildren().indexOf(emptySpace)));
+            foundationBox.getChildren().add(emptySpace);
+        }
+    }
+
+    public void initializeTableau() {
+        visibleIdx = new int[]{0, 1, 2, 3, 4, 5, 6};
+        tableauViews = new ArrayList[7];
+        for (int i = 0; i < 7; i++) {
+            tableauViews[i] = new ArrayList<>();
+        }
+        for (int i = 0; i < 7; i++) {
+            Card c = game.peekTableauTopCard(i);
+            ImageView view = CardView.getCard(c);
+            tableauGrid.add(view, i, i);
+            tableauViews[i].add(view);
+            view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
+            for (int j = i + 1; j < 7; j++) {
+                ImageView cardBack = CardView.getCardBack();
+                tableauGrid.add(cardBack, j, i);
+                tableauViews[j].add(cardBack);
             }
         }
+    }
 
-
-    public void initializeTableau(){
-            visibleIdx = new int[]{0, 1, 2, 3, 4, 5, 6};
-            tableauViews = new ArrayList[7];
-            for (int i = 0; i < 7; i++) {
-                tableauViews[i] = new ArrayList<>();
-            }
-            for (int i = 0; i < 7; i++){
-                Card c = game.peekTableauTopCard(i);
-                ImageView view = CardView.getCard(c);
-                tableauGrid.add(view, i, i);
-                tableauViews[i].add(view);
-                view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
-                for (int j = i + 1; j < 7; j++){
-                    ImageView cardBack = CardView.getCardBack();
-                    tableauGrid.add(cardBack, j, i);
-                    tableauViews[j].add(cardBack);
-                }
-            }
-        }
-    private void refreshWaste(){
+    private void refreshWaste() {
         selectedCard.remove();
         Card card = game.peekStockTopCard();
-        if (card == null){return;}
+        if (card == null) {
+            return;
+        }
         ImageView cardV = CardView.getCard(card);
         stockBox.getChildren().add(cardV);
         cardV.setOnMouseClicked(event -> handleWasteClick(new CardWrapper(card, cardV, stockBox)));
     }
-
 
     private void handleFoundationClick(int foundationIdx) {
         if (selectedCard != null) {
@@ -273,18 +275,18 @@ public class KlondikeController implements Controller {
                 }
             } else if (selectedCard.container == tableauGrid) {
                 int tableauIdx = GridPane.getColumnIndex(selectedCard.view);
-                if (game.moveTableauToFoundation(tableauIdx,foundationIdx)) {
+                if (game.moveTableauToFoundation(tableauIdx, foundationIdx)) {
                     foundationBox.getChildren().remove(foundationIdx);
                     foundationBox.getChildren().add(foundationIdx, selectedCard.view);
                     selectedCard.view.setOnMouseClicked(event -> handleFoundationClick(foundationIdx));
                     selectedCard.remove();
-                    if (visibleIdx[tableauIdx] == tableauViews[tableauIdx].size() -1) visibleIdx[tableauIdx] -= 1;
+                    if (visibleIdx[tableauIdx] == tableauViews[tableauIdx].size() - 1) visibleIdx[tableauIdx] -= 1;
                     refreshTableau(tableauIdx);
                 }
             }
             selectedCard.view.setOpacity(1);
             selectedCard = null;
-            if (game.verifyVictory()){
+            if (game.verifyVictory()) {
                 showVictoryMessage();
             }
         }
@@ -298,13 +300,21 @@ public class KlondikeController implements Controller {
         alert.getButtonTypes().setAll(ButtonType.OK);
         alert.showAndWait();
     }
+
     @FXML
     private void handleNewGameButton() {
         try {
-            File klondikePath = new File(KLONDIKE_PATH);
-            File spiderPath = new File(SPIDER_PATH);
-            if (klondikePath.exists()) klondikePath.delete();
-            if (spiderPath.exists()) spiderPath.delete();
+            Path klondikePath = Paths.get(KLONDIKE_PATH);
+            Path spiderPath = Paths.get(SPIDER_PATH);
+
+            try {
+                Files.deleteIfExists(klondikePath);
+                Files.deleteIfExists(spiderPath);
+
+            } catch (IOException e) {
+                System.err.println("Error: " + e.getMessage());
+            }
+
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("selectionWindow.fxml"));
             loader.setController(new SelectionController());
             Parent root = loader.load();
@@ -327,7 +337,8 @@ public class KlondikeController implements Controller {
         initializeFoundation();
         initializeTableau();
     }
-    public void load(){
+
+    public void load() {
         game.loadGame();
         stockBox.getChildren().clear();
         System.out.println("carga");
@@ -338,14 +349,15 @@ public class KlondikeController implements Controller {
         loadFoundation();
         loadTableau();
     }
-    public void save(){
+
+    public void save() {
         game.saveGame();
     }
 
     private void loadTableau() {
-        for (int i = 0; i <7; i++){
+        for (int i = 0; i < 7; i++) {
             Card[] visibleCards = game.peekTableauVisibleCards(i);
-            if (visibleCards == null){
+            if (visibleCards == null) {
                 visibleIdx[i] = 0;
 //                Rectangle rectangle = CardView.getEmptyPlace();
 //                tableauGrid.add(rectangle, tableauIdx, 0);
@@ -360,12 +372,12 @@ public class KlondikeController implements Controller {
             int size = game.peekSize(i);
             visibleIdx[i] = size - visibleCards.length;
 
-            for (int j = 0; j < visibleIdx[i]; j ++){
+            for (int j = 0; j < visibleIdx[i]; j++) {
                 ImageView cardBack = CardView.getCardBack();
                 tableauGrid.add(cardBack, i, j);
                 tableauViews[i].add(cardBack);
             }
-            for (int j = 0; j < visibleCards.length; j++){
+            for (int j = 0; j < visibleCards.length; j++) {
                 Card card = visibleCards[j];
                 ImageView view = CardView.getCard(card);
                 view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(card, view, tableauGrid)));
@@ -379,14 +391,14 @@ public class KlondikeController implements Controller {
 
     private void loadFoundation() {
         foundationBox.setSpacing(15); // Add spacing between rectangles
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
 
             Card topCard = game.peekFoundation(i);
-            if(topCard == null){
+            if (topCard == null) {
                 Rectangle emptySpace = CardView.getEmptyPlace();
                 emptySpace.setOnMouseClicked(event -> handleFoundationClick(foundationBox.getChildren().indexOf(emptySpace)));
                 foundationBox.getChildren().add(emptySpace);
-            }else{
+            } else {
                 ImageView view = CardView.getCard(topCard);
                 view.setOnMouseClicked(event -> handleFoundationClick(foundationBox.getChildren().indexOf(view)));
                 foundationBox.getChildren().add(view);
@@ -404,27 +416,27 @@ public class KlondikeController implements Controller {
         stockBox.getChildren().add(card2);
         card1.setOnMouseClicked(event -> handleStockClick());
         card2.setOnMouseClicked(event -> handleStockClick());
-        if (topCard == null){
+        if (topCard == null) {
             stockBox.getChildren().clear();
             initializeStock();
             return;
         }
         ImageView cardV = CardView.getCard(topCard);
-        if (game.stockCardsLeft() == 0){
+        if (game.stockCardsLeft() == 0) {
             stockBox.getChildren().remove(1);
             stockBox.getChildren().remove(0);
             Rectangle emptyStock = CardView.getEmptyPlace();
             stockBox.getChildren().add(emptyStock);
             emptyStock.setOnMouseClicked(event -> handleStockClick());
             cardV.setTranslateX(45);
-        } else if (game.stockCardsLeft() == 1){
+        } else if (game.stockCardsLeft() == 1) {
             stockBox.getChildren().remove(2);
             stockBox.getChildren().remove(1);
             cardV.setTranslateX(45);
-        }else if (stockBox.getChildren().size() == 3) {
-            stockBox.getChildren().remove(2);}
+        } else if (stockBox.getChildren().size() == 3) {
+            stockBox.getChildren().remove(2);
+        }
         stockBox.getChildren().add(cardV);
         cardV.setOnMouseClicked(event -> handleWasteClick(new CardWrapper(topCard, cardV, stockBox)));
     }
 }
-

@@ -17,7 +17,6 @@ public class App extends Application {
     private static final int KLONDIKE = 1;
     private final SelectionController controller = new SelectionController();
 
-
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -26,8 +25,10 @@ public class App extends Application {
 
             if (klondikePath.exists()) {
                 controller.loadController(primaryStage, KLONDIKE);
+
             } else if (spiderPath.exists()) {
                 controller.loadController(primaryStage, SPIDER);
+
             } else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("selectionWindow.fxml"));
                 loader.setController(controller);
@@ -37,13 +38,14 @@ public class App extends Application {
                 primaryStage.setTitle("Solitaire");
                 primaryStage.show();
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void stop(){
+    public void stop() {
         controller.exit();
     }
 }

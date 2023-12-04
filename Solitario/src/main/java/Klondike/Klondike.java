@@ -114,21 +114,32 @@ public class Klondike implements Serializable {
             System.out.print("Unable to load your game :(\n");
         }
     }
-    public Card peekTableauTopCard(int tableauIdx){
+
+    public Card peekTableauTopCard(int tableauIdx) {
         return tableauTable.peek(tableauIdx);
     }
-    public Card[] peekTableauVisibleCards(int tableauIdx){
+
+    public Card[] peekTableauVisibleCards(int tableauIdx) {
         return tableauTable.peekVisible(tableauIdx);
     }
-    public Card peekStockTopCard(){
+
+    public Card peekStockTopCard() {
         return stockTable.peek();
     }
 
-    public int stockCardsLeft() {return stockTable.cardsLeft(); }
+    public int stockCardsLeft() {
+        return stockTable.cardsLeft();
+    }
 
-    public int stockPass() {return stockTable.currentPass();}
+    public int stockPass() {
+        return stockTable.currentPass();
+    }
 
-    public int peekSize(int tableauIdx){return tableauTable.peekSize(tableauIdx);}
-    public Card peekFoundation(int foundationIdx){
-        return foundationTable.peek(foundationIdx);}
+    public int peekSize(int tableauIdx) {
+        return tableauTable.peekSize(tableauIdx);
+    }
+
+    public Card peekFoundation(int foundationIdx) {
+        return foundationTable.peek(foundationIdx);
+    }
 }

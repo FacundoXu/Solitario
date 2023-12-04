@@ -3,6 +3,7 @@ package ui;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import Card.*;
+
 public class CardWrapper {
     public Card card;
     public ImageView view;
@@ -15,7 +16,7 @@ public class CardWrapper {
 
     }
 
-    public void remove (){
+    public void remove() {
         container.getChildren().remove(view);
     }
 }

@@ -21,9 +21,9 @@ import javafx.scene.control.ButtonType;
 import ui.Controller;
 import ui.SelectionController;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +34,7 @@ public class SpiderController implements Controller {
     private static final String KLONDIKE_PATH = "saves/klondike.txt";
     private static final String SPIDER_PATH = "saves/spider.txt";
 
-    private Spider spider = new Spider(Deck.createSpiderVictoryDeck());
+    private Spider spider = new Spider();
     private CardWrapper selectedCard;
     private Stage stage;
 
@@ -60,25 +60,6 @@ public class SpiderController implements Controller {
         initializeTableau();
         restart.setOnAction(event -> handleRestart());
         newGameButton.setOnAction(event -> handleNewGameButton());
-    }
-
-    @FXML
-    private void handleNewGameButton() {
-        try {
-            File klondikePath = new File(KLONDIKE_PATH);
-            File spiderPath = new File(SPIDER_PATH);
-            if (klondikePath.exists()) klondikePath.delete();
-            if (spiderPath.exists()) spiderPath.delete();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("selectionWindow.fxml"));
-            loader.setController(new SelectionController());
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage currentStage = (Stage) newGameButton.getScene().getWindow();
-            currentStage.setScene(scene);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void initializeStock() {
@@ -164,17 +145,18 @@ public class SpiderController implements Controller {
                 topCardToTableauMove(originCol, destCol, originIndex, destIndex);
             }
 
-            refreshFoundations();
             System.out.println(Arrays.toString(spider.peekTableauTopCards()) + "\n");
             selectedCard.view.setOpacity(1);
             selectedCard = null;
+            refreshFoundations();
         }
     }
 
     private void refreshFoundations() {
+
         if (spider.addWonColumnsToFoundations()) {
             foundationBox.getChildren().clear();
-
+            System.out.println(Arrays.toString(spider.peekTableauTopCards()) + "\n");
             for (int i = 0; i < 10; i++) {
                 int lastColumnCardIndex = spider.getTableauSize(i);
                 List<Node> winnerNodes = removeCardsFromColumn(i, lastColumnCardIndex);
@@ -291,7 +273,7 @@ public class SpiderController implements Controller {
 
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                spider = new Spider(Deck.createSpiderVictoryDeck());
+                spider = new Spider();
                 stockBox.getChildren().clear();
                 foundationBox.getChildren().clear();
                 tableauGrid.getChildren().clear();
@@ -301,6 +283,32 @@ public class SpiderController implements Controller {
                 System.out.println("New Game!\n");
             }
         });
+    }
+
+    @FXML
+    private void handleNewGameButton() {
+        try {
+            Path klondikePath = Paths.get(KLONDIKE_PATH);
+            Path spiderPath = Paths.get(SPIDER_PATH);
+
+            try {
+                Files.deleteIfExists(klondikePath);
+                Files.deleteIfExists(spiderPath);
+
+            } catch (IOException e) {
+                System.err.println("Error: " + e.getMessage());
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("selectionWindow.fxml"));
+            loader.setController(new SelectionController());
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage currentStage = (Stage) newGameButton.getScene().getWindow();
+            currentStage.setScene(scene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void saveGame() {
@@ -354,11 +362,16 @@ public class SpiderController implements Controller {
         loadTableau();
         System.out.println("Game Loaded");
     }
-    public void save(){
+
+    public void save() {
         spider.saveGame();
     }
+
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void exit() {
     }
 }

@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class SelectionController {
 
-
     @FXML
     private ChoiceBox<String> choiceBox;
 
@@ -22,14 +21,11 @@ public class SelectionController {
     private Button start;
 
     private Controller controller;
-
     private String fxmlFile = null;
     private Class<?> controllerClass = null;
     private static final int SPIDER = 0;
     private static final int KLONDIKE = 1;
     private Stage currentStage;
-
-
 
     @FXML
     private void initialize() {
@@ -38,6 +34,7 @@ public class SelectionController {
         start.setOnAction(event -> {
             try {
                 handleStartButton();
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -56,20 +53,20 @@ public class SelectionController {
             fxmlFile = "spider.fxml";
             controllerClass = SpiderController.class;
         }
+
         currentStage = (Stage) start.getScene().getWindow();
         startController();
     }
 
-    private void startController(){
+    private void startController() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
             controller = (Controller) controllerClass.newInstance();
             controller.setStage(currentStage);
-
             loader.setController(controller);
             Parent root = loader.load();
             Scene scene = new Scene(root);
-//            Stage currentStage = (Stage) start.getScene().getWindow();
+            // Stage currentStage = (Stage) start.getScene().getWindow();
             currentStage.setScene(scene);
             currentStage.setTitle("Solitaire");
             currentStage.show();
@@ -77,16 +74,18 @@ public class SelectionController {
         } catch (IOException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
-
     }
+
     public void loadController(Stage currentStage, int game) {
-        if (game == SPIDER ){
+        if (game == SPIDER) {
             fxmlFile = "spider.fxml";
             controllerClass = SpiderController.class;
-        }else {
+
+        } else if (game == KLONDIKE) {
             fxmlFile = "klondike.fxml";
             controllerClass = KlondikeController.class;
         }
+
         this.currentStage = currentStage;
         startController();
         controller.load();
