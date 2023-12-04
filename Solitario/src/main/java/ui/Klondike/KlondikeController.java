@@ -96,12 +96,6 @@ public class KlondikeController implements Controller {
                     refreshTableau(destTableauIdx);
                     refreshWaste();
                 }
-//            } else if (selectedCard.container == foundationBox) {
-//                int destTableauIdx = GridPane.getColumnIndex(tableauCard.view);
-//                if (game.moveFoundationToTableau(destTableauIdx)) {
-//                    refreshTableau(des);
-//                    refreshStock();
-//                }
             }
             selectedCard.view.setOpacity(1);
             selectedCard = null;
@@ -332,11 +326,44 @@ public class KlondikeController implements Controller {
     }
 
     private void loadTableau() {
+        for (int i = 0; i <7; i++){
+            Card[] visibleCards = game.peekTableauVisibleCards(i);
+            if (visibleCards == null){
+                Rectangle emptySpace = CardView.getEmptyPlace();
+                emptySpace.setOnMouseClicked(event -> handleEmptyTableauClick(tableauGrid.getColumnIndex(emptySpace)));
+                tableauGrid.getChildren().add(i, emptySpace);
+                continue;
+            }
+            int size = game.peekSize(i);
+            for (int j = 0; j < size - visibleCards.length; j ++){
+                ImageView cardBack = CardView.getCardBack();
+                tableauGrid.getChildren().add(i, cardBack);
+            }
+            for (int j = 0; j < visibleCards.length; j++){
+                Card card = visibleCards[j];
+                ImageView view = CardView.getCard(card);
+                view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(card, view, tableauGrid)));
+                tableauGrid.getChildren().add(i, view);
+            }
+        }
 
     }
 
     private void loadFoundation() {
-        
+        foundationBox.setSpacing(15); // Add spacing between rectangles
+        for (int i = 0; i < 4; i++){
+
+            Card topCard = game.peekFoundation(i);
+            if(topCard == null){
+                Rectangle emptySpace = CardView.getEmptyPlace();
+                emptySpace.setOnMouseClicked(event -> handleFoundationClick(foundationBox.getChildren().indexOf(emptySpace)));
+                foundationBox.getChildren().add(emptySpace);
+            }else{
+                ImageView view = CardView.getCard(topCard);
+                view.setOnMouseClicked(event -> handleFoundationClick(foundationBox.getChildren().indexOf(view)));
+                foundationBox.getChildren().add(view);
+            }
+        }
     }
 
     private void loadStock() {

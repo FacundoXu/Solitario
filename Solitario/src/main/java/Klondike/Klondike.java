@@ -127,4 +127,8 @@ public class Klondike implements Serializable {
     public int stockCardsLeft() {return stockTable.cardsLeft(); }
 
     public int stockPass() {return stockTable.currentPass();}
+
+    public int peekSize(int tableauIdx){return tableauTable.peekSize(tableauIdx);}
+    public Card peekFoundation(int foundationIdx){
+        return foundationTable.peek(foundationIdx);}
 }

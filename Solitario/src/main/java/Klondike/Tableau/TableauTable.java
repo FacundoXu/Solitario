@@ -43,6 +43,7 @@ public class TableauTable implements Serializable {
         return tableaus[tableauIdx].peekVisible();
     }
 
+    public int peekSize(int tableauIdx){return tableaus[tableauIdx].size();}
     public Card peek(int StackIdx) {
         return tableaus[StackIdx].peek();
     }

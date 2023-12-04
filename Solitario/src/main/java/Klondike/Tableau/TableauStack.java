@@ -68,7 +68,7 @@ public class TableauStack implements Stack<Card>, Serializable {
     }
     public Card[] peekVisible(){
         LinkedList<Card> resCards = new LinkedList<>();
-        if (size == 0) return null;
+        if (size == 0 || faceUpIdx == -1) return null;
         for (int i = faceUpIdx; i < size; i++){
             resCards.addLast(cards.get(i));
         }
@@ -84,8 +84,7 @@ public class TableauStack implements Stack<Card>, Serializable {
         cards.add(c);
         size++;
 
-        if (faceUpIdx > 0)
-            faceUpIdx++;
+        faceUpIdx++;
     }
 
     public void returnArray(List<Card> l) {
@@ -102,9 +101,9 @@ public class TableauStack implements Stack<Card>, Serializable {
         if (realIdx < faceUpIdx)
             return null;
 
-        if (realIdx == faceUpIdx) faceUpIdx--;
-
-//        && faceUpIdx > 0)
+        if (realIdx == faceUpIdx && faceUpIdx > 0){
+            faceUpIdx--;
+        }
 
         List<Card> left = new ArrayList<>(cards.subList(0, realIdx));
         List<Card> right = new ArrayList<>(cards.subList(realIdx, cards.size()));
