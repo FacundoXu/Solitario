@@ -90,6 +90,9 @@ public class TableauStack implements Stack<Card>, Serializable {
     }
 
     public void returnArray(Card[] cards) {
+        if (cards == null) {
+            return;
+        }
         visibleCards.addAll(Arrays.asList(cards));
     }
 
