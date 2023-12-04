@@ -92,4 +92,7 @@ public class SelectionController {
         controller.load();
     }
 
+    public void exit() {
+        controller.save();
+    }
 }

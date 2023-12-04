@@ -21,12 +21,18 @@ import javafx.scene.control.ButtonType;
 import ui.Controller;
 import ui.SelectionController;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SpiderController implements Controller {
+
+    private static final String KLONDIKE_PATH = "saves/klondike.txt";
+    private static final String SPIDER_PATH = "saves/spider.txt";
 
     private Spider spider = new Spider(Deck.createSpiderVictoryDeck());
     private CardWrapper selectedCard;
@@ -59,6 +65,10 @@ public class SpiderController implements Controller {
     @FXML
     private void handleNewGameButton() {
         try {
+            File klondikePath = new File(KLONDIKE_PATH);
+            File spiderPath = new File(SPIDER_PATH);
+            if (klondikePath.exists()) klondikePath.delete();
+            if (spiderPath.exists()) spiderPath.delete();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("selectionWindow.fxml"));
             loader.setController(new SelectionController());
             Parent root = loader.load();
@@ -344,7 +354,9 @@ public class SpiderController implements Controller {
         loadTableau();
         System.out.println("Game Loaded");
     }
-
+    public void save(){
+        spider.saveGame();
+    }
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;

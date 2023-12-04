@@ -15,12 +15,12 @@ public class App extends Application {
 
     private static final int SPIDER = 0;
     private static final int KLONDIKE = 1;
+    private final SelectionController controller = new SelectionController();
 
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            SelectionController controller = new SelectionController();
             File klondikePath = new File(KLONDIKE_PATH);
             File spiderPath = new File(SPIDER_PATH);
 
@@ -44,7 +44,6 @@ public class App extends Application {
 
     @Override
     public void stop(){
-
+        controller.exit();
     }
-
 }

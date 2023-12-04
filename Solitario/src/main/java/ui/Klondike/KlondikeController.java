@@ -20,12 +20,18 @@ import javafx.scene.shape.Rectangle;
 import ui.Controller;
 import ui.SelectionController;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class KlondikeController implements Controller {
+
+    private static final String KLONDIKE_PATH = "saves/klondike.txt";
+    private static final String SPIDER_PATH = "saves/spider.txt";
 
     private Stage stage;
     @FXML
@@ -133,6 +139,7 @@ public class KlondikeController implements Controller {
     }
 
     private void handleEmptyTableauClick(int tableauIdx) {
+        System.out.println("Entró");
         if (selectedCard != null) {
             if (selectedCard.container == tableauGrid) {
                 int originTableauIdx = GridPane.getColumnIndex(selectedCard.view);
@@ -149,6 +156,9 @@ public class KlondikeController implements Controller {
                     System.out.println("dest" + visibleIdx[tableauIdx]);
                 }
             } else if (selectedCard.container == stockBox) {
+                for (int i = 0; i < 7; i++){
+                    System.out.println(game.peekTableauTopCard(i));
+                }
                 if (game.moveStockToTableau(tableauIdx)) {
                     visibleIdx[tableauIdx] += 1;
                     refreshTableau(tableauIdx);
@@ -161,9 +171,9 @@ public class KlondikeController implements Controller {
 //                    refreshStock();
 //                }
             }
+            selectedCard.view.setOpacity(1);
+            selectedCard = null;
         }
-        selectedCard.view.setOpacity(1);
-        selectedCard = null;
     }
 
     private void handleStockClick() {
@@ -291,6 +301,10 @@ public class KlondikeController implements Controller {
     @FXML
     private void handleNewGameButton() {
         try {
+            File klondikePath = new File(KLONDIKE_PATH);
+            File spiderPath = new File(SPIDER_PATH);
+            if (klondikePath.exists()) klondikePath.delete();
+            if (spiderPath.exists()) spiderPath.delete();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("selectionWindow.fxml"));
             loader.setController(new SelectionController());
             Parent root = loader.load();
@@ -324,27 +338,41 @@ public class KlondikeController implements Controller {
         loadFoundation();
         loadTableau();
     }
+    public void save(){
+        game.saveGame();
+    }
 
     private void loadTableau() {
         for (int i = 0; i <7; i++){
             Card[] visibleCards = game.peekTableauVisibleCards(i);
             if (visibleCards == null){
+                visibleIdx[i] = 0;
+//                Rectangle rectangle = CardView.getEmptyPlace();
+//                tableauGrid.add(rectangle, tableauIdx, 0);
+//                rectangle.setOnMouseClicked(event -> handleEmptyTableauClick(tableauIdx));
+
+                int idx = i;
                 Rectangle emptySpace = CardView.getEmptyPlace();
-                emptySpace.setOnMouseClicked(event -> handleEmptyTableauClick(tableauGrid.getColumnIndex(emptySpace)));
-                tableauGrid.getChildren().add(i, emptySpace);
+                tableauGrid.add(emptySpace, i, 0);
+                emptySpace.setOnMouseClicked(event -> handleEmptyTableauClick(idx));
                 continue;
             }
             int size = game.peekSize(i);
-            for (int j = 0; j < size - visibleCards.length; j ++){
+            visibleIdx[i] = size - visibleCards.length;
+
+            for (int j = 0; j < visibleIdx[i]; j ++){
                 ImageView cardBack = CardView.getCardBack();
-                tableauGrid.getChildren().add(i, cardBack);
+                tableauGrid.add(cardBack, i, j);
+                tableauViews[i].add(cardBack);
             }
             for (int j = 0; j < visibleCards.length; j++){
                 Card card = visibleCards[j];
                 ImageView view = CardView.getCard(card);
                 view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(card, view, tableauGrid)));
-                tableauGrid.getChildren().add(i, view);
+                tableauGrid.add(view, i, visibleIdx[i] + j);
+                tableauViews[i].add(view);
             }
+
         }
 
     }
