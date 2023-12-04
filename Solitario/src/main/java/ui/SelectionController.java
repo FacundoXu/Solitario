@@ -27,6 +27,7 @@ public class SelectionController {
     private Class<?> controllerClass = null;
     private static final int SPIDER = 0;
     private static final int KLONDIKE = 1;
+    private Stage currentStage;
 
 
 
@@ -55,6 +56,7 @@ public class SelectionController {
             fxmlFile = "spider.fxml";
             controllerClass = SpiderController.class;
         }
+        currentStage = (Stage) start.getScene().getWindow();
         startController();
     }
 
@@ -62,18 +64,22 @@ public class SelectionController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
             controller = (Controller) controllerClass.newInstance();
+            controller.setStage(currentStage);
+
             loader.setController(controller);
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            Stage currentStage = (Stage) start.getScene().getWindow();
+//            Stage currentStage = (Stage) start.getScene().getWindow();
             currentStage.setScene(scene);
+            currentStage.setTitle("Solitaire");
+            currentStage.show();
 
         } catch (IOException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
 
     }
-    public void loadController(int game) {
+    public void loadController(Stage currentStage, int game) {
         if (game == SPIDER ){
             fxmlFile = "spider.fxml";
             controllerClass = SpiderController.class;
@@ -81,6 +87,7 @@ public class SelectionController {
             fxmlFile = "klondike.fxml";
             controllerClass = KlondikeController.class;
         }
+        this.currentStage = currentStage;
         startController();
         controller.load();
     }

@@ -21,19 +21,17 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         try {
             SelectionController controller = new SelectionController();
-            File path = new File(KLONDIKE_PATH);
-            if (path.exists()) {
-                controller.loadController(KLONDIKE);
-            } else{
-                path = new File(SPIDER_PATH);
-            }
-            if (path.exists()) {
-                controller.loadController(SPIDER);
+            File klondikePath = new File(KLONDIKE_PATH);
+            File spiderPath = new File(SPIDER_PATH);
+
+            if (klondikePath.exists()) {
+                controller.loadController(primaryStage, KLONDIKE);
+            } else if (spiderPath.exists()) {
+                controller.loadController(primaryStage, SPIDER);
             } else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("selectionWindow.fxml"));
                 loader.setController(controller);
                 Parent root = loader.load();
-
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
                 primaryStage.setTitle("Solitaire");

@@ -89,9 +89,11 @@ public class TableauStack implements Stack<Card>, Serializable {
     }
 
     public void returnArray(List<Card> l) {
-        faceUpIdx += l.size();
-        cards.addAll(l);
-        size = cards.size();
+        if(l != null) {
+            faceUpIdx += l.size();
+            cards.addAll(l);
+            size = cards.size();
+        }
     }
 
     public List<Card> popArray(int cardIdx) {
@@ -100,8 +102,9 @@ public class TableauStack implements Stack<Card>, Serializable {
         if (realIdx < faceUpIdx)
             return null;
 
-        if (realIdx == faceUpIdx && faceUpIdx > 0)
-            faceUpIdx--;
+        if (realIdx == faceUpIdx) faceUpIdx--;
+
+//        && faceUpIdx > 0)
 
         List<Card> left = new ArrayList<>(cards.subList(0, realIdx));
         List<Card> right = new ArrayList<>(cards.subList(realIdx, cards.size()));

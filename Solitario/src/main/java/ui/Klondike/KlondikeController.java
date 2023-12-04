@@ -27,6 +27,7 @@ import java.util.List;
 
 public class KlondikeController implements Controller {
 
+    private Stage stage;
     @FXML
     private GridPane tableauGrid;
 
@@ -46,6 +47,9 @@ public class KlondikeController implements Controller {
 
     CardWrapper selectedCard;
 
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
     @FXML
     private void initialize() {
         initializeStock();
@@ -318,10 +322,54 @@ public class KlondikeController implements Controller {
     public void load(){
         game.loadGame();
         stockBox.getChildren().clear();
+        System.out.println("carga");
+
         foundationBox.getChildren().clear();
         tableauGrid.getChildren().clear();
+        loadStock();
+        loadFoundation();
+        loadTableau();
+    }
 
+    private void loadTableau() {
 
+    }
+
+    private void loadFoundation() {
+        
+    }
+
+    private void loadStock() {
+        Card topCard = game.peekStockTopCard();
+        ImageView card1 = CardView.getCardBack();
+        ImageView card2 = CardView.getCardBack();
+        card2.setTranslateX(-30);
+        card2.setTranslateY(5);
+        stockBox.getChildren().add(card1);
+        stockBox.getChildren().add(card2);
+        card1.setOnMouseClicked(event -> handleStockClick());
+        card2.setOnMouseClicked(event -> handleStockClick());
+        if (topCard == null){
+            stockBox.getChildren().clear();
+            initializeStock();
+            return;
+        }
+        ImageView cardV = CardView.getCard(topCard);
+        if (game.stockCardsLeft() == 0){
+            stockBox.getChildren().remove(1);
+            stockBox.getChildren().remove(0);
+            Rectangle emptyStock = CardView.getEmptyPlace();
+            stockBox.getChildren().add(emptyStock);
+            emptyStock.setOnMouseClicked(event -> handleStockClick());
+            cardV.setTranslateX(45);
+        } else if (game.stockCardsLeft() == 1){
+            stockBox.getChildren().remove(2);
+            stockBox.getChildren().remove(1);
+            cardV.setTranslateX(45);
+        }else if (stockBox.getChildren().size() == 3) {
+            stockBox.getChildren().remove(2);}
+        stockBox.getChildren().add(cardV);
+        cardV.setOnMouseClicked(event -> handleWasteClick(new CardWrapper(topCard, cardV, stockBox)));
     }
 }
 

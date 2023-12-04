@@ -128,19 +128,43 @@ public class KlondikeTest {
         // Act and assert
         assertTrue(klondike.moveTableauToTableau(0, 5, 6));
         assertTrue(klondike.moveTableauToTableau(0, 5, 4));
+        System.out.println(klondike.peekTableauVisibleCards(4).length);
+        System.out.println(klondike.peekTableauVisibleCards(1).length);
+
         assertTrue(klondike.moveTableauToFoundation(5, 0));
         assertTrue(klondike.moveTableauToFoundation(5, 1));
+        System.out.println(klondike.peekTableauVisibleCards(4).length);
+        System.out.println(klondike.peekTableauVisibleCards(1).length);
+
         assertTrue(klondike.moveTableauToFoundation(0, 0));
         assertEquals(mapCard("H6"), klondike.stockNextCard());
         assertEquals(mapCard("HT"), klondike.stockNextCard());
         assertEquals(mapCard("H9"), klondike.stockNextCard());
         assertTrue(klondike.moveStockToTableau(6));
         assertTrue(klondike.moveTableauToTableau(1, 4, 6));
+        System.out.println(klondike.peekTableauVisibleCards(4).length);
+        System.out.println(klondike.peekTableauVisibleCards(1).length);
+
         assertTrue(klondike.moveTableauToTableau(0, 4, 0));
+        System.out.println(klondike.peekTableauVisibleCards(4).length);
+        System.out.println(klondike.peekTableauVisibleCards(1).length);
+
         assertTrue(klondike.moveTableauToTableau(0, 1, 0));
+        System.out.println(klondike.peekTableauVisibleCards(4).length);
+        System.out.println(klondike.peekTableauVisibleCards(1).length);
+
         assertTrue(klondike.moveTableauToTableau(0, 5, 1));
+        System.out.println(klondike.peekTableauVisibleCards(4).length);
+        System.out.println(klondike.peekTableauVisibleCards(1).length);
+
         assertFalse(klondike.moveTableauToTableau(3, 6, 1));
-        assertTrue(klondike.moveTableauToTableau(4, 6, 1));
+        System.out.println(klondike.peekTableauVisibleCards(4).length);
+        System.out.println(klondike.peekTableauVisibleCards(1).length);
+
+//        assertTrue(klondike.moveTableauToTableau(4, 6, 1));
+        System.out.println(klondike.peekTableauVisibleCards(4).length);
+        System.out.println(klondike.peekTableauVisibleCards(1).length);
+
         klondike.stockNextCard();
         klondike.stockNextCard();
 
