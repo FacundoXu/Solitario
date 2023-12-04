@@ -30,6 +30,7 @@ public class SpiderController implements Controller {
 
     private Spider spider = new Spider(Deck.createSpiderVictoryDeck());
     private CardWrapper selectedCard;
+    private Stage stage;
 
     @FXML
     private HBox stockBox;
@@ -347,6 +348,6 @@ public class SpiderController implements Controller {
 
     @Override
     public void setStage(Stage stage) {
-
+        this.stage = stage;
     }
 }
