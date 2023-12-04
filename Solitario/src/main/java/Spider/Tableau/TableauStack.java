@@ -134,6 +134,7 @@ public class TableauStack implements Stack<Card>, Serializable {
         if (cards != null && (cards[cards.length - 1].rank() == 1))
             return cards;
 
+        this.returnArray(cards);
         return null;
     }
 

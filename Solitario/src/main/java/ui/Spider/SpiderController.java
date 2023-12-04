@@ -153,10 +153,9 @@ public class SpiderController implements Controller {
     }
 
     private void refreshFoundations() {
-
         if (spider.addWonColumnsToFoundations()) {
             foundationBox.getChildren().clear();
-            System.out.println(Arrays.toString(spider.peekTableauTopCards()) + "\n");
+
             for (int i = 0; i < 10; i++) {
                 int lastColumnCardIndex = spider.getTableauSize(i);
                 List<Node> winnerNodes = removeCardsFromColumn(i, lastColumnCardIndex);
