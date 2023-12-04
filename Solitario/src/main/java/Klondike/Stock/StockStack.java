@@ -60,7 +60,7 @@ public class StockStack implements Stack<Card>, Serializable {
         Collections.reverse(cards);
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 

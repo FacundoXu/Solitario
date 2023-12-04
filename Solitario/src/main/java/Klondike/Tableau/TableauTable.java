@@ -39,11 +39,15 @@ public class TableauTable implements Serializable {
         }
         return topCards;
     }
-    public Card[] peekVisible(int tableauIdx){
+
+    public Card[] peekVisible(int tableauIdx) {
         return tableaus[tableauIdx].peekVisible();
     }
 
-    public int peekSize(int tableauIdx){return tableaus[tableauIdx].size();}
+    public int peekSize(int tableauIdx) {
+        return tableaus[tableauIdx].size();
+    }
+
     public Card peek(int StackIdx) {
         return tableaus[StackIdx].peek();
     }
@@ -57,10 +61,12 @@ public class TableauTable implements Serializable {
     }
 
     public boolean move(int originCardIdx, int originStack, int destStack) {
-        if (originStack == destStack){
+        if (originStack == destStack) {
             return false;
         }
+
         List<Card> CardArray = tableaus[originStack].popArray(originCardIdx);
+
         if (CardArray == null || !tableaus[destStack].pushArray(CardArray)) {
             tableaus[originStack].returnArray(CardArray);
             return false;

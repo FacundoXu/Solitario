@@ -70,7 +70,7 @@ public class FoundationStack implements Stack<Card>, Serializable {
         return !this.isEmpty() && this.peek().rank() == KING;
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 

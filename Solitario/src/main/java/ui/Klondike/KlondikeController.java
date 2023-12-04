@@ -473,6 +473,7 @@ public class KlondikeController implements Controller {
         } else if (stockBox.getChildren().size() == 3) {
             stockBox.getChildren().remove(2);
         }
+
         stockBox.getChildren().add(cardV);
         cardV.setOnMouseClicked(event -> handleWasteClick(new CardWrapper(topCard, cardV, stockBox)));
     }

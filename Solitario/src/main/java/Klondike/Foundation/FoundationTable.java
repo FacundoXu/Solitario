@@ -35,7 +35,8 @@ public class FoundationTable implements Serializable {
         }
         return true;
     }
-    public Card peek(int foundationIdx){
+
+    public Card peek(int foundationIdx) {
         return foundations[foundationIdx].peek();
     }
 }
