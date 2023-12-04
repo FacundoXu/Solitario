@@ -14,11 +14,21 @@ import java.io.IOException;
 
 public class SelectionController {
 
+
     @FXML
     private ChoiceBox<String> choiceBox;
 
     @FXML
     private Button start;
+
+    private Controller controller;
+
+    private String fxmlFile = null;
+    private Class<?> controllerClass = null;
+    private static final int SPIDER = 0;
+    private static final int KLONDIKE = 1;
+
+
 
     @FXML
     private void initialize() {
@@ -36,8 +46,6 @@ public class SelectionController {
     @FXML
     private void handleStartButton() throws Exception {
         String selectedOption = choiceBox.getValue();
-        String fxmlFile = null;
-        Class<?> controllerClass = null;
 
         if ("KLONDIKE".equals(selectedOption)) {
             fxmlFile = "klondike.fxml";
@@ -47,10 +55,14 @@ public class SelectionController {
             fxmlFile = "spider.fxml";
             controllerClass = SpiderController.class;
         }
+        startController();
+    }
 
+    private void startController(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
-            loader.setController(controllerClass.newInstance());
+            controller = (Controller) controllerClass.newInstance();
+            loader.setController(controller);
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage currentStage = (Stage) start.getScene().getWindow();
@@ -59,5 +71,18 @@ public class SelectionController {
         } catch (IOException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
+
     }
+    public void loadController(int game) {
+        if (game == SPIDER ){
+            fxmlFile = "spider.fxml";
+            controllerClass = SpiderController.class;
+        }else {
+            fxmlFile = "klondike.fxml";
+            controllerClass = KlondikeController.class;
+        }
+        startController();
+        controller.load();
+    }
+
 }
