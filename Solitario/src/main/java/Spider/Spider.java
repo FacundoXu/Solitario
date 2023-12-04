@@ -122,6 +122,10 @@ public class Spider implements Serializable {
         return tableauTable.getTableauVisibleCardsSize(i);
     }
 
+    public List<Card> getTableauVisibleCards(int i) {
+        return tableauTable.getTableauVisibleCards(i);
+    }
+
     public Card[] peekTableauTopCards() {
         return tableauTable.peek();
     }
@@ -130,7 +134,11 @@ public class Spider implements Serializable {
         return stock.size();
     }
 
-    public List<Card> getCurrentStock() {
-        return stock.getCurrentStock();
+    public boolean foundationIsEmpty(int i) {
+        return foundationTable.isEmpty(i);
+    }
+
+    public Card peekFoundation(int i) {
+        return foundationTable.peekFoundation(i);
     }
 }

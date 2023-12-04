@@ -18,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import ui.Controller;
 import ui.SelectionController;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpiderController {
+public class SpiderController implements Controller {
 
     private Spider spider = new Spider(Deck.createSpiderVictoryDeck());
     private CardWrapper selectedCard;
@@ -295,27 +296,57 @@ public class SpiderController {
         spider.saveGame();
     }
 
-    private void loadGame() {
+    public void loadFoundation() {
+        foundationBox.setSpacing(15);
+
+        for (int i = 0; i < 8; i++) {
+            if (spider.foundationIsEmpty(i)) {
+                Rectangle emptySpace = CardView.getEmptyPlace();
+                foundationBox.getChildren().add(emptySpace);
+
+            } else {
+                Card c = spider.peekFoundation(i);
+                ImageView view = CardView.getCard(c);
+                foundationBox.getChildren().add(view);
+            }
+        }
+    }
+
+    public void loadTableau() {
+        for (int i = 0; i < 10; i++) {
+            int hiddenCardsSize = spider.getTableauHiddenCardsSize(i);
+
+            for (int j = 0; j < hiddenCardsSize; j++) {
+                tableauGrid.add(CardView.getCardBack(), i, j);
+            }
+
+            List<Card> visibleCards = spider.getTableauVisibleCards(i);
+            int visibleCardsSize = spider.getTableauVisibleCardsSize(i);
+
+            for (int x = 0; x < visibleCardsSize; x++) {
+                Card c = visibleCards.get(x);
+                ImageView view = CardView.getCard(c);
+                hiddenCardsSize += x;
+                tableauGrid.add(view, i, hiddenCardsSize);
+                view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
+            }
+        }
+    }
+
+    @Override
+    public void load() {
         spider.loadGame();
         stockBox.getChildren().clear();
         foundationBox.getChildren().clear();
         tableauGrid.getChildren().clear();
-        loadStock();
+        initializeStock();
         loadFoundation();
         loadTableau();
         System.out.println("Game Loaded");
     }
 
-    public void loadStock() {
-        List<Card> currentStock = spider.getCurrentStock();
-
-    }
-
-    public void loadFoundation() {
-
-    }
-
-    public void loadTableau() {
+    @Override
+    public void setStage(Stage stage) {
 
     }
 }

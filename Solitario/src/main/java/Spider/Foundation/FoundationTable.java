@@ -49,4 +49,12 @@ public class FoundationTable implements Serializable {
         }
         return true;
     }
+
+    public boolean isEmpty(int i) {
+        return foundations[i].isEmpty();
+    }
+
+    public Card peekFoundation(int i) {
+        return foundations[i].peek();
+    }
 }

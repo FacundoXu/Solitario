@@ -25,4 +25,8 @@ public class FoundationColumn implements Serializable {
     public boolean isEmpty() {
         return cards.isEmpty();
     }
+
+    public Card peek() {
+        return cards.get(cards.size() - 1);
+    }
 }
