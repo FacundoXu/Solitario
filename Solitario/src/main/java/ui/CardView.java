@@ -8,9 +8,9 @@ import Card.*;
 
 public class CardView {
 
-    private static final String IMAGE_PATH = "/cards.png";
-    private static final int CARD_WIDTH = 45;
-    private static final int CARD_HEIGHT = 60;
+    private static final String IMAGE_PATH = "/cards-remaster.png";
+    private static final int CARD_WIDTH = 47;
+    private static final int CARD_HEIGHT = 62;
     private static final Image spriteSheet = new Image(CardView.class.getResourceAsStream(IMAGE_PATH));
 
     public static ImageView getCard(Card c) {
@@ -20,15 +20,13 @@ public class CardView {
         else if (c.suit() == Suit.HEARTS) suit = 2;
         else suit = 3;
         ImageView cardView = new ImageView(spriteSheet);
-        cardView.setViewport(new javafx.geometry.Rectangle2D(
-                (c.rank() - 1) * (CARD_WIDTH + 7) + 7, suit * (CARD_HEIGHT + 9) + 6, CARD_WIDTH, CARD_HEIGHT));
+        cardView.setViewport(new javafx.geometry.Rectangle2D((c.rank() - 1) * CARD_WIDTH, suit * CARD_HEIGHT, CARD_WIDTH, CARD_HEIGHT));
         return cardView;
     }
 
     public static ImageView getCardBack() {
         ImageView cardView = new ImageView(spriteSheet);
-        cardView.setViewport(new javafx.geometry.Rectangle2D(
-                0 * (CARD_WIDTH + 7) + 7, 4 * (CARD_HEIGHT + 9) + 6, CARD_WIDTH, CARD_HEIGHT));
+        cardView.setViewport(new javafx.geometry.Rectangle2D(CARD_WIDTH, 4 * CARD_HEIGHT, CARD_WIDTH, CARD_HEIGHT));
         return cardView;
     }
 
