@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Klondike implements Serializable {
 
     // Constants
-    private static final String KLONDIKE_PATH = "saves/klondike.txt";
+    private static final String KLONDIKE_PATH = "saves/klondike.bin";
 
     // Attributes
     private FoundationTable foundationTable;

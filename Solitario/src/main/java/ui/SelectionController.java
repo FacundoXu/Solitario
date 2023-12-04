@@ -44,21 +44,24 @@ public class SelectionController {
     @FXML
     private void handleStartButton() throws Exception {
         String selectedOption = choiceBox.getValue();
+        String title = null;
 
         if ("KLONDIKE".equals(selectedOption)) {
+            title = "Solitaire Klondike";
             fxmlFile = "klondike.fxml";
             controllerClass = KlondikeController.class;
 
         } else if ("SPIDER".equals(selectedOption)) {
+            title = "Solitaire Spider";
             fxmlFile = "spider.fxml";
             controllerClass = SpiderController.class;
         }
 
         currentStage = (Stage) start.getScene().getWindow();
-        startController();
+        startController(title);
     }
 
-    private void startController() {
+    private void startController(String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
             controller = (Controller) controllerClass.newInstance();
@@ -66,9 +69,8 @@ public class SelectionController {
             loader.setController(controller);
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            // Stage currentStage = (Stage) start.getScene().getWindow();
             currentStage.setScene(scene);
-            currentStage.setTitle("Solitaire");
+            currentStage.setTitle(title);
             currentStage.show();
 
         } catch (IOException | IllegalAccessException | InstantiationException e) {
@@ -77,17 +79,20 @@ public class SelectionController {
     }
 
     public void loadController(Stage currentStage, int game) {
+        String title = null;
         if (game == SPIDER) {
+            title = "Solitaire Spider";
             fxmlFile = "spider.fxml";
             controllerClass = SpiderController.class;
 
         } else if (game == KLONDIKE) {
+            title = "Solitaire Klondike";
             fxmlFile = "klondike.fxml";
             controllerClass = KlondikeController.class;
         }
 
         this.currentStage = currentStage;
-        startController();
+        startController(title);
         controller.load();
     }
 

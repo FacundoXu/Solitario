@@ -10,8 +10,8 @@ import java.io.*;
 
 public class App extends Application {
 
-    private static final String KLONDIKE_PATH = "saves/klondike.txt";
-    private static final String SPIDER_PATH = "saves/spider.txt";
+    private static final String KLONDIKE_PATH = "saves/klondike.bin";
+    private static final String SPIDER_PATH = "saves/spider.bin";
 
     private static final int SPIDER = 0;
     private static final int KLONDIKE = 1;

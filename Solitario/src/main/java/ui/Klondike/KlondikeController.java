@@ -28,8 +28,8 @@ import java.util.ArrayList;
 
 public class KlondikeController implements Controller {
 
-    private static final String KLONDIKE_PATH = "saves/klondike.txt";
-    private static final String SPIDER_PATH = "saves/spider.txt";
+    private static final String KLONDIKE_PATH = "saves/klondike.bin";
+    private static final String SPIDER_PATH = "saves/spider.bin";
     private Stage stage;
 
     @FXML

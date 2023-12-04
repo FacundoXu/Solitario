@@ -11,7 +11,7 @@ import java.util.List;
 public class Spider implements Serializable {
 
     // Constants
-    private static final String SPIDER_PATH = "saves/spider.txt";
+    private static final String SPIDER_PATH = "saves/spider.bin";
 
     // Attributes
     private FoundationTable foundationTable;
