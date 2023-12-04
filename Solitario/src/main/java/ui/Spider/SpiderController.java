@@ -327,8 +327,7 @@ public class SpiderController implements Controller {
             for (int x = 0; x < visibleCardsSize; x++) {
                 Card c = visibleCards.get(x);
                 ImageView view = CardView.getCard(c);
-                hiddenCardsSize += x;
-                tableauGrid.add(view, i, hiddenCardsSize);
+                tableauGrid.add(view, i, hiddenCardsSize + x);
                 view.setOnMouseClicked(event -> handleTableauClick(new CardWrapper(c, view, tableauGrid)));
             }
         }
