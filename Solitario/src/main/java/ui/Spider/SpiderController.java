@@ -290,4 +290,32 @@ public class SpiderController {
             }
         });
     }
+
+    private void saveGame() {
+        spider.saveGame();
+    }
+
+    private void loadGame() {
+        spider.loadGame();
+        stockBox.getChildren().clear();
+        foundationBox.getChildren().clear();
+        tableauGrid.getChildren().clear();
+        loadStock();
+        loadFoundation();
+        loadTableau();
+        System.out.println("Game Loaded");
+    }
+
+    public void loadStock() {
+        List<Card> currentStock = spider.getCurrentStock();
+
+    }
+
+    public void loadFoundation() {
+
+    }
+
+    public void loadTableau() {
+
+    }
 }

@@ -30,4 +30,8 @@ public class Stock implements Serializable {
     public int size() {
         return size;
     }
+
+    public List<Card> getCurrentStock() {
+        return cards;
+    }
 }

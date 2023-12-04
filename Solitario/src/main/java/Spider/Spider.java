@@ -6,6 +6,7 @@ import Spider.Stock.Stock;
 import Spider.Tableau.TableauTable;
 
 import java.io.*;
+import java.util.List;
 
 public class Spider implements Serializable {
 
@@ -127,5 +128,9 @@ public class Spider implements Serializable {
 
     public int getStockSize() {
         return stock.size();
+    }
+
+    public List<Card> getCurrentStock() {
+        return stock.getCurrentStock();
     }
 }
