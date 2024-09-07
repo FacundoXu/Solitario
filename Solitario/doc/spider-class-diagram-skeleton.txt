@@ -1,0 +1,106 @@
+@startuml
+
+hide circle
+
+skinparam monochrome true
+
+skinparam classAttributeIconSize 0
+
+skinparam roundcorner 0
+
+title Solitaire - Class Diagram
+
+class Spider {
+- initializeGame(cards: Card[])
++ drawStockCards()
++ moveTopCardToTableau(origin: Integer, target: Integer): Boolean
++ moveTableauToTableau(origin: Integer, i: Integer, target: Integer): Boolean
++ addWonColumnsToFoundations()
++ verifyVictory(): Boolean
++ saveGame()
++ loadGame()
+}
+
+class FoundationTable {
+- getAvailableSpot(): Integer
++ assignCards(cards: Card[]): Boolean
++ gameWon(): Boolean
+}
+
+class FoundationColumn {
+- cards: Card[]
++ assignCards(cardsArray: Card[])
++ isEmpty(): Boolean
+}
+
+class Stock {
+- cards: Card[]
+- size: Integer
++ drawCard(): Card
+}
+
+class TableauTable {
++ pickUp(tableau: Integer): Card
++ peek(tableau: Integer): Card
++ peek(): Card[]
++ insert(tableau: Integer, card: Card): Boolean
++ returnCard(tableau: Integer, card: Card)
++ move(origin: Integer, i: Integer, target: Integer): Boolean
++ verifyTable(): Card[]
++ assignStockCards(stock: Stock)
+}
+
+class TableauStack {
+- visibleCards: Card[]
+- hiddenCards: Card[]
+- getKing(): Integer
++ returnCard(card: Card)
++ pushStockCard(card: Card)
++ pushArray(cardsArray: Card[]): Boolean
++ returnArray(cards: Card[])
++ popArray(i: Integer): Card[]
++ checkHiddenCards()
++ checkCanPop(cardsArray: Card[]): Boolean
++ getWinnerCards(): Card[]
+}
+
+interface Stack <<interface>> {
++push(element: E): Boolean
++pop(): E
++peek(): E
++isEmpty(): Boolean
+}
+
+class Deck {
++createDeck(): Card[]
+}
+
+class Card <<record>> {
++suit: Suit
++rank: Integer
++color: Color
+}
+
+enum Suit <<enum>> {
+  HEARTS
+  DIAMONDS
+  CLUBS
+  SPADES
+}
+
+enum Color <<enum>> {
+  RED
+  BLACK
+}
+
+Stack <|.-- TableauStack: implements
+
+FoundationTable "1" *--> "8" FoundationColumn: columns
+TableauTable "1" *--> "10" TableauStack: columns
+TableauTable "1" .-> "1" Stock: stock
+Spider "1" *--> "1" TableauTable: tableauTable
+Spider "1" *--> "1" FoundationTable: foundationTable
+Spider "1" *--> "1" Stock: stock
+Spider "1" .-> "2" Deck: decks
+
+@enduml

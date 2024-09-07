@@ -1,0 +1,116 @@
+@startuml
+
+hide circle
+
+skinparam monochrome true
+
+skinparam classAttributeIconSize 0
+
+skinparam roundcorner 0
+
+title Solitaire - Class Diagram
+
+class Klondike {
++initializeGame(cards: Card[])
++stockNextCard(): Card
++moveStockTableau(tableau: Integer): Boolean
++moveStockToFoundation(foundation: Integer): Boolean
++moveTableauFoundation(tableau: Integer, foundation: Integer): Boolean
++moveFoundationToTableau(foundation: Integer, tableau: Integer): Boolean
++moveTableauToTableau(originCardIdx: Integer, originTableau: Integer, destTableau: Integer): Boolean
++verifyVictory(): Boolean
++saveGame()
++loadGame()
+}
+
+class FoundationTable {
++insert(i: Integer, c: Card): Boolean
++get(i: Integer): Card
++verify(): Boolean
+}
+
+class FoundationStack {
+-size: Integer
+-cards: Card[]
+-suit: Suit
+}
+
+class StockTable {
+-talon: Integer
+-waste: Integer
+-passes: Integer
++nextCard(): Card
++getCard(): Card
++peek(): Card
++isEmpty(): Boolean
++switchStacks()
++returnCard()
+}
+
+class StockStack {
+-cards: Card[]
+-size: Integer
++returnArray()
+}
+
+class TableauTable {
++pickUp(StackIdx: Integer): Card
++peek(StackIdx: Integer): Card
++insert(tableau: Integer, c: Card): Boolean
++returnCard(tableau: Integer, c: Card)
++move(originCardIdx: Integer, originStack: Integer, destStack: Integer): Boolean
+}
+
+class TableauStack {
+-size: Integer
+-faceUpIdx: Integer
+-cards: Card[]
++returnCard(c: Card)
++returnArray(l: Card[])
++popArray(cardIdx: Integer): Card[]
++pushArray(l: List<Card>): Boolean
+}
+
+interface Stack <<interface>> {
++push(element: E): Boolean
++pop(): E
++peek(): E
++isEmpty(): Boolean
+}
+
+class Deck {
++createDeck(): Card[]
+}
+
+class Card <<record>> {
++suit: Suit
++rank: Integer
++color: Color
+}
+
+enum Suit <<enum>> {
+  HEARTS
+  DIAMONDS
+  CLUBS
+  SPADES
+}
+
+enum Color <<enum>> {
+  RED
+  BLACK
+}
+
+Stack <|.- FoundationStack: implements
+Stack <|.- StockStack: implements
+Stack <|.- TableauStack: implements
+
+FoundationTable "1" *--> "4" FoundationStack: foundations
+StockTable "1" *--> "2" StockStack: stocks
+TableauTable "1" *--> "7" TableauStack: tableaus
+
+Klondike "1" .-> "1" Deck: deck
+Klondike "1" *--> "1" FoundationTable: foundationTable
+Klondike "1" *--> "1" StockTable: stockTable
+Klondike "1" *--> "1" TableauTable: tableauTable
+
+@enduml
