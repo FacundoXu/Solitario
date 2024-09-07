@@ -1,4 +1,4 @@
-# Paradigmas de Programación - Cátedra Corsi
+# Paradigmas de Programación - Cátedra Corsi - 2C2023
 
 Trabajo Práctico basado en el juego de cartas Solitario.
 
