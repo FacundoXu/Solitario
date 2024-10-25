@@ -1,6 +1,6 @@
-# Paradigmas de Programación - Cátedra Corsi - 2C2023
+# Solitario
 
-Trabajo Práctico basado en el juego de cartas Solitario.
+Basado en el juego de cartas [Solitario](https://es.wikipedia.org/wiki/Solitario)
 
 Integrantes:
 
