@@ -1,5 +1,3 @@
-# Solitario
-
 Basado en el juego de cartas [Solitario](https://es.wikipedia.org/wiki/Solitario)
 
 Integrantes:
